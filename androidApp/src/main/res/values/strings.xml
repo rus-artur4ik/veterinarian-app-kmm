@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--    Workout List-->
+    <string name="add_workout">Добавить тренировку</string>
+
+<!--    New Workout-->
+    <string name="week">Неделя %s</string>
+    <string name="day">%1$s %2$sкг</string>
+
+    <string name="monday">Понедельник</string>
+    <string name="tuesday">Вторник</string>
+    <string name="wednesday">Среда</string>
+    <string name="thursday">Четверг</string>
+    <string name="friday">Пятница</string>
+    <string name="saturday">Суббота</string>
+    <string name="sunday">Воскресение</string>
+
+    <string name="monday_short">ПН</string>
+    <string name="tuesday_short">ВТ</string>
+    <string name="wednesday_short">СР</string>
+    <string name="thursday_short">ЧТ</string>
+    <string name="friday_short">ПТ</string>
+    <string name="saturday_short">СБ</string>
+    <string name="sunday_short">ВС</string>
+
+    <string name="save">Сохранить</string>
+    <string name="add_week">Добавить неделю</string>
+
+<!--    Edit Week-->
+    <string name="add_set">Добавить подход</string>
+</resources>
