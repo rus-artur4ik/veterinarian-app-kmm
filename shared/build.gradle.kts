@@ -2,7 +2,6 @@ plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     id("com.android.library")
-    id("com.squareup.sqldelight")
 }
 
 version = "1.0"
@@ -23,13 +22,9 @@ kotlin {
         }
     }
 
-    val sqlDelightVersion = "1.5.3"
-
     sourceSets {
         val commonMain by getting {
-            dependencies {
-                implementation("com.squareup.sqldelight:runtime:$sqlDelightVersion")
-            }
+
         }
         val commonTest by getting {
             dependencies {
@@ -37,9 +32,7 @@ kotlin {
             }
         }
         val androidMain by getting{
-            dependencies {
-                implementation("com.squareup.sqldelight:android-driver:$sqlDelightVersion")
-            }
+
         }
         val androidTest by getting
         val iosX64Main by getting
@@ -51,9 +44,6 @@ kotlin {
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
 
-            dependencies{
-                implementation("com.squareup.sqldelight:native-driver:$sqlDelightVersion")
-            }
         }
         val iosX64Test by getting
         val iosArm64Test by getting
@@ -68,16 +58,11 @@ kotlin {
 }
 
 android {
-    compileSdk = 32
+    compileSdk = 33
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
         minSdk = 24
-        targetSdk = 32
+        targetSdk = 33
     }
-}
-
-sqldelight {
-    database("AppDatabase") { // This will be the name of the generated database class.
-        packageName = "com.rus_artur4ik.veterinarian"
-    }
+    namespace = "com.rus_artur4ik.veterinarian"
 }

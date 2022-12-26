@@ -9,3 +9,5 @@
 .externalNativeBuild
 .cxx
 local.properties
+/iosApp/iosApp.xcworkspace/xcuserdata/
+/iosApp/iosApp.xcodeproj/xcuserdata/
