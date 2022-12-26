@@ -78,6 +78,6 @@ android {
 
 sqldelight {
     database("AppDatabase") { // This will be the name of the generated database class.
-        packageName = "com.rus_artur4ik.workouter"
+        packageName = "com.rus_artur4ik.veterinarian"
     }
 }

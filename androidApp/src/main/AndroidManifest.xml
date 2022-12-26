@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.rus_artur4ik.workouter">
+    package="com.rus_artur4ik.veterinarian">
 
     <application
         android:allowBackup="false"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <activity
-            android:name="com.rus_artur4ik.workouter.MainActivity"
+            android:name="com.rus_artur4ik.veterinarian.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

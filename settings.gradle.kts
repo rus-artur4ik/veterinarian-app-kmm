@@ -6,6 +6,6 @@ pluginManagement {
     }
 }
 
-rootProject.name = "Workouter"
+rootProject.name = "Veterinarian app"
 include(":androidApp")
 include(":shared")
