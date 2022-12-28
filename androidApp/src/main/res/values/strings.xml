@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<!--    Workout List-->
-    <string name="add_workout">Добавить тренировку</string>
+<!--    Auth -->
+    <string name="sign_in_title">Войти в личный кабинет</string>
+    <string name="sign_in_subtitle">Укажите адрес электронной почты</string>
+    <string name="email_hint">E-mail</string>
+    <string name="password_hint">Пароль</string>
+    <string name="sign_in">Войти</string>
+    <string name="forgot_password_or_no_account">Я не помню пароль / У меня нет аккаунта</string>
 
 <!--    New Workout-->
     <string name="week">Неделя %s</string>

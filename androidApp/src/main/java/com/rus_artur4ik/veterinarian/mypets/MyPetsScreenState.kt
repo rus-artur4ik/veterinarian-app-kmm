@@ -1,6 +1,6 @@
-package com.rus_artur4ik.veterinarian.newworkout
+package com.rus_artur4ik.veterinarian.mypets
 
-import com.rus_artur4ik.veterinarian.common.CoreState
+import com.rus_artur4ik.veterinarian.common.mvvm.CoreState
 
 data class NewWorkoutState(
     val workoutName: String,

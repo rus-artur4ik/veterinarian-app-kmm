@@ -1,4 +1,4 @@
-package com.rus_artur4ik.veterinarian.common
+package com.rus_artur4ik.veterinarian.common.mvvm
 
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -10,7 +10,9 @@ abstract class CoreScreen<S : CoreState, VM : CoreViewModel<S>>(
 
     @Composable
     fun Content(navHostController: NavHostController? = null) {
-        val viewModel = viewModel(modelClass = viewModelClass)
+        val viewModel = viewModel(modelClass = viewModelClass).apply {
+            setNavHostController(navHostController)
+        }
 
         Content(viewModel = viewModel, navHostController = navHostController)
     }

@@ -1,4 +1,4 @@
-package com.rus_artur4ik.veterinarian.editweek
+package com.rus_artur4ik.veterinarian.mainscreen
 
 import com.rus_artur4ik.veterinarian.Day.FRIDAY
 import com.rus_artur4ik.veterinarian.Day.MONDAY
@@ -9,13 +9,13 @@ import com.rus_artur4ik.veterinarian.Day.TUESDAY
 import com.rus_artur4ik.veterinarian.Day.WEDNESDAY
 import com.rus_artur4ik.veterinarian.DayEntity
 import com.rus_artur4ik.veterinarian.ExerciseEntity
-import com.rus_artur4ik.veterinarian.common.CoreViewModel
+import com.rus_artur4ik.veterinarian.common.mvvm.CoreViewModel
 
-class EditWeekViewModel: CoreViewModel<EditWeekState>() {
+class MainViewModel: CoreViewModel<MainScreenState>() {
 
-    override fun provideInitialScreenState(): EditWeekState {
+    override fun provideInitialScreenState(): MainScreenState {
         val twentyNinethOfAugust = 19233L
-        return EditWeekState(
+        return MainScreenState(
             selectedDay = 0,
             days = listOf(
                 DayEntity(

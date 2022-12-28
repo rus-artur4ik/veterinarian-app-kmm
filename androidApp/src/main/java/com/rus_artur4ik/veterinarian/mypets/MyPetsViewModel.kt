@@ -1,10 +1,10 @@
-package com.rus_artur4ik.veterinarian.newworkout
+package com.rus_artur4ik.veterinarian.mypets
 
-import com.rus_artur4ik.veterinarian.common.CoreViewModel
-import com.rus_artur4ik.veterinarian.newworkout.WorkoutItem.DayItem
-import com.rus_artur4ik.veterinarian.newworkout.WorkoutItem.WeekItem
+import com.rus_artur4ik.veterinarian.common.mvvm.CoreViewModel
+import com.rus_artur4ik.veterinarian.mypets.WorkoutItem.DayItem
+import com.rus_artur4ik.veterinarian.mypets.WorkoutItem.WeekItem
 
-class NewWorkoutViewModel: CoreViewModel<NewWorkoutState>() {
+class MyPetsViewModel: CoreViewModel<NewWorkoutState>() {
 
     override fun provideInitialScreenState(): NewWorkoutState {
         return NewWorkoutState(

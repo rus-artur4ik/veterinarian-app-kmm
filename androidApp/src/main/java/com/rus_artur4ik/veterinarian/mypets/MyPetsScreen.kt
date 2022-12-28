@@ -1,4 +1,4 @@
-package com.rus_artur4ik.veterinarian.newworkout
+package com.rus_artur4ik.veterinarian.mypets
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -31,17 +31,17 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavHostController
 import com.rus_artur4ik.veterinarian.R
-import com.rus_artur4ik.veterinarian.common.CoreScreen
-import com.rus_artur4ik.veterinarian.newworkout.WorkoutItem.DayItem
-import com.rus_artur4ik.veterinarian.newworkout.WorkoutItem.WeekItem
+import com.rus_artur4ik.veterinarian.common.mvvm.CoreScreen
+import com.rus_artur4ik.veterinarian.mypets.WorkoutItem.DayItem
+import com.rus_artur4ik.veterinarian.mypets.WorkoutItem.WeekItem
 
-class NewWorkoutScreen : CoreScreen<NewWorkoutState, NewWorkoutViewModel>(
-    NewWorkoutViewModel::class.java
+class MyPetsScreen : CoreScreen<NewWorkoutState, MyPetsViewModel>(
+    MyPetsViewModel::class.java
 ) {
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    override fun Content(viewModel: NewWorkoutViewModel, navHostController: NavHostController?) {
+    override fun Content(viewModel: MyPetsViewModel, navHostController: NavHostController?) {
         val lazyListState = rememberLazyListState()
 
         Box(
