@@ -1,7 +1,15 @@
 package com.rus_artur4ik.veterinarian
 
+import io.ktor.client.HttpClient
+import io.ktor.client.request.get
+import io.ktor.client.statement.bodyAsText
+
 class Greeting {
-    fun greeting(): String {
-        return "Hello, ${Platform().platform}!"
+
+    private val client = HttpClient()
+
+    suspend fun greeting(): String {
+        val response = client.get("https://ktor.io/docs/")
+        return response.bodyAsText()
     }
 }

@@ -1,4 +1,4 @@
-package com.rus_artur4ik.veterinarian.mainscreen
+package com.rus_artur4ik.veterinarian.homescreen
 
 import com.rus_artur4ik.veterinarian.Day.FRIDAY
 import com.rus_artur4ik.veterinarian.Day.MONDAY
@@ -11,11 +11,11 @@ import com.rus_artur4ik.veterinarian.DayEntity
 import com.rus_artur4ik.veterinarian.ExerciseEntity
 import com.rus_artur4ik.veterinarian.common.mvvm.CoreViewModel
 
-class MainViewModel: CoreViewModel<MainScreenState>() {
+class HomeViewModel: CoreViewModel<HomeScreenState>() {
 
-    override fun provideInitialScreenState(): MainScreenState {
+    override fun provideInitialScreenState(): HomeScreenState {
         val twentyNinethOfAugust = 19233L
-        return MainScreenState(
+        return HomeScreenState(
             selectedDay = 0,
             days = listOf(
                 DayEntity(

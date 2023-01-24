@@ -2,7 +2,8 @@ package com.rus_artur4ik.veterinarian
 
 import android.os.Build
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
@@ -10,19 +11,15 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.ComposeView
 import androidx.navigation.compose.rememberNavController
 import com.rus_artur4ik.veterinarian.common.Navigator.NavHost
 import com.rus_artur4ik.veterinarian.common.Navigator.initNavGraph
 import com.rus_artur4ik.veterinarian.common.Screen
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        val composeView = findViewById<ComposeView>(R.id.composeView)
-        composeView.setContent {
+        setContent {
             Content()
         }
     }

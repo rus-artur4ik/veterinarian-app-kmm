@@ -93,7 +93,7 @@ class AuthScreen : CoreScreen<AuthScreenState, AuthViewModel>(
                 Spacer(modifier = Modifier.height(Dp(12f)))
 
                 Button(
-                    onClick = { navHostController?.navigateTo(Screen.MainScreen) }
+                    onClick = { navHostController?.navigateTo(Screen.HomeScreen) }
                 ) {
                     Text(
                         text = stringResource(id = R.string.sign_in),

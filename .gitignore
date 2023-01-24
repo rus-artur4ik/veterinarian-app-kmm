@@ -11,4 +11,5 @@
 local.properties
 /iosApp/iosApp.xcworkspace/xcuserdata/
 /iosApp/iosApp.xcodeproj/xcuserdata/
-/iosApp/Pods/Pods.xcodeproj/
+/iosApp/Pods/
+/iosApp/Podfile.lock

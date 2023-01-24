@@ -6,10 +6,11 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigator
+import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.rus_artur4ik.veterinarian.auth.AuthScreen
 import com.rus_artur4ik.veterinarian.common.mvvm.CoreScreen
-import com.rus_artur4ik.veterinarian.mainscreen.MainScreen
+import com.rus_artur4ik.veterinarian.homescreen.HomeScreen
 import com.rus_artur4ik.veterinarian.mypets.MyPetsScreen
 
 object Navigator {
@@ -21,7 +22,7 @@ object Navigator {
         modifier: Modifier = Modifier,
         route: String? = null,
         builder: NavGraphBuilder.() -> Unit
-    ) = androidx.navigation.compose.NavHost(
+    ) = NavHost(
         navController,
         startDestinationScreen.id,
         modifier,
@@ -31,7 +32,7 @@ object Navigator {
 
     fun NavGraphBuilder.initNavGraph(navHostController: NavHostController) {
         registerScreen(Screen.AuthScreen, navHostController)
-        registerScreen(Screen.MainScreen, navHostController)
+        registerScreen(Screen.HomeScreen, navHostController)
         registerScreen(Screen.MyPetsScreen, navHostController)
     }
 
@@ -53,6 +54,6 @@ object Navigator {
 
 sealed class Screen(val id: String, val screenFactory: () -> CoreScreen<*, *>) {
     object AuthScreen : Screen("auth", ::AuthScreen)
-    object MainScreen : Screen("main", ::MainScreen)
+    object HomeScreen : Screen("main", ::HomeScreen)
     object MyPetsScreen : Screen("my_pets", ::MyPetsScreen)
 }

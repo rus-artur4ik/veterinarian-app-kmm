@@ -1,4 +1,4 @@
-package com.rus_artur4ik.veterinarian.mainscreen
+package com.rus_artur4ik.veterinarian.homescreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Spacer
@@ -19,12 +19,12 @@ import com.rus_artur4ik.veterinarian.common.BigCarousel
 import com.rus_artur4ik.veterinarian.common.ColumnWithHeaderTemplate
 import com.rus_artur4ik.veterinarian.common.mvvm.CoreScreen
 
-class MainScreen : CoreScreen<MainScreenState, MainViewModel>(
-    MainViewModel::class.java
+class HomeScreen : CoreScreen<HomeScreenState, HomeViewModel>(
+    HomeViewModel::class.java
 ) {
 
     @Composable
-    override fun Content(viewModel: MainViewModel, navHostController: NavHostController?) {
+    override fun Content(viewModel: HomeViewModel, navHostController: NavHostController?) {
         ColumnWithHeaderTemplate(title = "Здравствуйте, Екатерина!") {
 
             Text(
