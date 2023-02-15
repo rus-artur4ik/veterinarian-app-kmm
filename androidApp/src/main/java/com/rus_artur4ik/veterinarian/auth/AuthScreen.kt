@@ -22,10 +22,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.navigation.NavHostController
+import com.rus_artur4ik.petcore.mvvm.CoreScreen
+import com.rus_artur4ik.petcore.navigation.Navigator.navigateTo
 import com.rus_artur4ik.veterinarian.R
-import com.rus_artur4ik.veterinarian.common.Navigator.navigateTo
-import com.rus_artur4ik.veterinarian.common.Screen
-import com.rus_artur4ik.veterinarian.common.mvvm.CoreScreen
+import com.rus_artur4ik.veterinarian.common.VetScreen.HomeScreen
 
 class AuthScreen : CoreScreen<AuthScreenState, AuthViewModel>(
     AuthViewModel::class.java
@@ -93,7 +93,7 @@ class AuthScreen : CoreScreen<AuthScreenState, AuthViewModel>(
                 Spacer(modifier = Modifier.height(Dp(12f)))
 
                 Button(
-                    onClick = { navHostController?.navigateTo(Screen.HomeScreen) }
+                    onClick = { navHostController?.navigateTo(HomeScreen) }
                 ) {
                     Text(
                         text = stringResource(id = R.string.sign_in),

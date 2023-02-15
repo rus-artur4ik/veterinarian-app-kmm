@@ -11,10 +11,9 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.navigation.compose.rememberNavController
-import com.rus_artur4ik.veterinarian.common.Navigator.NavHost
-import com.rus_artur4ik.veterinarian.common.Navigator.initNavGraph
-import com.rus_artur4ik.veterinarian.common.Screen
+import com.rus_artur4ik.petcore.navigation.Navigator.AutowiredNavHost
+import com.rus_artur4ik.veterinarian.common.VetScreen
+import com.rus_artur4ik.veterinarian.common.VetScreen.HomeScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,11 +36,7 @@ class MainActivity : ComponentActivity() {
         }
 
         MaterialTheme(colorScheme = colors) {
-            val navController = rememberNavController()
-
-            NavHost(navController = navController, startDestinationScreen = Screen.HomeScreen) {
-                initNavGraph(navController)
-            }
+            AutowiredNavHost(startDestinationScreen = HomeScreen, VetScreen::class)
         }
     }
 }

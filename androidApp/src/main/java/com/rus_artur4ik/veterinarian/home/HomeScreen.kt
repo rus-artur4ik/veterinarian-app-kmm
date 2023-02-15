@@ -28,11 +28,11 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.rus_artur4ik.petcore.mvvm.CoreScreen
 import com.rus_artur4ik.veterinarian.R
 import com.rus_artur4ik.veterinarian.common.Carousel
 import com.rus_artur4ik.veterinarian.common.VetScreenTemplate
 import com.rus_artur4ik.veterinarian.common.formatDayMonthTime
-import com.rus_artur4ik.veterinarian.common.mvvm.CoreScreen
 import com.rus_artur4ik.veterinarian.domain.entity.PetEntity
 import com.rus_artur4ik.veterinarian.domain.entity.Sex
 import com.rus_artur4ik.veterinarian.domain.entity.VisitEntity

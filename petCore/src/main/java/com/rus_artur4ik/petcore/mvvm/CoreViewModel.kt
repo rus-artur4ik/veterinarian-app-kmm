@@ -1,11 +1,11 @@
-package com.rus_artur4ik.veterinarian.common.mvvm
+package com.rus_artur4ik.petcore.mvvm
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavHostController
-import com.rus_artur4ik.veterinarian.common.Navigator.navigateTo
-import com.rus_artur4ik.veterinarian.common.Screen
+import com.rus_artur4ik.petcore.navigation.Navigator.navigateTo
+import com.rus_artur4ik.petcore.navigation.Screen
 
 abstract class CoreViewModel<S : CoreState> : ViewModel() {
 

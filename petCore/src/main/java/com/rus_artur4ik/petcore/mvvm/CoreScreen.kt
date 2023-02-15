@@ -1,4 +1,4 @@
-package com.rus_artur4ik.veterinarian.common.mvvm
+package com.rus_artur4ik.petcore.mvvm
 
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel

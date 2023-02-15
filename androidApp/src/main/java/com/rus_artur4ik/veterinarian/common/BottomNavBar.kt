@@ -20,33 +20,38 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.rus_artur4ik.petcore.navigation.Navigator.navigateTo
+import com.rus_artur4ik.petcore.navigation.Screen
 import com.rus_artur4ik.veterinarian.R
-import com.rus_artur4ik.veterinarian.common.Navigator.navigateTo
+import com.rus_artur4ik.veterinarian.common.VetScreen.AuthScreen
+import com.rus_artur4ik.veterinarian.common.VetScreen.HomeScreen
+import com.rus_artur4ik.veterinarian.common.VetScreen.MedCardScreen
+import com.rus_artur4ik.veterinarian.common.VetScreen.MyPetsScreen
 
 private val bottomBarItems = listOf(
     BottomNavItem(
         nameRes = R.string.main_screen,
-        screen = Screen.HomeScreen,
+        screen = HomeScreen,
         image = Icons.Rounded.Home
     ),
     BottomNavItem(
         nameRes = R.string.pets_screen,
-        screen = Screen.MyPetsScreen,
+        screen = MyPetsScreen,
         image = Icons.Rounded.Face
     ),
     BottomNavItem(
         nameRes = R.string.appointment_screen,
-        screen = Screen.AuthScreen,
+        screen = AuthScreen,
         image = Icons.Rounded.DateRange
     ),
     BottomNavItem(
         nameRes = R.string.med_card_screen,
-        screen = Screen.MedCardScreen,
+        screen = MedCardScreen,
         image = Icons.Rounded.Add
     ),
     BottomNavItem(
         nameRes = R.string.profile_screen,
-        screen = Screen.HomeScreen,
+        screen = HomeScreen,
         image = Icons.Rounded.Person
     ),
 )

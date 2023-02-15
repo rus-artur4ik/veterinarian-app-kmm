@@ -1,6 +1,6 @@
 plugins {
     id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    kotlin("android")
 }
 
 android {
@@ -17,6 +17,15 @@ android {
             isMinifyEnabled = false
         }
     }
+
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.4.0"
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -27,8 +36,12 @@ android {
 }
 
 dependencies {
+    implementation(kotlin("reflect"))
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.8.0")
+    implementation("androidx.navigation:navigation-compose:2.5.3")
+
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1")
 }

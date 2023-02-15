@@ -27,6 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.rus_artur4ik.petcore.mvvm.CoreScreen
 import com.rus_artur4ik.veterinarian.R
 import com.rus_artur4ik.veterinarian.common.KeyValueTab
 import com.rus_artur4ik.veterinarian.common.VetCard
@@ -36,7 +37,6 @@ import com.rus_artur4ik.veterinarian.common.formatDayMonthTime
 import com.rus_artur4ik.veterinarian.common.formatFullDate
 import com.rus_artur4ik.veterinarian.common.formatTime
 import com.rus_artur4ik.veterinarian.common.localizedString
-import com.rus_artur4ik.veterinarian.common.mvvm.CoreScreen
 import com.rus_artur4ik.veterinarian.domain.entity.AppointmentEntity
 import com.rus_artur4ik.veterinarian.domain.entity.PetEntity
 import com.rus_artur4ik.veterinarian.domain.entity.VisitEntity

@@ -1,6 +1,6 @@
 package com.rus_artur4ik.veterinarian.auth
 
-import com.rus_artur4ik.veterinarian.common.mvvm.CoreViewModel
+import com.rus_artur4ik.petcore.mvvm.CoreViewModel
 
 class AuthViewModel : CoreViewModel<AuthScreenState>() {
 

@@ -1,7 +1,7 @@
 package com.rus_artur4ik.veterinarian.mypets
 
-import com.rus_artur4ik.veterinarian.common.Screen
-import com.rus_artur4ik.veterinarian.common.mvvm.CoreViewModel
+import com.rus_artur4ik.petcore.mvvm.CoreViewModel
+import com.rus_artur4ik.veterinarian.common.VetScreen.PetInfoScreen
 import com.rus_artur4ik.veterinarian.domain.entity.PetEntity
 import com.rus_artur4ik.veterinarian.domain.entity.Sex
 
@@ -40,7 +40,7 @@ class MyPetsViewModel: CoreViewModel<MyPetsScreenState>() {
     }
 
     fun openPetInfo(pet: PetEntity) {
-        navigate(Screen.PetInfoScreen)
+        navigate(PetInfoScreen)
     }
 
     fun petNameFilterChanged(newName: String) {
