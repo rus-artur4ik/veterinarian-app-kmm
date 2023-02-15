@@ -1,4 +1,4 @@
-package com.rus_artur4ik.veterinarian.homescreen
+package com.rus_artur4ik.veterinarian.home
 
 import com.rus_artur4ik.veterinarian.common.mvvm.CoreState
 import com.rus_artur4ik.veterinarian.domain.entity.PetEntity

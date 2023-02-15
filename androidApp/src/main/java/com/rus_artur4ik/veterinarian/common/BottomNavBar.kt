@@ -41,7 +41,7 @@ private val bottomBarItems = listOf(
     ),
     BottomNavItem(
         nameRes = R.string.med_card_screen,
-        screen = Screen.HomeScreen,
+        screen = Screen.MedCardScreen,
         image = Icons.Rounded.Add
     ),
     BottomNavItem(

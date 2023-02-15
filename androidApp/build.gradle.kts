@@ -39,6 +39,8 @@ android {
 }
 
 dependencies {
+    implementation(kotlin("reflect"))
+
     implementation(project(":shared"))
     implementation("com.google.android.material:material:1.8.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -64,5 +66,4 @@ dependencies {
 
     // Misc
     implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
-
 }

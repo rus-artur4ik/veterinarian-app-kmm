@@ -9,3 +9,4 @@ pluginManagement {
 rootProject.name = "Veterinarian app"
 include(":androidApp")
 include(":shared")
+include(":petCore")

@@ -1,9 +1,7 @@
-package com.rus_artur4ik.veterinarian.mypets
+package com.rus_artur4ik.veterinarian.medcard
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -16,31 +14,34 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment.Companion.CenterHorizontally
-import androidx.compose.ui.Alignment.Companion.CenterVertically
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.rus_artur4ik.veterinarian.R
+import com.rus_artur4ik.veterinarian.common.KeyValueTab
 import com.rus_artur4ik.veterinarian.common.VetCard
 import com.rus_artur4ik.veterinarian.common.VetScreenTemplate
+import com.rus_artur4ik.veterinarian.common.formatDayMonthTime
 import com.rus_artur4ik.veterinarian.common.mvvm.CoreScreen
 import com.rus_artur4ik.veterinarian.domain.entity.PetEntity
 import com.rus_artur4ik.veterinarian.domain.entity.Sex
+import com.rus_artur4ik.veterinarian.domain.entity.VisitEntity
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.LocalTime
 
-class MyPetsScreen : CoreScreen<MyPetsScreenState, MyPetsViewModel>(
-    MyPetsViewModel::class.java
+class MedCardScreen : CoreScreen<MedCardScreenState, MedCardViewModel>(
+    MedCardViewModel::class.java
 ) {
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    override fun Content(
-        viewModel: MyPetsViewModel,
-        navHostController: NavHostController?
-    ) {
+    override fun Content(viewModel: MedCardViewModel, navHostController: NavHostController?) {
         val lazyListState = rememberLazyListState()
 
         VetScreenTemplate(
@@ -51,7 +52,7 @@ class MyPetsScreen : CoreScreen<MyPetsScreenState, MyPetsViewModel>(
 
                 TextField(
                     modifier = Modifier
-                        .align(CenterHorizontally)
+                        .align(Alignment.CenterHorizontally)
                         .fillMaxWidth(),
                     value = viewModel.state.value.petNameFilter,
                     label = {
@@ -73,16 +74,14 @@ class MyPetsScreen : CoreScreen<MyPetsScreenState, MyPetsViewModel>(
                     contentPadding = PaddingValues(
                         dimensionResource(id = R.dimen.default_horizontal_padding)
                     ),
-                    horizontalAlignment = CenterHorizontally,
+                    horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.weight(1f)
                 ) {
 
-                    items(count = viewModel.state.value.items.size) { index ->
-                        val item = viewModel.state.value.items[index]
-                        PetCard(
-                            item = item,
-                            modifier = Modifier
-                                .clickable { viewModel.openPetInfo(item) }
+                    items(count = viewModel.state.value.visits.size) { index ->
+                        val item = viewModel.state.value.visits[index]
+                        VisitCard(
+                            item = item
                         )
                     }
                 }
@@ -91,14 +90,14 @@ class MyPetsScreen : CoreScreen<MyPetsScreenState, MyPetsViewModel>(
     }
 
     @Composable
-    private fun PetCard(item: PetEntity, modifier: Modifier = Modifier) {
+    private fun VisitCard(item: VisitEntity, modifier: Modifier = Modifier) {
         VetCard(
             modifier = modifier
                 .fillMaxWidth()
                 .padding(vertical = 6.dp)
         ) {
             Text(
-                text = item.name,
+                text = item.date.formatDayMonthTime(),
                 fontSize = 14.sp,
                 modifier = Modifier.padding(
                     end = 16.dp,
@@ -106,45 +105,15 @@ class MyPetsScreen : CoreScreen<MyPetsScreenState, MyPetsViewModel>(
                 )
             )
 
-            Row(
-                verticalAlignment = CenterVertically,
-                modifier = Modifier.padding(
-                    bottom = 8.dp
-                )
-            ) {
-                Text(
-                    text = "Вид:",
-                    fontSize = 12.sp
-                )
+            KeyValueTab(
+                key = stringResource(id = R.string.pet),
+                value = item.pet.name
+            )
 
-                Text(
-                    text = item.kind,
-                    fontSize = 14.sp,
-                    modifier = Modifier.padding(
-                        start = 16.dp
-                    )
-                )
-            }
-
-            Row(
-                verticalAlignment = CenterVertically,
-                modifier = Modifier.padding(
-                    bottom = 8.dp
-                )
-            ) {
-                Text(
-                    text = "Порода:",
-                    fontSize = 12.sp,
-                )
-
-                Text(
-                    text = item.breed,
-                    fontSize = 14.sp,
-                    modifier = Modifier.padding(
-                        start = 16.dp
-                    )
-                )
-            }
+            KeyValueTab(
+                key = stringResource(id = R.string.diagnosis),
+                value = item.diagnoses.reduce { acc, s -> "$acc; $s" }
+            )
         }
     }
 
@@ -156,15 +125,25 @@ class MyPetsScreen : CoreScreen<MyPetsScreenState, MyPetsViewModel>(
 
     @Preview
     @Composable
-    private fun PetItemPreview() {
-        PetCard(
-            PetEntity(
-                name = "Кеша",
-                breed = "Ориентальная кошка",
-                sex = Sex.MALE,
-                birthday = null,
-                kind = "Кот",
-                lastVisit = null
+    private fun VisitCardPreview() {
+        VisitCard(
+            VisitEntity(
+                date = LocalDateTime(
+                    LocalDate.fromEpochDays(10),
+                    LocalTime(1, 1, 1)
+                ),
+                diagnoses = listOf(
+                    "Диагноз 1",
+                    "Диагноз 2",
+                ),
+                pet = PetEntity(
+                    name = "Кеша",
+                    breed = "Ориентальная кошка",
+                    sex = Sex.MALE,
+                    birthday = null,
+                    kind = "Кот",
+                    lastVisit = null
+                )
             )
         )
     }

@@ -1,4 +1,4 @@
-package com.rus_artur4ik.veterinarian.homescreen
+package com.rus_artur4ik.veterinarian.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -31,6 +31,7 @@ import androidx.navigation.NavHostController
 import com.rus_artur4ik.veterinarian.R
 import com.rus_artur4ik.veterinarian.common.Carousel
 import com.rus_artur4ik.veterinarian.common.VetScreenTemplate
+import com.rus_artur4ik.veterinarian.common.formatDayMonthTime
 import com.rus_artur4ik.veterinarian.common.mvvm.CoreScreen
 import com.rus_artur4ik.veterinarian.domain.entity.PetEntity
 import com.rus_artur4ik.veterinarian.domain.entity.Sex
@@ -38,8 +39,6 @@ import com.rus_artur4ik.veterinarian.domain.entity.VisitEntity
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
-import kotlinx.datetime.toJavaLocalDateTime
-import java.time.format.DateTimeFormatter
 
 class HomeScreen : CoreScreen<HomeScreenState, HomeViewModel>(
     HomeViewModel::class.java
@@ -133,16 +132,13 @@ class HomeScreen : CoreScreen<HomeScreenState, HomeViewModel>(
 
     @Composable
     private fun LastVisitCard(visit: VisitEntity) {
-        val dateTimeFormatter = DateTimeFormatter.ofPattern("dd MMMM, HH:mm")
-        val formattedDate = visit.date.toJavaLocalDateTime().format(dateTimeFormatter)
-
         Card(
             modifier = Modifier
                 .padding(vertical = 6.dp, horizontal = 16.dp)
                 .fillMaxWidth()
         ) {
             Text(
-                text = formattedDate,
+                text = visit.date.formatDayMonthTime(),
                 fontSize = 14.sp,
                 modifier = Modifier.padding(
                     start = 16.dp,
