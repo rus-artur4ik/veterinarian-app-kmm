@@ -39,7 +39,7 @@ class MainActivity : ComponentActivity() {
         MaterialTheme(colorScheme = colors) {
             val navController = rememberNavController()
 
-            NavHost(navController = navController, startDestinationScreen = Screen.AuthScreen) {
+            NavHost(navController = navController, startDestinationScreen = Screen.HomeScreen) {
                 initNavGraph(navController)
             }
         }

@@ -8,29 +8,17 @@
     <string name="sign_in">Войти</string>
     <string name="forgot_password_or_no_account">Я не помню пароль / У меня нет аккаунта</string>
 
-<!--    New Workout-->
-    <string name="week">Неделя %s</string>
-    <string name="day">%1$s %2$sкг</string>
+<!--    VetAppScreenTemplate-->
+    <string name="top_bar_title">Здравствуйте, %s!</string>
+    <string name="main_screen">Главная</string>
+    <string name="pets_screen">Питомцы</string>
+    <string name="appointment_screen">Записаться</string>
+    <string name="med_card_screen">Медкарта</string>
+    <string name="profile_screen">Профиль</string>
 
-    <string name="monday">Понедельник</string>
-    <string name="tuesday">Вторник</string>
-    <string name="wednesday">Среда</string>
-    <string name="thursday">Четверг</string>
-    <string name="friday">Пятница</string>
-    <string name="saturday">Суббота</string>
-    <string name="sunday">Воскресение</string>
-
-    <string name="monday_short">ПН</string>
-    <string name="tuesday_short">ВТ</string>
-    <string name="wednesday_short">СР</string>
-    <string name="thursday_short">ЧТ</string>
-    <string name="friday_short">ПТ</string>
-    <string name="saturday_short">СБ</string>
-    <string name="sunday_short">ВС</string>
-
-    <string name="save">Сохранить</string>
-    <string name="add_week">Добавить неделю</string>
-
-<!--    Edit Week-->
-    <string name="add_set">Добавить подход</string>
+<!--    Home -->
+    <string name="my_pets">Мои питомцы</string>
+    <string name="last_visit">Последний визит</string>
+    <string name="make_an_appointment">Записаться на услугу</string>
+    <string name="notify_about_visit">Оповестить о визите</string>
 </resources>

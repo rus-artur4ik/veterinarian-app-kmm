@@ -2,6 +2,7 @@ package com.rus_artur4ik.veterinarian.common
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
@@ -36,12 +37,12 @@ object Navigator {
         registerScreen(Screen.MyPetsScreen, navHostController)
     }
 
-    fun NavHostController.navigateTo(
+    fun NavController?.navigateTo(
         screen: Screen,
         navOptions: NavOptions? = null,
         navigatorExtras: Navigator.Extras? = null
     ) {
-        navigate(screen.id, navOptions, navigatorExtras)
+        requireNotNull(this).navigate(screen.id, navOptions, navigatorExtras)
     }
 
     private fun NavGraphBuilder.registerScreen(

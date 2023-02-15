@@ -1,70 +1,80 @@
 package com.rus_artur4ik.veterinarian.homescreen
 
-import com.rus_artur4ik.veterinarian.Day.FRIDAY
-import com.rus_artur4ik.veterinarian.Day.MONDAY
-import com.rus_artur4ik.veterinarian.Day.SATURDAY
-import com.rus_artur4ik.veterinarian.Day.SUNDAY
-import com.rus_artur4ik.veterinarian.Day.THURSDAY
-import com.rus_artur4ik.veterinarian.Day.TUESDAY
-import com.rus_artur4ik.veterinarian.Day.WEDNESDAY
-import com.rus_artur4ik.veterinarian.DayEntity
-import com.rus_artur4ik.veterinarian.ExerciseEntity
 import com.rus_artur4ik.veterinarian.common.mvvm.CoreViewModel
+import com.rus_artur4ik.veterinarian.domain.entity.PetEntity
+import com.rus_artur4ik.veterinarian.domain.entity.Sex
+import com.rus_artur4ik.veterinarian.domain.entity.VisitEntity
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.LocalTime
 
-class HomeViewModel: CoreViewModel<HomeScreenState>() {
+class HomeViewModel : CoreViewModel<HomeScreenState>() {
 
     override fun provideInitialScreenState(): HomeScreenState {
-        val twentyNinethOfAugust = 19233L
         return HomeScreenState(
-            selectedDay = 0,
-            days = listOf(
-                DayEntity(
-                    MONDAY,
-                    twentyNinethOfAugust,
-                    listOf()
+            pets = listOf(
+                PetEntity(
+                    name = "Кеша",
+                    breed = "Ориентальная кошка",
+                    sex = Sex.MALE,
+                    birthday = null,
+                    kind = "Кот",
+                    lastVisit = null
                 ),
-                DayEntity(
-                    TUESDAY,
-                    twentyNinethOfAugust + 1,
-                    listOf()
+                PetEntity(
+                    name = "Кеша",
+                    breed = "Ориентальная кошка",
+                    sex = Sex.MALE,
+                    birthday = null,
+                    kind = "Кот",
+                    lastVisit = null
                 ),
-                DayEntity(
-                    WEDNESDAY,
-                    twentyNinethOfAugust + 2,
-                    listOf()
+                PetEntity(
+                    name = "Кеша",
+                    breed = "Ориентальная кошка",
+                    sex = Sex.MALE,
+                    birthday = null,
+                    kind = "Кот",
+                    lastVisit = null
                 ),
-                DayEntity(
-                    THURSDAY,
-                    twentyNinethOfAugust + 3,
-                    listOf()
+                PetEntity(
+                    name = "Кеша",
+                    breed = "Ориентальная кошка",
+                    sex = Sex.MALE,
+                    birthday = null,
+                    kind = "Кот",
+                    lastVisit = null
                 ),
-                DayEntity(
-                    FRIDAY,
-                    twentyNinethOfAugust + 4,
-                    listOf(
-                        ExerciseEntity(
-                            "Подтягивания",
-                            6,
-                            0,
-                            120
-                        )
-                    )
+            ),
+            lastVisit = VisitEntity(
+                date = LocalDateTime(
+                    LocalDate.fromEpochDays(10),
+                    LocalTime(1, 1, 1)),
+                diagnoses = listOf(
+                    "Диагноз 1",
+                    "Диагноз 2",
                 ),
-                DayEntity(
-                    SATURDAY,
-                    twentyNinethOfAugust + 5,
-                    listOf()
-                ),
-                DayEntity(
-                    SUNDAY,
-                    twentyNinethOfAugust + 6,
-                    listOf()
-                ),
+                pet = PetEntity(
+                    name = "Кеша",
+                    breed = "Ориентальная кошка",
+                    sex = Sex.MALE,
+                    birthday = null,
+                    kind = "Кот",
+                    lastVisit = null
+                )
             )
         )
     }
 
-    fun selectDay(index: Int) {
-        emitState(state.value.copy(selectedDay = index))
+    fun makeAnAppointment() {
+        //TODO
+    }
+
+    fun notifyAboutVisit() {
+        //TODO
+    }
+
+    fun goToPetInfo(pet: PetEntity) {
+        //TODO
     }
 }

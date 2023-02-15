@@ -1,30 +1,60 @@
 package com.rus_artur4ik.veterinarian.mypets
 
 import com.rus_artur4ik.veterinarian.common.mvvm.CoreViewModel
-import com.rus_artur4ik.veterinarian.mypets.WorkoutItem.DayItem
-import com.rus_artur4ik.veterinarian.mypets.WorkoutItem.WeekItem
 
 class MyPetsViewModel: CoreViewModel<NewWorkoutState>() {
 
     override fun provideInitialScreenState(): NewWorkoutState {
         return NewWorkoutState(
-            workoutName = "",
+            petNameFilter = "",
             items = listOf(
-                WeekItem(1),
-                DayItem("Monday", 50),
-                DayItem("Wednesday", 60),
-                DayItem("Friday", 60),
-                WeekItem(2, true),
-                DayItem("Tuesday", 60),
-                DayItem("Thursday", 70),
-                DayItem("Saturday", 80),
+                PetItem(
+                    petName = "Кеша",
+                    petKind = "Кот",
+                    petBreed = "Ориентальная кошка"
+                ),
+                PetItem(
+                    petName = "Тузик",
+                    petKind = "Собака",
+                    petBreed = "Немецкая овчарка"
+                ),
+                PetItem(
+                    petName = "Кеша",
+                    petKind = "Кот",
+                    petBreed = "Ориентальная кошка"
+                ),
+                PetItem(
+                    petName = "Тузик",
+                    petKind = "Собака",
+                    petBreed = "Немецкая овчарка"
+                ),
+                PetItem(
+                    petName = "Кеша",
+                    petKind = "Кот",
+                    petBreed = "Ориентальная кошка"
+                ),
+                PetItem(
+                    petName = "Тузик",
+                    petKind = "Собака",
+                    petBreed = "Немецкая овчарка"
+                ),
+                PetItem(
+                    petName = "Кеша",
+                    petKind = "Кот",
+                    petBreed = "Ориентальная кошка"
+                ),
+                PetItem(
+                    petName = "Тузик",
+                    petKind = "Собака",
+                    petBreed = "Немецкая овчарка"
+                ),
             )
         )
     }
 
     fun onWorkoutNameChanged(newName: String) {
         emitState(
-            state.value.copy(workoutName = newName)
+            state.value.copy(petNameFilter = newName)
         )
     }
 }

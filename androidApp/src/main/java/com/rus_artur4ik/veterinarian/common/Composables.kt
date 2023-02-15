@@ -21,7 +21,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.ColorPainter
-import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -70,39 +69,15 @@ private fun ColumnWithHeaderTemplatePreview() {
 }
 
 @Composable
-fun BigCarousel(itemsCount: Int, content: @Composable () -> Unit) {
+fun <T> Carousel(items: List<T>, content: @Composable (T) -> Unit) {
     val scrollState = rememberScrollState()
 
     BoxWithConstraints {
         Row(modifier = Modifier.horizontalScroll(scrollState)) {
-            repeat(itemsCount) { index ->
-                Layout(
-                    content = {
-                        content()
-                    },
-                    measurePolicy = { measurables, constraints ->
-                        // I'm assuming you'll declaring just one root
-                        // composable in the content function above
-                        // so it's measuring just the Box
-                        val placeable = measurables.first().measure(constraints)
-                        // maxWidth is from the BoxWithConstraints
-                        val maxWidthInPx = this@BoxWithConstraints.maxWidth.roundToPx()
-                        // Box width
-                        val itemWidth = placeable.width
-                        // Calculating the space for the first and last item
-                        val startSpace =
-                            if (index == 0) (maxWidthInPx - itemWidth) / 2 else 0
-                        val endSpace =
-                            if (index == itemsCount-1) (maxWidthInPx - itemWidth) / 2 else 0
-                        // The width of the box + extra space
-                        val width = startSpace + placeable.width + endSpace
-                        layout(width, placeable.height) {
-                            // Placing the Box in the right X position
-                            val x = if (index == 0) startSpace else 0
-                            placeable.place(x, 0)
-                        }
-                    }
-                )
+            val itemsCount = items.size
+
+            repeat(itemsCount) { index ->       //TODO replace repeat to lazyRow
+                content(items[index])
             }
         }
     }
@@ -110,8 +85,8 @@ fun BigCarousel(itemsCount: Int, content: @Composable () -> Unit) {
 
 @Preview(showBackground = true)
 @Composable
-private fun BigCarouselPreview() {
-    BigCarousel(5) {
+private fun CarouselPreview() {
+    Carousel(listOf(1,2,3,4,5)) {
         Box(
             Modifier
                 .size(200.dp)
