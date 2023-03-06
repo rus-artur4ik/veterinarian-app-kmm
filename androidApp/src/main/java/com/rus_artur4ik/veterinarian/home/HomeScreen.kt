@@ -27,8 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
-import com.rus_artur4ik.petcore.mvvm.CoreScreen
+import com.rus_artur4ik.petcore.mvvm.MvvmScreen
 import com.rus_artur4ik.veterinarian.R
 import com.rus_artur4ik.veterinarian.common.Carousel
 import com.rus_artur4ik.veterinarian.common.VetScreenTemplate
@@ -40,13 +39,13 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
 
-class HomeScreen : CoreScreen<HomeScreenState, HomeViewModel>(
+class HomeScreen : MvvmScreen<HomeScreenState, HomeViewModel>(
     HomeViewModel::class.java
 ) {
 
     @Composable
-    override fun Content(viewModel: HomeViewModel, navHostController: NavHostController?) {
-        VetScreenTemplate(name = "Екатерина", navHostController) {
+    override fun Content(viewModel: HomeViewModel) {
+        VetScreenTemplate(name = "Екатерина", viewModel.navHostController) {
             Column(
                 modifier = Modifier.fillMaxSize()
             ) {
@@ -57,7 +56,7 @@ class HomeScreen : CoreScreen<HomeScreenState, HomeViewModel>(
                     modifier = Modifier.padding(horizontal = Dp(24f))
                 )
 
-                Carousel(viewModel.state.value.pets) {
+                Carousel(viewModel.state.pets) {
                     PetCard(
                         pet = it,
                         modifier = Modifier
@@ -74,7 +73,7 @@ class HomeScreen : CoreScreen<HomeScreenState, HomeViewModel>(
                     modifier = Modifier.padding(horizontal = Dp(24f))
                 )
 
-                LastVisitCard(visit = viewModel.state.value.lastVisit)
+                LastVisitCard(visit = viewModel.state.lastVisit)
 
                 Button(
                     modifier = Modifier
@@ -195,7 +194,7 @@ class HomeScreen : CoreScreen<HomeScreenState, HomeViewModel>(
     @Composable
     @Preview(showBackground = true)
     private fun Preview() {
-        Content()
+        Content(HomeViewModel())
     }
 
     @Composable

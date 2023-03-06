@@ -1,6 +1,6 @@
 package com.rus_artur4ik.veterinarian.home
 
-import com.rus_artur4ik.petcore.mvvm.CoreViewModel
+import com.rus_artur4ik.petcore.mvvm.MvvmViewModel
 import com.rus_artur4ik.veterinarian.domain.entity.PetEntity
 import com.rus_artur4ik.veterinarian.domain.entity.Sex
 import com.rus_artur4ik.veterinarian.domain.entity.VisitEntity
@@ -8,7 +8,7 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
 
-class HomeViewModel : CoreViewModel<HomeScreenState>() {
+class HomeViewModel : MvvmViewModel<HomeScreenState>() {
 
     override fun provideInitialScreenState(): HomeScreenState {
         return HomeScreenState(

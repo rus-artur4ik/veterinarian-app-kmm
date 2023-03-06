@@ -21,13 +21,10 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
-import androidx.navigation.NavHostController
-import com.rus_artur4ik.petcore.mvvm.CoreScreen
-import com.rus_artur4ik.petcore.navigation.Navigator.navigateTo
+import com.rus_artur4ik.petcore.mvvm.MvvmScreen
 import com.rus_artur4ik.veterinarian.R
-import com.rus_artur4ik.veterinarian.common.VetScreen.HomeScreen
 
-class AuthScreen : CoreScreen<AuthScreenState, AuthViewModel>(
+class AuthScreen : MvvmScreen<AuthScreenState, AuthViewModel>(
     AuthViewModel::class.java
 ) {
 
@@ -37,7 +34,7 @@ class AuthScreen : CoreScreen<AuthScreenState, AuthViewModel>(
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    override fun Content(viewModel: AuthViewModel, navHostController: NavHostController?) {
+    override fun Content(viewModel: AuthViewModel) {
         Box(
             modifier = Modifier
                 .fillMaxSize(),
@@ -93,7 +90,7 @@ class AuthScreen : CoreScreen<AuthScreenState, AuthViewModel>(
                 Spacer(modifier = Modifier.height(Dp(12f)))
 
                 Button(
-                    onClick = { navHostController?.navigateTo(HomeScreen) }
+                    onClick = { viewModel.navigateToHome() }
                 ) {
                     Text(
                         text = stringResource(id = R.string.sign_in),
@@ -116,7 +113,7 @@ class AuthScreen : CoreScreen<AuthScreenState, AuthViewModel>(
     @Preview(showBackground = true)
     @Composable
     fun Preview() {
-        Content()
+        Content(AuthViewModel())
     }
 }
 

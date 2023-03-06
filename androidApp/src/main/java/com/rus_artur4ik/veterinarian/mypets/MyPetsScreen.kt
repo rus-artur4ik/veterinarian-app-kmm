@@ -23,29 +23,25 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
-import com.rus_artur4ik.petcore.mvvm.CoreScreen
+import com.rus_artur4ik.petcore.mvvm.MvvmScreen
 import com.rus_artur4ik.veterinarian.R
 import com.rus_artur4ik.veterinarian.common.VetCard
 import com.rus_artur4ik.veterinarian.common.VetScreenTemplate
 import com.rus_artur4ik.veterinarian.domain.entity.PetEntity
 import com.rus_artur4ik.veterinarian.domain.entity.Sex
 
-class MyPetsScreen : CoreScreen<MyPetsScreenState, MyPetsViewModel>(
+class MyPetsScreen : MvvmScreen<MyPetsScreenState, MyPetsViewModel>(
     MyPetsViewModel::class.java
 ) {
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    override fun Content(
-        viewModel: MyPetsViewModel,
-        navHostController: NavHostController?
-    ) {
+    override fun Content(viewModel: MyPetsViewModel) {
         val lazyListState = rememberLazyListState()
 
         VetScreenTemplate(
             name = "Екатерина",
-            navController = navHostController
+            navController = viewModel.navHostController
         ) {
             Column(Modifier.fillMaxSize()) {
 
@@ -53,7 +49,7 @@ class MyPetsScreen : CoreScreen<MyPetsScreenState, MyPetsViewModel>(
                     modifier = Modifier
                         .align(CenterHorizontally)
                         .fillMaxWidth(),
-                    value = viewModel.state.value.petNameFilter,
+                    value = viewModel.state.petNameFilter,
                     label = {
                         Text(
                             text = "Имя питомца"
@@ -77,8 +73,8 @@ class MyPetsScreen : CoreScreen<MyPetsScreenState, MyPetsViewModel>(
                     modifier = Modifier.weight(1f)
                 ) {
 
-                    items(count = viewModel.state.value.items.size) { index ->
-                        val item = viewModel.state.value.items[index]
+                    items(count = viewModel.state.items.size) { index ->
+                        val item = viewModel.state.items[index]
                         PetCard(
                             item = item,
                             modifier = Modifier
@@ -151,7 +147,7 @@ class MyPetsScreen : CoreScreen<MyPetsScreenState, MyPetsViewModel>(
     @Preview(showBackground = true)
     @Composable
     private fun Preview() {
-        Content()
+        Content(MyPetsViewModel())
     }
 
     @Preview

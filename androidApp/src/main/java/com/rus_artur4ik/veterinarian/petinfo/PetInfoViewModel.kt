@@ -1,6 +1,6 @@
 package com.rus_artur4ik.veterinarian.petinfo
 
-import com.rus_artur4ik.petcore.mvvm.CoreViewModel
+import com.rus_artur4ik.petcore.mvvm.MvvmViewModel
 import com.rus_artur4ik.veterinarian.domain.entity.AppointmentEntity
 import com.rus_artur4ik.veterinarian.domain.entity.PetEntity
 import com.rus_artur4ik.veterinarian.domain.entity.Sex
@@ -9,7 +9,7 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
 
-class PetInfoViewModel: CoreViewModel<PetInfoScreenState>() {
+class PetInfoViewModel: MvvmViewModel<PetInfoScreenState>() {
 
     override fun provideInitialScreenState(): PetInfoScreenState {
         return PetInfoScreenState(

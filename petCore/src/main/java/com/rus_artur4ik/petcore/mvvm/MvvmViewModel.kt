@@ -7,17 +7,18 @@ import androidx.navigation.NavHostController
 import com.rus_artur4ik.petcore.navigation.Navigator.navigateTo
 import com.rus_artur4ik.petcore.navigation.Screen
 
-abstract class CoreViewModel<S : CoreState> : ViewModel() {
+abstract class MvvmViewModel<S : MvvmState> : ViewModel() {
+
+    var navHostController: NavHostController? = null
+        private set
+
+    val state get() = (_state as State<S>).value
 
     private val _state by lazy { mutableStateOf(provideInitialScreenState()) }
 
-    private var navHostController: NavHostController? = null
-
-    val state get() = _state as State<S>
-
     abstract fun provideInitialScreenState(): S
 
-    fun setNavHostController(navHostController: NavHostController?) {
+    internal fun setNavController(navHostController: NavHostController?) {
         this.navHostController = navHostController
     }
 

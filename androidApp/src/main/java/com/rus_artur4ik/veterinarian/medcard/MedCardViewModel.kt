@@ -1,6 +1,6 @@
 package com.rus_artur4ik.veterinarian.medcard
 
-import com.rus_artur4ik.petcore.mvvm.CoreViewModel
+import com.rus_artur4ik.petcore.mvvm.MvvmViewModel
 import com.rus_artur4ik.veterinarian.domain.entity.PetEntity
 import com.rus_artur4ik.veterinarian.domain.entity.Sex
 import com.rus_artur4ik.veterinarian.domain.entity.VisitEntity
@@ -8,7 +8,7 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
 
-class MedCardViewModel: CoreViewModel<MedCardScreenState>() {
+class MedCardViewModel: MvvmViewModel<MedCardScreenState>() {
 
     override fun provideInitialScreenState(): MedCardScreenState {
         return MedCardScreenState(
@@ -91,8 +91,6 @@ class MedCardViewModel: CoreViewModel<MedCardScreenState>() {
     }
 
     fun petNameFilterChanged(newName: String) {
-        emitState(
-            state.value.copy(petNameFilter = newName)
-        )
+        emitState(state.copy(petNameFilter = newName))
     }
 }

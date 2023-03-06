@@ -1,6 +1,6 @@
 package com.rus_artur4ik.veterinarian.auth
 
-import com.rus_artur4ik.petcore.mvvm.CoreState
+import com.rus_artur4ik.petcore.mvvm.MvvmState
 
-class AuthScreenState: CoreState() {
+class AuthScreenState: MvvmState() {
 }

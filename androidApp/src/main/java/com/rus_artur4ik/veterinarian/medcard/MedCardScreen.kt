@@ -21,8 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
-import com.rus_artur4ik.petcore.mvvm.CoreScreen
+import com.rus_artur4ik.petcore.mvvm.MvvmScreen
 import com.rus_artur4ik.veterinarian.R
 import com.rus_artur4ik.veterinarian.common.KeyValueTab
 import com.rus_artur4ik.veterinarian.common.VetCard
@@ -35,18 +34,18 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
 
-class MedCardScreen : CoreScreen<MedCardScreenState, MedCardViewModel>(
+class MedCardScreen : MvvmScreen<MedCardScreenState, MedCardViewModel>(
     MedCardViewModel::class.java
 ) {
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    override fun Content(viewModel: MedCardViewModel, navHostController: NavHostController?) {
+    override fun Content(viewModel: MedCardViewModel) {
         val lazyListState = rememberLazyListState()
 
         VetScreenTemplate(
             name = "Екатерина",
-            navController = navHostController
+            navController = viewModel.navHostController
         ) {
             Column(Modifier.fillMaxSize()) {
 
@@ -54,7 +53,7 @@ class MedCardScreen : CoreScreen<MedCardScreenState, MedCardViewModel>(
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
                         .fillMaxWidth(),
-                    value = viewModel.state.value.petNameFilter,
+                    value = viewModel.state.petNameFilter,
                     label = {
                         Text(
                             text = "Имя питомца"
@@ -78,8 +77,8 @@ class MedCardScreen : CoreScreen<MedCardScreenState, MedCardViewModel>(
                     modifier = Modifier.weight(1f)
                 ) {
 
-                    items(count = viewModel.state.value.visits.size) { index ->
-                        val item = viewModel.state.value.visits[index]
+                    items(count = viewModel.state.visits.size) { index ->
+                        val item = viewModel.state.visits[index]
                         VisitCard(
                             item = item
                         )
@@ -120,7 +119,7 @@ class MedCardScreen : CoreScreen<MedCardScreenState, MedCardViewModel>(
     @Preview(showBackground = true)
     @Composable
     private fun Preview() {
-        Content()
+        Content(MedCardViewModel())
     }
 
     @Preview

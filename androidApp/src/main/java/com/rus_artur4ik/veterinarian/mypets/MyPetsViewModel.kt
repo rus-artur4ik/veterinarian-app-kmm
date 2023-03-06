@@ -1,11 +1,11 @@
 package com.rus_artur4ik.veterinarian.mypets
 
-import com.rus_artur4ik.petcore.mvvm.CoreViewModel
+import com.rus_artur4ik.petcore.mvvm.MvvmViewModel
 import com.rus_artur4ik.veterinarian.common.VetScreen.PetInfoScreen
 import com.rus_artur4ik.veterinarian.domain.entity.PetEntity
 import com.rus_artur4ik.veterinarian.domain.entity.Sex
 
-class MyPetsViewModel: CoreViewModel<MyPetsScreenState>() {
+class MyPetsViewModel: MvvmViewModel<MyPetsScreenState>() {
 
     override fun provideInitialScreenState(): MyPetsScreenState {
         return MyPetsScreenState(
@@ -44,9 +44,7 @@ class MyPetsViewModel: CoreViewModel<MyPetsScreenState>() {
     }
 
     fun petNameFilterChanged(newName: String) {
-        emitState(
-            state.value.copy(petNameFilter = newName)
-        )
+        emitState(state.copy(petNameFilter = newName))
     }
 }
 
