@@ -5,6 +5,7 @@
     <string name="diagnosis">Диагноз</string>
     <string name="date">Дата</string>
     <string name="time">Время</string>
+    <string name="error">Ошибка.\n%s</string>
 
 <!--    Auth -->
     <string name="sign_in_title">Войти в личный кабинет</string>

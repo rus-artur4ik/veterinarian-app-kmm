@@ -35,7 +35,6 @@ import com.rus_artur4ik.veterinarian.common.formatDayFullMonth
 import com.rus_artur4ik.veterinarian.common.formatDayMonthTime
 import com.rus_artur4ik.veterinarian.common.formatFullDate
 import com.rus_artur4ik.veterinarian.common.formatTime
-import com.rus_artur4ik.veterinarian.common.localizedString
 import com.rus_artur4ik.veterinarian.domain.entity.AppointmentEntity
 import com.rus_artur4ik.veterinarian.domain.entity.PetEntity
 import com.rus_artur4ik.veterinarian.domain.entity.VisitEntity
@@ -86,7 +85,9 @@ class PetInfoScreen: MvvmScreen<PetInfoScreenState, PetInfoViewModel>(
 
                     Text(text = pet.name)
 
-                    Text(text = pet.breed)
+                    pet.breed?.let {
+                        Text(text = it.name)
+                    }
                 }
             }
 
@@ -99,13 +100,15 @@ class PetInfoScreen: MvvmScreen<PetInfoScreenState, PetInfoViewModel>(
 
             KeyValueTab(
                 key = stringResource(id = R.string.kind_of_pet),
-                value = pet.kind
+                value = pet.kind.name
             )
 
-            KeyValueTab(
-                key = stringResource(id = R.string.sex),
-                value = pet.sex.localizedString()
-            )
+            pet.sex?.let {
+                KeyValueTab(
+                    key = stringResource(id = R.string.sex),
+                    value = it.name
+                )
+            }
         }
     }
 
@@ -197,7 +200,7 @@ class PetInfoScreen: MvvmScreen<PetInfoScreenState, PetInfoViewModel>(
 
                 KeyValueTab(
                     key = stringResource(id = R.string.diagnosis),
-                    value = visit.diagnoses.reduce { acc, s -> "$acc; $s" }
+                    value = visit.diagnoses.map { it.diagnoseName }.reduce { acc, s -> "$acc; $s" }
                 )
             }
 

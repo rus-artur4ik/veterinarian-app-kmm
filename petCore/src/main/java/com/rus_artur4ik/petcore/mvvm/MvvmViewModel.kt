@@ -3,9 +3,13 @@ package com.rus_artur4ik.petcore.mvvm
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
 import com.rus_artur4ik.petcore.navigation.Navigator.navigateTo
 import com.rus_artur4ik.petcore.navigation.Screen
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 abstract class MvvmViewModel<S : MvvmState> : ViewModel() {
 
@@ -28,5 +32,19 @@ abstract class MvvmViewModel<S : MvvmState> : ViewModel() {
 
     protected fun navigate(screen: Screen) {
         requireNotNull(navHostController).navigateTo(screen)
+    }
+
+    protected fun emitStateAsync(state: suspend () -> S, onError: (Exception) -> S) {
+        viewModelScope.launch {
+            try {
+                val result: S
+                withContext(Dispatchers.IO) {
+                    result = state()
+                }
+                emitState(result)
+            } catch (e: Exception) {
+                emitState(onError(e))
+            }
+        }
     }
 }

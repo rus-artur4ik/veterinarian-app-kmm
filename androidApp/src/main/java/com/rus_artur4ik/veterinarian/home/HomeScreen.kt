@@ -27,71 +27,73 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.rus_artur4ik.petcore.mvvm.MvvmScreen
 import com.rus_artur4ik.veterinarian.R
+import com.rus_artur4ik.veterinarian.common.BaseScreen
 import com.rus_artur4ik.veterinarian.common.Carousel
-import com.rus_artur4ik.veterinarian.common.VetScreenTemplate
 import com.rus_artur4ik.veterinarian.common.formatDayMonthTime
+import com.rus_artur4ik.veterinarian.domain.entity.BreedEntity
+import com.rus_artur4ik.veterinarian.domain.entity.DiagnoseEntity
+import com.rus_artur4ik.veterinarian.domain.entity.KindEntity
 import com.rus_artur4ik.veterinarian.domain.entity.PetEntity
-import com.rus_artur4ik.veterinarian.domain.entity.Sex
+import com.rus_artur4ik.veterinarian.domain.entity.SexEntity
 import com.rus_artur4ik.veterinarian.domain.entity.VisitEntity
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
 
-class HomeScreen : MvvmScreen<HomeScreenState, HomeViewModel>(
+class HomeScreen : BaseScreen<HomeScreenState, HomeViewModel>(
     HomeViewModel::class.java
 ) {
 
     @Composable
-    override fun Content(viewModel: HomeViewModel) {
-        VetScreenTemplate(name = "Екатерина", viewModel.navHostController) {
-            Column(
-                modifier = Modifier.fillMaxSize()
+    override fun Content(content: HomeScreenState, viewModel: HomeViewModel) {
+        Column(
+            modifier = Modifier.fillMaxSize()
+        ) {
+
+            Text(
+                text = "Мои питомцы",
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.padding(horizontal = Dp(24f))
+            )
+
+            Carousel(content.pets) {
+                PetCard(
+                    pet = it,
+                    modifier = Modifier
+                        .padding(horizontal = 8.dp)
+                        .clickable { viewModel.goToPetInfo(it) }
+                )
+            }
+
+            Spacer(modifier = Modifier.height(Dp(24f)))
+
+            Text(
+                text = stringResource(id = R.string.last_visit),
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.padding(horizontal = Dp(24f))
+            )
+
+            content.lastVisit?.let {
+                LastVisitCard(visit = it)
+            }
+
+            Button(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 10.dp),
+                onClick = { viewModel.makeAnAppointment() }
             ) {
+                Text(text = stringResource(id = R.string.make_an_appointment))
+            }
 
-                Text(
-                    text = "Мои питомцы",
-                    style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.padding(horizontal = Dp(24f))
-                )
-
-                Carousel(viewModel.state.pets) {
-                    PetCard(
-                        pet = it,
-                        modifier = Modifier
-                            .padding(horizontal = 8.dp)
-                            .clickable { viewModel.goToPetInfo(it) }
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(Dp(24f)))
-
-                Text(
-                    text = stringResource(id = R.string.last_visit),
-                    style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.padding(horizontal = Dp(24f))
-                )
-
-                LastVisitCard(visit = viewModel.state.lastVisit)
-
-                Button(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp, vertical = 10.dp),
-                    onClick = { viewModel.makeAnAppointment() }
-                ) {
-                    Text(text = stringResource(id = R.string.make_an_appointment))
-                }
-
-                Button(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
-                    onClick = { viewModel.notifyAboutVisit() }
-                ) {
-                    Text(text = stringResource(id = R.string.notify_about_visit))
-                }
+            Button(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                onClick = { viewModel.notifyAboutVisit() }
+            ) {
+                Text(text = stringResource(id = R.string.notify_about_visit))
             }
         }
     }
@@ -120,10 +122,12 @@ class HomeScreen : MvvmScreen<HomeScreenState, HomeViewModel>(
                     fontWeight = FontWeight.Black
                 )
 
-                Text(
-                    text = pet.breed,
-                    textAlign = TextAlign.Center
-                )
+                pet.breed?.let {
+                    Text(
+                        text = it.name,
+                        textAlign = TextAlign.Center
+                    )
+                }
             }
 
         }
@@ -181,7 +185,7 @@ class HomeScreen : MvvmScreen<HomeScreenState, HomeViewModel>(
                 )
 
                 Text(
-                    text = visit.diagnoses.reduce { acc, s -> "$acc; $s" },
+                    text = visit.diagnoses.map { it.diagnoseName }.reduce { acc, s -> "$acc; $s" },
                     fontSize = 14.sp,
                     modifier = Modifier.padding(
                         start = 16.dp
@@ -202,12 +206,13 @@ class HomeScreen : MvvmScreen<HomeScreenState, HomeViewModel>(
     private fun PetCardPreview() {
         PetCard(
             PetEntity(
+                id = 1,
                 name = "Кеша",
-                breed = "Ориентальная кошка",
-                sex = Sex.MALE,
+                breed = BreedEntity(1, "Ориентальная кошка"),
+                sex = SexEntity(1, "Самец"),
                 birthday = null,
-                kind = "Кот",
-                lastVisit = null
+                kind = KindEntity(1, "Кот"),
+                sterilized = false
             )
         )
     }
@@ -217,21 +222,23 @@ class HomeScreen : MvvmScreen<HomeScreenState, HomeViewModel>(
     private fun LastVisitCardPreview() {
         LastVisitCard(
             VisitEntity(
+                id = 1,
                 date = LocalDateTime(
                     LocalDate.fromEpochDays(10),
                     LocalTime(1, 1, 1)
                 ),
                 diagnoses = listOf(
-                    "Диагноз 1",
-                    "Диагноз 2",
+                    DiagnoseEntity(1, "Диагноз 1"),
+                    DiagnoseEntity(2, "Диагноз 2")
                 ),
                 pet = PetEntity(
+                    id = 1,
                     name = "Кеша",
-                    breed = "Ориентальная кошка",
-                    sex = Sex.MALE,
+                    breed = BreedEntity(1, "Ориентальная кошка"),
+                    sex = SexEntity(1, "Самец"),
                     birthday = null,
-                    kind = "Кот",
-                    lastVisit = null
+                    kind = KindEntity(1, "Кот"),
+                    sterilized = false
                 )
             )
         )

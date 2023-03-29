@@ -23,20 +23,22 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.rus_artur4ik.petcore.mvvm.MvvmScreen
 import com.rus_artur4ik.veterinarian.R
+import com.rus_artur4ik.veterinarian.common.BaseEmptyableScreen
 import com.rus_artur4ik.veterinarian.common.VetCard
 import com.rus_artur4ik.veterinarian.common.VetScreenTemplate
+import com.rus_artur4ik.veterinarian.domain.entity.BreedEntity
+import com.rus_artur4ik.veterinarian.domain.entity.KindEntity
 import com.rus_artur4ik.veterinarian.domain.entity.PetEntity
-import com.rus_artur4ik.veterinarian.domain.entity.Sex
+import com.rus_artur4ik.veterinarian.domain.entity.SexEntity
 
-class MyPetsScreen : MvvmScreen<MyPetsScreenState, MyPetsViewModel>(
+class MyPetsScreen : BaseEmptyableScreen<MyPetsScreenState, MyPetsViewModel>(
     MyPetsViewModel::class.java
 ) {
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    override fun Content(viewModel: MyPetsViewModel) {
+    override fun NotEmpty(content: MyPetsScreenState, viewModel: MyPetsViewModel) {
         val lazyListState = rememberLazyListState()
 
         VetScreenTemplate(
@@ -49,7 +51,7 @@ class MyPetsScreen : MvvmScreen<MyPetsScreenState, MyPetsViewModel>(
                     modifier = Modifier
                         .align(CenterHorizontally)
                         .fillMaxWidth(),
-                    value = viewModel.state.petNameFilter,
+                    value = content.petNameFilter,
                     label = {
                         Text(
                             text = "Имя питомца"
@@ -73,8 +75,8 @@ class MyPetsScreen : MvvmScreen<MyPetsScreenState, MyPetsViewModel>(
                     modifier = Modifier.weight(1f)
                 ) {
 
-                    items(count = viewModel.state.items.size) { index ->
-                        val item = viewModel.state.items[index]
+                    items(count = content.items.size) { index ->
+                        val item = content.items[index]
                         PetCard(
                             item = item,
                             modifier = Modifier
@@ -114,7 +116,7 @@ class MyPetsScreen : MvvmScreen<MyPetsScreenState, MyPetsViewModel>(
                 )
 
                 Text(
-                    text = item.kind,
+                    text = item.kind.name,
                     fontSize = 14.sp,
                     modifier = Modifier.padding(
                         start = 16.dp
@@ -133,13 +135,15 @@ class MyPetsScreen : MvvmScreen<MyPetsScreenState, MyPetsViewModel>(
                     fontSize = 12.sp,
                 )
 
-                Text(
-                    text = item.breed,
-                    fontSize = 14.sp,
-                    modifier = Modifier.padding(
-                        start = 16.dp
+                item.breed?.let {
+                    Text(
+                        text = it.name,
+                        fontSize = 14.sp,
+                        modifier = Modifier.padding(
+                            start = 16.dp
+                        )
                     )
-                )
+                }
             }
         }
     }
@@ -155,12 +159,13 @@ class MyPetsScreen : MvvmScreen<MyPetsScreenState, MyPetsViewModel>(
     private fun PetItemPreview() {
         PetCard(
             PetEntity(
+                id = 1,
                 name = "Кеша",
-                breed = "Ориентальная кошка",
-                sex = Sex.MALE,
+                breed = BreedEntity(1, "Ориентальная кошка"),
+                sex = SexEntity(1, "Самец"),
                 birthday = null,
-                kind = "Кот",
-                lastVisit = null
+                kind = KindEntity(1, "Кот"),
+                sterilized = false
             )
         )
     }

@@ -27,8 +27,11 @@ import com.rus_artur4ik.veterinarian.common.KeyValueTab
 import com.rus_artur4ik.veterinarian.common.VetCard
 import com.rus_artur4ik.veterinarian.common.VetScreenTemplate
 import com.rus_artur4ik.veterinarian.common.formatDayMonthTime
+import com.rus_artur4ik.veterinarian.domain.entity.BreedEntity
+import com.rus_artur4ik.veterinarian.domain.entity.DiagnoseEntity
+import com.rus_artur4ik.veterinarian.domain.entity.KindEntity
 import com.rus_artur4ik.veterinarian.domain.entity.PetEntity
-import com.rus_artur4ik.veterinarian.domain.entity.Sex
+import com.rus_artur4ik.veterinarian.domain.entity.SexEntity
 import com.rus_artur4ik.veterinarian.domain.entity.VisitEntity
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
@@ -111,7 +114,7 @@ class MedCardScreen : MvvmScreen<MedCardScreenState, MedCardViewModel>(
 
             KeyValueTab(
                 key = stringResource(id = R.string.diagnosis),
-                value = item.diagnoses.reduce { acc, s -> "$acc; $s" }
+                value = item.diagnoses.map { it.diagnoseName }.reduce { acc, s -> "$acc; $s" }
             )
         }
     }
@@ -127,21 +130,23 @@ class MedCardScreen : MvvmScreen<MedCardScreenState, MedCardViewModel>(
     private fun VisitCardPreview() {
         VisitCard(
             VisitEntity(
+                id = 1,
                 date = LocalDateTime(
                     LocalDate.fromEpochDays(10),
                     LocalTime(1, 1, 1)
                 ),
                 diagnoses = listOf(
-                    "Диагноз 1",
-                    "Диагноз 2",
+                    DiagnoseEntity(1, "Диагноз 1"),
+                    DiagnoseEntity(2, "Диагноз 2")
                 ),
                 pet = PetEntity(
+                    id = 1,
                     name = "Кеша",
-                    breed = "Ориентальная кошка",
-                    sex = Sex.MALE,
+                    breed = BreedEntity(1, "Ориентальная кошка"),
+                    sex = SexEntity(1, "Самец"),
                     birthday = null,
-                    kind = "Кот",
-                    lastVisit = null
+                    kind = KindEntity(1, "Кот"),
+                    sterilized = false
                 )
             )
         )
