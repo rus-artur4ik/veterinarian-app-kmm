@@ -11,4 +11,13 @@ data class VisitEntity(
     val date: LocalDateTime,
     val diagnoses: List<DiagnoseEntity>,
     val pet: PetEntity,
-)
+) {
+    companion object {
+        fun generate() = VisitEntity(
+            id = 1,
+            date = LocalDateTime(2021, 1, 12, 10, 32),
+            diagnoses = listOf(DiagnoseEntity.generate(), DiagnoseEntity.generate()),
+            pet = PetEntity.generate()
+        )
+    }
+}

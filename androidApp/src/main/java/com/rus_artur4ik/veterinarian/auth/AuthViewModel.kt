@@ -1,7 +1,7 @@
 package com.rus_artur4ik.veterinarian.auth
 
 import com.rus_artur4ik.petcore.mvvm.MvvmViewModel
-import com.rus_artur4ik.veterinarian.common.VetScreen
+import com.rus_artur4ik.veterinarian.VetScreen
 
 class AuthViewModel : MvvmViewModel<AuthScreenState>() {
 

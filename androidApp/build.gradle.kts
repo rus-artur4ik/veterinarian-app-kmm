@@ -50,12 +50,12 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
 
     // Compose
-    implementation("androidx.activity:activity-compose:1.6.1")
-    implementation("androidx.compose.material3:material3:1.1.0-alpha06")
-    implementation("androidx.compose.material3:material3-window-size-class:1.1.0-alpha06")
-    implementation("androidx.compose.animation:animation:1.3.3")
+    implementation("androidx.activity:activity-compose:1.7.1")
+    implementation("androidx.compose.material3:material3:1.1.0-rc01")
+    implementation("androidx.compose.material3:material3-window-size-class:1.1.0-rc01")
+    implementation("androidx.compose.animation:animation:1.4.2")
     // Tooling support (Previews, etc.)
-    implementation("androidx.compose.ui:ui-tooling:1.3.3")
+    implementation("androidx.compose.ui:ui-tooling:1.4.2")
     implementation("com.google.android.material:compose-theme-adapter:1.2.1")
 
     // Dagger

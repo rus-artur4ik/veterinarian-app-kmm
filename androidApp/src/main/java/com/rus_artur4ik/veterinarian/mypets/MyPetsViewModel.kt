@@ -3,7 +3,7 @@ package com.rus_artur4ik.veterinarian.mypets
 import androidx.lifecycle.viewModelScope
 import com.rus_artur4ik.petcore.mvvm.lce.LceState
 import com.rus_artur4ik.petcore.mvvm.lce.LceeViewModel
-import com.rus_artur4ik.veterinarian.common.VetScreen.PetInfoScreen
+import com.rus_artur4ik.veterinarian.VetScreen.PetInfoScreen
 import com.rus_artur4ik.veterinarian.data.VetRepository
 import com.rus_artur4ik.veterinarian.domain.entity.PetEntity
 import kotlinx.coroutines.launch

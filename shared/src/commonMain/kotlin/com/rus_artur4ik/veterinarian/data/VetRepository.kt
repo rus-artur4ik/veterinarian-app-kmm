@@ -1,6 +1,8 @@
 package com.rus_artur4ik.veterinarian.data
 
+import com.rus_artur4ik.veterinarian.domain.entity.AppointmentEntity
 import com.rus_artur4ik.veterinarian.domain.entity.PetEntity
+import com.rus_artur4ik.veterinarian.domain.entity.ProfileEntity
 import com.rus_artur4ik.veterinarian.domain.entity.VisitEntity
 import kotlinx.datetime.LocalDateTime
 
@@ -21,5 +23,13 @@ class VetRepository {
         dateTo: LocalDateTime? = null
     ): List<VisitEntity> {
         return VetApi.getVisits(limit, breedId, kindId, dateFrom, dateTo)
+    }
+
+    suspend fun getAppointments(limit: Int? = null): List<AppointmentEntity> {
+        return VetApi.getAppointments(limit)
+    }
+
+    suspend fun getProfile(): ProfileEntity {
+        return VetApi.getProfiles()
     }
 }

@@ -9,4 +9,11 @@ data class ColorEntity(
     val id: Int,
     @SerialName("color_name")
     val name: String
-)
+) {
+    companion object {
+        fun generate() = ColorEntity(
+            id = 1,
+            name = "красный"
+        )
+    }
+}

@@ -23,9 +23,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.rus_artur4ik.petcore.mvvm.MvvmScreen
 import com.rus_artur4ik.veterinarian.R
-import com.rus_artur4ik.veterinarian.common.KeyValueTab
 import com.rus_artur4ik.veterinarian.common.VetCard
 import com.rus_artur4ik.veterinarian.common.VetScreenTemplate
+import com.rus_artur4ik.veterinarian.common.composables.KeyValueTab
 import com.rus_artur4ik.veterinarian.common.formatDayMonthTime
 import com.rus_artur4ik.veterinarian.domain.entity.BreedEntity
 import com.rus_artur4ik.veterinarian.domain.entity.DiagnoseEntity

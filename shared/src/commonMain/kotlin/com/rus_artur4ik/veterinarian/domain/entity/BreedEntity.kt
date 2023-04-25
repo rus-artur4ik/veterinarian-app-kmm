@@ -9,4 +9,11 @@ data class BreedEntity(
     val id: Int,
     @SerialName("breed_name")
     val name: String
-)
+) {
+    companion object {
+        fun generate() = BreedEntity(
+            id = 1,
+            name = "Немецкая овчарка"
+        )
+    }
+}

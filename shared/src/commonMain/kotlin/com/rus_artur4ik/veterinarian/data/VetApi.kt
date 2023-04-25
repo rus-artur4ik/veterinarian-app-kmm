@@ -1,13 +1,15 @@
 package com.rus_artur4ik.veterinarian.data
 
+import com.rus_artur4ik.veterinarian.domain.entity.AppointmentEntity
 import com.rus_artur4ik.veterinarian.domain.entity.PetEntity
+import com.rus_artur4ik.veterinarian.domain.entity.ProfileEntity
 import com.rus_artur4ik.veterinarian.domain.entity.VisitEntity
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
-import io.ktor.client.statement.HttpResponse
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.datetime.LocalDateTime
 
@@ -17,9 +19,8 @@ internal object VetApi {
 
     private val client by lazy {
         HttpClient() {
-            install(ContentNegotiation) {
-                json()
-            }
+            install(ContentNegotiation) { json() }
+            install(Logging)
         }
     }
 
@@ -49,10 +50,13 @@ internal object VetApi {
         }.body()
     }
 
-    suspend fun getAppointments(limit: Int?): HttpResponse {
+    suspend fun getAppointments(limit: Int?): List<AppointmentEntity> {
         return client.get("$BASE_URL/api/v2/appointments") {
             limit?.let { parameter("max_count", it) }
-        }
+        }.body()
     }
 
+    suspend fun getProfiles(): ProfileEntity {
+        return client.get("$BASE_URL/api/v2/client_info").body()
+    }
 }

@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.rus_artur4ik.veterinarian.R
 import com.rus_artur4ik.veterinarian.common.BaseScreen
-import com.rus_artur4ik.veterinarian.common.Carousel
+import com.rus_artur4ik.veterinarian.common.composables.Carousel
 import com.rus_artur4ik.veterinarian.common.formatDayMonthTime
 import com.rus_artur4ik.veterinarian.domain.entity.BreedEntity
 import com.rus_artur4ik.veterinarian.domain.entity.DiagnoseEntity

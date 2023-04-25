@@ -14,6 +14,11 @@ fun LocalDateTime.formatFullDate(): String {
     return this.toJavaLocalDateTime().format(dateTimeFormatter)
 }
 
+fun LocalDateTime.formatFullDateTime(): String {
+    val dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy, HH:mm")
+    return this.toJavaLocalDateTime().format(dateTimeFormatter)
+}
+
 fun LocalDateTime.formatDayFullMonth(): String {
     val dateTimeFormatter = DateTimeFormatter.ofPattern("dd MMMM")
     return this.toJavaLocalDateTime().format(dateTimeFormatter)

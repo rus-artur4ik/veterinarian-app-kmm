@@ -9,6 +9,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.rus_artur4ik.petcore.mvvm.lce.LceeScreen
 import com.rus_artur4ik.petcore.mvvm.lce.LceeViewModel
+import com.rus_artur4ik.veterinarian.common.composables.ErrorIndicator
+import com.rus_artur4ik.veterinarian.common.composables.LoadingIndicator
 
 abstract class BaseEmptyableScreen<S, VM: LceeViewModel<S>>(
     viewModelClass: Class<VM>

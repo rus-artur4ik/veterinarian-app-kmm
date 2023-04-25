@@ -28,9 +28,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.rus_artur4ik.petcore.mvvm.MvvmScreen
 import com.rus_artur4ik.veterinarian.R
-import com.rus_artur4ik.veterinarian.common.KeyValueTab
 import com.rus_artur4ik.veterinarian.common.VetCard
 import com.rus_artur4ik.veterinarian.common.VetScreenTemplate
+import com.rus_artur4ik.veterinarian.common.composables.KeyValueTab
 import com.rus_artur4ik.veterinarian.common.formatDayFullMonth
 import com.rus_artur4ik.veterinarian.common.formatDayMonthTime
 import com.rus_artur4ik.veterinarian.common.formatFullDate
@@ -39,7 +39,7 @@ import com.rus_artur4ik.veterinarian.domain.entity.AppointmentEntity
 import com.rus_artur4ik.veterinarian.domain.entity.PetEntity
 import com.rus_artur4ik.veterinarian.domain.entity.VisitEntity
 
-class PetInfoScreen: MvvmScreen<PetInfoScreenState, PetInfoViewModel>(
+class PetInfoScreen : MvvmScreen<PetInfoScreenState, PetInfoViewModel>(
     PetInfoViewModel::class.java
 ) {
 
@@ -147,7 +147,7 @@ class PetInfoScreen: MvvmScreen<PetInfoScreenState, PetInfoViewModel>(
 
             KeyValueTab(
                 key = stringResource(id = R.string.service),
-                value = appointmentEntity.type
+                value = "Название услуги"
             )
 
             KeyValueTab(

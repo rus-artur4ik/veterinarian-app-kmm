@@ -23,10 +23,11 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.rus_artur4ik.petcore.navigation.Navigator.navigateTo
 import com.rus_artur4ik.petcore.navigation.Screen
 import com.rus_artur4ik.veterinarian.R
-import com.rus_artur4ik.veterinarian.common.VetScreen.AuthScreen
-import com.rus_artur4ik.veterinarian.common.VetScreen.HomeScreen
-import com.rus_artur4ik.veterinarian.common.VetScreen.MedCardScreen
-import com.rus_artur4ik.veterinarian.common.VetScreen.MyPetsScreen
+import com.rus_artur4ik.veterinarian.VetScreen.AuthScreen
+import com.rus_artur4ik.veterinarian.VetScreen.HomeScreen
+import com.rus_artur4ik.veterinarian.VetScreen.MedCardScreen
+import com.rus_artur4ik.veterinarian.VetScreen.MyPetsScreen
+import com.rus_artur4ik.veterinarian.VetScreen.ProfileScreen
 
 private val bottomBarItems = listOf(
     BottomNavItem(
@@ -51,7 +52,7 @@ private val bottomBarItems = listOf(
     ),
     BottomNavItem(
         nameRes = R.string.profile_screen,
-        screen = HomeScreen,
+        screen = ProfileScreen,
         image = Icons.Rounded.Person
     ),
 )
@@ -64,7 +65,7 @@ fun BottomNavBar(
     val backStackEntry = navController?.currentBackStackEntryAsState()
 
     BottomAppBar(
-        containerColor = MaterialTheme.colorScheme.onPrimary,
+        containerColor = MaterialTheme.colorScheme.surface,
         modifier = modifier
     ) {
         bottomBarItems.forEach { item ->

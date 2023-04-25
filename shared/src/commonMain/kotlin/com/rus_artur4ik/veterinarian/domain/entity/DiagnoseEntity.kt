@@ -9,4 +9,11 @@ data class DiagnoseEntity(
     val diagnoseId:Int,
     @SerialName("diagnosis_name")
     val diagnoseName: String
-)
+) {
+    companion object {
+        fun generate() = DiagnoseEntity(
+            diagnoseId = 1,
+            diagnoseName = "Эпилепсия"
+        )
+    }
+}

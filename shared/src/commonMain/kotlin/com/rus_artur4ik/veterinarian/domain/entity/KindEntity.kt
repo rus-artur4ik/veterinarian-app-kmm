@@ -9,4 +9,11 @@ data class KindEntity(
     val id: Int,
     @SerialName("kind_name")
     val name: String
-)
+) {
+    companion object {
+        fun generate() = KindEntity(
+            id = 1,
+            name = "Собака"
+        )
+    }
+}

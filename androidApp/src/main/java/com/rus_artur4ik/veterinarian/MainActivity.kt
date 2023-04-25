@@ -12,8 +12,7 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import com.rus_artur4ik.petcore.navigation.Navigator.AutowiredNavHost
-import com.rus_artur4ik.veterinarian.common.VetScreen
-import com.rus_artur4ik.veterinarian.common.VetScreen.HomeScreen
+import com.rus_artur4ik.veterinarian.VetScreen.HomeScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

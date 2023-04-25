@@ -1,5 +1,6 @@
 package com.rus_artur4ik.petcore.mvvm
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -35,7 +36,7 @@ abstract class MvvmViewModel<S : MvvmState> : ViewModel() {
     }
 
     protected fun emitStateAsync(state: suspend () -> S, onError: (Exception) -> S) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.Main) {
             try {
                 val result: S
                 withContext(Dispatchers.IO) {
@@ -43,6 +44,7 @@ abstract class MvvmViewModel<S : MvvmState> : ViewModel() {
                 }
                 emitState(result)
             } catch (e: Exception) {
+                Log.e("MvvmViewModel", "Error while emitting state: $e\ncause: ${e.cause}")
                 emitState(onError(e))
             }
         }

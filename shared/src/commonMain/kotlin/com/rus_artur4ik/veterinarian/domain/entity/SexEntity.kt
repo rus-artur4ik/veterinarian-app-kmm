@@ -9,4 +9,11 @@ data class SexEntity(
     val id: Int,
     @SerialName("sex_name")
     val name: String
-)
+) {
+    companion object {
+        fun generate() = SexEntity(
+            id = 1,
+            name = "male"
+        )
+    }
+}
