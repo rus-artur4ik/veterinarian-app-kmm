@@ -2,6 +2,7 @@
 <resources>
     <!--    Common -->
     <string name="pet">Питомец</string>
+    <string name="pets">Питомцы</string>
     <string name="diagnosis">Диагноз</string>
     <string name="date">Дата</string>
     <string name="time">Время</string>
@@ -9,6 +10,19 @@
     <string name="specialist">Специалист</string>
     <string name="additional_info">Дополнительно</string>
     <string name="all">Все</string>
+    <string name="detailed">Подробнее</string>
+    <string name="closest_appointment">Ближайшая запись</string>
+    <string name="less_than_one_year">&lt;1 года</string>
+    <string name="back">Назад</string>
+
+    <plurals name="years">
+        <item quantity="zero">%1$d лет</item>
+        <item quantity="one">%1$d год</item>
+        <item quantity="two">%1$d года</item>
+        <item quantity="few">%1$d года</item>
+        <item quantity="many">%1$d лет</item>
+        <item quantity="other">%1$d лет</item>
+    </plurals>
 
     <!--    Auth -->
     <string name="sign_in_title">Войти в личный кабинет</string>
@@ -28,9 +42,16 @@
 
     <!--    Home -->
     <string name="my_pets">Мои питомцы</string>
-    <string name="last_visit">Последний визит</string>
+    <string name="last_visits">Последние посещения</string>
     <string name="make_an_appointment">Записаться на услугу</string>
     <string name="notify_about_visit">Оповестить о визите</string>
+    <string name="no_closest_appointment">Нет ближайшей записи</string>
+    <string name="no_closest_appointment_description">На данный момент у вас нет активных записей в клинику</string>
+
+    <!--    My Pets -->
+    <string name="search_pet">Найти питомца</string>
+    <string name="you_have_no_pets">У вас нет питомцев</string>
+    <string name="nothing_found">Ничего не найдено</string>
 
     <!--    Pet Info -->
     <string name="date_of_birth">Дата рождения</string>
@@ -43,7 +64,6 @@
     <string name="chip">Чип</string>
     <string name="sterilization">Стерилизация</string>
 
-    <string name="closest_appointment">Ближайшая запись</string>
     <string name="service">Услуга</string>
 
     <string name="visits">Визиты</string>

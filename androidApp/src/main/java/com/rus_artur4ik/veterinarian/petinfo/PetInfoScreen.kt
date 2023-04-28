@@ -28,12 +28,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.rus_artur4ik.petcore.mvvm.MvvmScreen
 import com.rus_artur4ik.veterinarian.R
-import com.rus_artur4ik.veterinarian.common.VetCard
 import com.rus_artur4ik.veterinarian.common.VetScreenTemplate
 import com.rus_artur4ik.veterinarian.common.composables.KeyValueTab
+import com.rus_artur4ik.veterinarian.common.composables.VetCard
 import com.rus_artur4ik.veterinarian.common.formatDayFullMonth
-import com.rus_artur4ik.veterinarian.common.formatDayMonthTime
-import com.rus_artur4ik.veterinarian.common.formatFullDate
+import com.rus_artur4ik.veterinarian.common.formatDayFullMonthTime
+import com.rus_artur4ik.veterinarian.common.formatDayMonthYear
 import com.rus_artur4ik.veterinarian.common.formatTime
 import com.rus_artur4ik.veterinarian.domain.entity.AppointmentEntity
 import com.rus_artur4ik.veterinarian.domain.entity.PetEntity
@@ -94,7 +94,7 @@ class PetInfoScreen : MvvmScreen<PetInfoScreenState, PetInfoViewModel>(
             pet.birthday?.let {
                 KeyValueTab(
                     key = stringResource(id = R.string.date_of_birth),
-                    value = it.formatFullDate()
+                    value = it.formatDayMonthYear()
                 )
             }
 
@@ -196,7 +196,7 @@ class PetInfoScreen : MvvmScreen<PetInfoScreenState, PetInfoViewModel>(
                 .padding(vertical = 8.dp)
         ) {
             Column(Modifier.weight(1f)) {
-                Text(text = visit.date.formatDayMonthTime())
+                Text(text = visit.date.formatDayFullMonthTime())
 
                 KeyValueTab(
                     key = stringResource(id = R.string.diagnosis),

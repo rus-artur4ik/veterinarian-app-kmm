@@ -3,13 +3,11 @@ package com.rus_artur4ik.veterinarian.common.composables
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -24,7 +22,6 @@ import androidx.compose.ui.unit.dp
 import com.rus_artur4ik.veterinarian.R
 import com.rus_artur4ik.veterinarian.common.formatFullDateTime
 import com.rus_artur4ik.veterinarian.domain.entity.AppointmentEntity
-import com.rus_artur4ik.veterinarian.domain.entity.AppointmentType
 
 @Composable
 fun AppointmentCard(appointment: AppointmentEntity, onMenuClick: () -> Unit) {
@@ -33,8 +30,7 @@ fun AppointmentCard(appointment: AppointmentEntity, onMenuClick: () -> Unit) {
             .padding(16.dp)
             .fillMaxWidth()
             .background(
-                color = MaterialTheme.colorScheme.surfaceColorAtElevation(1.dp),
-                shape = MaterialTheme.shapes.medium
+                color = MaterialTheme.colorScheme.surfaceColorAtElevation(1.dp), shape = MaterialTheme.shapes.medium
             )
             .padding(20.dp)
     ) {
@@ -43,28 +39,7 @@ fun AppointmentCard(appointment: AppointmentEntity, onMenuClick: () -> Unit) {
                 .fillMaxWidth()
                 .padding(bottom = 16.dp)
         ) {
-            Box(
-                modifier = Modifier
-                    .size(40.dp)
-                    .background(
-                        color = MaterialTheme.colorScheme.primaryContainer,
-                        shape = CircleShape
-                    )
-            ) {
-                Image(
-                    painter = painterResource(
-                        id = when (appointment.type) {
-                            AppointmentType.SURGEON -> R.drawable.surgeon
-                            AppointmentType.VISIT -> R.drawable.visit
-                            AppointmentType.ULTRASOUND -> R.drawable.ultrasound
-                        }
-                    ),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(16.dp)
-                        .align(Alignment.Center)
-                )
-            }
+            AppointmentIcon(appointment = appointment)
 
             Text(
                 text = appointment.description,
@@ -75,19 +50,15 @@ fun AppointmentCard(appointment: AppointmentEntity, onMenuClick: () -> Unit) {
                     .align(Alignment.CenterVertically)
             )
 
-            Image(
-                painter = painterResource(id = R.drawable.menu),
+            Image(painter = painterResource(id = R.drawable.menu),
                 contentDescription = null,
                 modifier = Modifier
                     .size(24.dp)
-                    .clickable { onMenuClick() }
-            )
+                    .clickable { onMenuClick() })
         }
 
         Divider(
-            modifier = Modifier
-                .fillMaxWidth(),
-            thickness = 1.dp
+            modifier = Modifier.fillMaxWidth(), thickness = 1.dp
         )
 
         KeyValueTab(
@@ -105,9 +76,7 @@ fun AppointmentCard(appointment: AppointmentEntity, onMenuClick: () -> Unit) {
 
         appointment.doctorName?.let {
             KeyValueTab(
-                key = stringResource(id = R.string.specialist),
-                value = it,
-                modifier = Modifier.padding(top = 10.dp)
+                key = stringResource(id = R.string.specialist), value = it, modifier = Modifier.padding(top = 10.dp)
             )
         }
     }

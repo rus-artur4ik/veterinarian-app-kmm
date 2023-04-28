@@ -1,4 +1,4 @@
-package com.rus_artur4ik.veterinarian.common
+package com.rus_artur4ik.veterinarian.common.composables
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues

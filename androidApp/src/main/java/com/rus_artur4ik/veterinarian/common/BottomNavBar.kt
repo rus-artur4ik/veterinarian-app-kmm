@@ -1,12 +1,7 @@
 package com.rus_artur4ik.veterinarian.common
 
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Add
-import androidx.compose.material.icons.rounded.DateRange
-import androidx.compose.material.icons.rounded.Face
-import androidx.compose.material.icons.rounded.Home
-import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -14,7 +9,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
@@ -23,7 +18,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.rus_artur4ik.petcore.navigation.Navigator.navigateTo
 import com.rus_artur4ik.petcore.navigation.Screen
 import com.rus_artur4ik.veterinarian.R
-import com.rus_artur4ik.veterinarian.VetScreen.AuthScreen
 import com.rus_artur4ik.veterinarian.VetScreen.HomeScreen
 import com.rus_artur4ik.veterinarian.VetScreen.MedCardScreen
 import com.rus_artur4ik.veterinarian.VetScreen.MyPetsScreen
@@ -33,27 +27,22 @@ private val bottomBarItems = listOf(
     BottomNavItem(
         nameRes = R.string.main_screen,
         screen = HomeScreen,
-        image = Icons.Rounded.Home
+        iconRes = R.drawable.home
     ),
     BottomNavItem(
         nameRes = R.string.pets_screen,
         screen = MyPetsScreen,
-        image = Icons.Rounded.Face
-    ),
-    BottomNavItem(
-        nameRes = R.string.appointment_screen,
-        screen = AuthScreen,
-        image = Icons.Rounded.DateRange
+        iconRes = R.drawable.pets
     ),
     BottomNavItem(
         nameRes = R.string.med_card_screen,
         screen = MedCardScreen,
-        image = Icons.Rounded.Add
+        iconRes = R.drawable.med_card
     ),
     BottomNavItem(
         nameRes = R.string.profile_screen,
         screen = ProfileScreen,
-        image = Icons.Rounded.Person
+        iconRes = R.drawable.profile
     ),
 )
 
@@ -82,8 +71,8 @@ fun BottomNavBar(
                 },
                 icon = {
                     Icon(
-                        imageVector = item.image,
-                        contentDescription = "${stringResource(id = item.nameRes)} Icon",
+                        painter = painterResource(item.iconRes),
+                        contentDescription = stringResource(id = item.nameRes),
                     )
                 }
             )
@@ -94,7 +83,7 @@ fun BottomNavBar(
 private data class BottomNavItem(
     @StringRes val nameRes: Int,
     val screen: Screen,
-    val image: ImageVector,
+    @DrawableRes val iconRes: Int,
 )
 
 @Composable

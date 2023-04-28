@@ -1,15 +1,18 @@
 package com.rus_artur4ik.veterinarian.common
 
+import androidx.annotation.DrawableRes
+import com.rus_artur4ik.veterinarian.R
+import com.rus_artur4ik.veterinarian.domain.entity.KindEntity
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.toJavaLocalDateTime
 import java.time.format.DateTimeFormatter
 
-fun LocalDateTime.formatDayMonthTime(): String {
+fun LocalDateTime.formatDayFullMonthTime(): String {
     val dateTimeFormatter = DateTimeFormatter.ofPattern("dd MMMM, HH:mm")
     return this.toJavaLocalDateTime().format(dateTimeFormatter)
 }
 
-fun LocalDateTime.formatFullDate(): String {
+fun LocalDateTime.formatDayMonthYear(): String {
     val dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
     return this.toJavaLocalDateTime().format(dateTimeFormatter)
 }
@@ -27,4 +30,11 @@ fun LocalDateTime.formatDayFullMonth(): String {
 fun LocalDateTime.formatTime(): String {
     val dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm")
     return this.toJavaLocalDateTime().format(dateTimeFormatter)
+}
+
+//----------------------------------------------------------------------
+
+@DrawableRes
+fun KindEntity.getIconRes(): Int {
+    return R.drawable.pet1  // TODO
 }

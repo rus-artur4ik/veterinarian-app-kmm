@@ -17,10 +17,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun <T> Carousel(items: List<T>, content: @Composable (T) -> Unit) {
+fun <T> Carousel(items: List<T>, modifier: Modifier = Modifier, content: @Composable (T) -> Unit) {
     val scrollState = rememberScrollState()
 
-    BoxWithConstraints {
+    BoxWithConstraints(modifier) {
         Row(modifier = Modifier.horizontalScroll(scrollState)) {
             val itemsCount = items.size
 

@@ -4,15 +4,15 @@ import com.rus_artur4ik.petcore.mvvm.MvvmViewModel
 
 abstract class LceViewModel<S> : MvvmViewModel<LceState<S>>() {
 
-    override fun provideInitialScreenState(): LceState<S> = LceState.Loading()
+    override fun provideInitialScreenState(): LceState<S> = SimpleLceState.Loading()
 
     protected fun emitStateAsync(state: suspend () -> S) {
         emitStateAsync(
             state = {
-                LceState.Content(state())
+                SimpleLceState.Content(state())
             },
             onError = {
-                LceState.Error(it)
+                SimpleLceState.Error(it)
             }
         )
     }

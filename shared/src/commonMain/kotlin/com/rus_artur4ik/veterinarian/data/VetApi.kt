@@ -1,6 +1,6 @@
 package com.rus_artur4ik.veterinarian.data
 
-import com.rus_artur4ik.veterinarian.domain.entity.AppointmentEntity
+import com.rus_artur4ik.veterinarian.data.dto.AppointmentDto
 import com.rus_artur4ik.veterinarian.domain.entity.PetEntity
 import com.rus_artur4ik.veterinarian.domain.entity.ProfileEntity
 import com.rus_artur4ik.veterinarian.domain.entity.VisitEntity
@@ -50,7 +50,7 @@ internal object VetApi {
         }.body()
     }
 
-    suspend fun getAppointments(limit: Int?): List<AppointmentEntity> {
+    suspend fun getAppointments(limit: Int?): List<AppointmentDto> {
         return client.get("$BASE_URL/api/v2/appointments") {
             limit?.let { parameter("max_count", it) }
         }.body()

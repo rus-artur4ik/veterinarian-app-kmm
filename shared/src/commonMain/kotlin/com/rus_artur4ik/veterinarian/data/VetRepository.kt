@@ -1,5 +1,6 @@
 package com.rus_artur4ik.veterinarian.data
 
+import com.rus_artur4ik.veterinarian.data.mapper.AppointmentMapper
 import com.rus_artur4ik.veterinarian.domain.entity.AppointmentEntity
 import com.rus_artur4ik.veterinarian.domain.entity.PetEntity
 import com.rus_artur4ik.veterinarian.domain.entity.ProfileEntity
@@ -26,7 +27,7 @@ class VetRepository {
     }
 
     suspend fun getAppointments(limit: Int? = null): List<AppointmentEntity> {
-        return VetApi.getAppointments(limit)
+        return VetApi.getAppointments(limit).map { AppointmentMapper.map(it) }
     }
 
     suspend fun getProfile(): ProfileEntity {

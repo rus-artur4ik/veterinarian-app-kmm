@@ -9,4 +9,4 @@ data class PetInfoScreenState(
     val pet: PetEntity,
     val closestAppointment: AppointmentEntity,
     val visits: List<VisitEntity>
-): MvvmState()
+): MvvmState

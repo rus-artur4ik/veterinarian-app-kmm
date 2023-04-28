@@ -9,7 +9,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Search
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -23,10 +22,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.rus_artur4ik.petcore.mvvm.MvvmScreen
 import com.rus_artur4ik.veterinarian.R
-import com.rus_artur4ik.veterinarian.common.VetCard
 import com.rus_artur4ik.veterinarian.common.VetScreenTemplate
 import com.rus_artur4ik.veterinarian.common.composables.KeyValueTab
-import com.rus_artur4ik.veterinarian.common.formatDayMonthTime
+import com.rus_artur4ik.veterinarian.common.composables.VetCard
+import com.rus_artur4ik.veterinarian.common.formatDayFullMonthTime
 import com.rus_artur4ik.veterinarian.domain.entity.BreedEntity
 import com.rus_artur4ik.veterinarian.domain.entity.DiagnoseEntity
 import com.rus_artur4ik.veterinarian.domain.entity.KindEntity
@@ -41,15 +40,11 @@ class MedCardScreen : MvvmScreen<MedCardScreenState, MedCardViewModel>(
     MedCardViewModel::class.java
 ) {
 
-    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content(viewModel: MedCardViewModel) {
         val lazyListState = rememberLazyListState()
 
-        VetScreenTemplate(
-            name = "Екатерина",
-            navController = viewModel.navHostController
-        ) {
+        VetScreenTemplate(navController = viewModel.navHostController) {
             Column(Modifier.fillMaxSize()) {
 
                 TextField(
@@ -99,7 +94,7 @@ class MedCardScreen : MvvmScreen<MedCardScreenState, MedCardViewModel>(
                 .padding(vertical = 6.dp)
         ) {
             Text(
-                text = item.date.formatDayMonthTime(),
+                text = item.date.formatDayFullMonthTime(),
                 fontSize = 14.sp,
                 modifier = Modifier.padding(
                     end = 16.dp,

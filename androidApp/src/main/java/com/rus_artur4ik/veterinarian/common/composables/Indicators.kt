@@ -43,5 +43,5 @@ fun ErrorIndicator(t: Throwable) {
 @Composable
 @Preview(showBackground = true)
 private fun ErrorPreview() {
-    Error(Throwable("Internal server error"))
+    ErrorIndicator(Throwable("Internal server error"))
 }
