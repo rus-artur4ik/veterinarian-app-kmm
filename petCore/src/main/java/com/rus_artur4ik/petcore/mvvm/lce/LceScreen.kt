@@ -15,15 +15,14 @@ abstract class LceScreen<S, VM: LceViewModel<S>>(
         Wrapper(viewModel) {
             when (val state = viewModel.state) {
                 is Loading -> Loading(
-                    state = state,
                     viewModel = viewModel
                 )
                 is Content -> Content(
-                    state = state,
+                    content = state.content,
                     viewModel = viewModel
                 )
                 is Error -> Error(
-                    state = state,
+                    throwable = state.throwable,
                     viewModel = viewModel
                 )
             }
@@ -32,19 +31,18 @@ abstract class LceScreen<S, VM: LceViewModel<S>>(
 
     @Composable
     protected abstract fun Loading(
-        state: Loading<S>,
         viewModel: VM
     )
 
     @Composable
     protected abstract fun Content(
-        state: Content<S>,
+        content: S,
         viewModel: VM
     )
 
     @Composable
     protected abstract fun Error(
-        state: Error<S>,
+        throwable: Throwable,
         viewModel: VM
     )
 

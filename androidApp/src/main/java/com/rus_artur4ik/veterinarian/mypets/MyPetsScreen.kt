@@ -29,7 +29,6 @@ import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.rus_artur4ik.petcore.mvvm.lce.LceState
 import com.rus_artur4ik.veterinarian.R
 import com.rus_artur4ik.veterinarian.common.BaseEmptyableScreen
 import com.rus_artur4ik.veterinarian.common.composables.RoundIconCard
@@ -71,7 +70,7 @@ class MyPetsScreen : BaseEmptyableScreen<MyPetsScreenState, MyPetsViewModel>(
     }
 
     @Composable
-    override fun Loading(state: LceState.Loading<MyPetsScreenState>, viewModel: MyPetsViewModel) {
+    override fun Loading(viewModel: MyPetsViewModel) {
 //        Wrap(contentState = , viewModel = viewModel) { TODO
 //
 //        }

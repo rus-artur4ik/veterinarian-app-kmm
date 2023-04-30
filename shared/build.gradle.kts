@@ -9,9 +9,7 @@ version = "1.0"
 
 kotlin {
     android()
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
+    ios()
 
     cocoapods {
         summary = "Some description for the Shared Module"
@@ -32,6 +30,7 @@ kotlin {
                 implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
                 implementation("io.ktor:ktor-client-logging:$ktorVersion")
+                implementation("io.ktor:ktor-client-auth:$ktorVersion")
 
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
             }
@@ -41,7 +40,7 @@ kotlin {
                 implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
             }
         }
-        val iosMain by creating {
+        val iosMain by getting {
             dependsOn(commonMain)
             dependencies {
                 implementation("io.ktor:ktor-client-darwin:$ktorVersion")

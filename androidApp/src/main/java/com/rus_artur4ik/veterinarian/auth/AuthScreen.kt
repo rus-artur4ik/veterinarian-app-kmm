@@ -1,111 +1,145 @@
 package com.rus_artur4ik.veterinarian.auth
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement.Center
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation.Companion.None
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
-import com.rus_artur4ik.petcore.mvvm.MvvmScreen
+import androidx.compose.ui.unit.dp
 import com.rus_artur4ik.veterinarian.R
+import com.rus_artur4ik.veterinarian.common.BaseScreen
 
-class AuthScreen : MvvmScreen<AuthScreenState, AuthViewModel>(
+class AuthScreen : BaseScreen<AuthScreenState, AuthViewModel>(
     AuthViewModel::class.java
 ) {
 
-    companion object {
-        private const val TITLE_WIDTH_FRACTION = 0.8f
+    @Composable
+    override fun Wrapper(viewModel: AuthViewModel, content: @Composable () -> Unit) {
+        content()
     }
 
-    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    override fun Content(viewModel: AuthViewModel) {
-        Box(
+    override fun Content(content: AuthScreenState, viewModel: AuthViewModel) {
+        Column(
             modifier = Modifier
                 .fillMaxSize(),
-            contentAlignment = Alignment.Center
         ) {
+            Text(
+                text = stringResource(id = R.string.back),
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier
+                    .padding(start = 16.dp, top = 4.dp)
+                    .clickable { viewModel.navigateBack() }
+                    .padding(horizontal = 12.dp, vertical = 10.dp)
+            )
 
-            Column(
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
+            Text(
+                text = stringResource(id = R.string.sign_in_title),
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.onSurface,
+                modifier = Modifier
+                    .padding(start = 16.dp, end = 16.dp, top = 20.dp)
+            )
 
-                Text(
-                    text = stringResource(id = R.string.sign_in_title),
-                    style = MaterialTheme.typography.titleLarge,
-                    modifier = Modifier
-                        .fillMaxWidth(TITLE_WIDTH_FRACTION)
-                        .padding(horizontal = dimensionResource(R.dimen.default_horizontal_padding))
-                        .wrapContentWidth(Alignment.CenterHorizontally)
-                )
+            OutlinedTextField(
+                value = content.email,
+                singleLine = true,
+                label = {
+                    Text(text = stringResource(id = R.string.email_hint))
+                },
+                onValueChange = { viewModel.setEmail(it) },
+                maxLines = 1,
+                modifier = Modifier
+                    .padding(start = 16.dp, end = 16.dp, top = 32.dp)
+                    .fillMaxWidth()
+            )
 
-                Spacer(modifier = Modifier.height(Dp(12f)))
-
-                Text(
-                    text = stringResource(id = R.string.sign_in_subtitle),
-                    style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier
-                        .fillMaxWidth(TITLE_WIDTH_FRACTION)
-                        .wrapContentWidth(Alignment.CenterHorizontally)
-                )
-
-                Spacer(modifier = Modifier.height(Dp(12f)))
-
-                TextField(
-                    value = "",
-                    singleLine = true,
-                    label = {
-                        Text(text = stringResource(id = R.string.email_hint))
-                    },
-                    onValueChange = {},
-                )
-
-                Spacer(modifier = Modifier.height(Dp(12f)))
-
-                TextField(
-                    value = "",
-                    singleLine = true,
-                    label = {
-                        Text(text = stringResource(id = R.string.password_hint))
-                    },
-                    onValueChange = {},
-                )
-
-                Spacer(modifier = Modifier.height(Dp(12f)))
-
-                Button(
-                    onClick = { viewModel.navigateToHome() }
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.sign_in),
-                        modifier = Modifier.padding(
-                            horizontal = Dp(48f)
-                        )
+            OutlinedTextField(
+                value = content.password,
+                singleLine = true,
+                label = {
+                    Text(text = stringResource(id = R.string.password_hint))
+                },
+                onValueChange = { viewModel.setPassword(it) },
+                maxLines = 1,
+                visualTransformation = if (content.isPasswordVisible) {
+                    None
+                } else {
+                    PasswordVisualTransformation()
+                },
+                trailingIcon = {
+                    val painter = painterResource(
+                        id = if (content.isPasswordVisible) R.drawable.visibility else R.drawable.visibility_off
                     )
-                }
 
-                Spacer(modifier = Modifier.height(Dp(12f)))
+                    IconButton(onClick = { viewModel.togglePasswordVisibility() }) {
+                        Icon(painter = painter, contentDescription = null)
+                    }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 16.dp, end = 16.dp, top = 16.dp)
+            )
 
+            Button(
+                onClick = { viewModel.auth() },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 16.dp, end = 16.dp, top = 24.dp)
+            ) {
                 Text(
-                    text = stringResource(id = R.string.forgot_password_or_no_account),
-                    style = MaterialTheme.typography.bodySmall
+                    text = stringResource(id = R.string.sign_in)
                 )
+            }
+
+            Text(
+                text = stringResource(id = R.string.forgot_password),
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.secondary,
+                modifier = Modifier
+                    .align(CenterHorizontally)
+                    .padding(top = 16.dp)
+                    .clickable { viewModel.forgotPassword() }
+                    .padding(horizontal = 12.dp, vertical = 10.dp)
+            )
+        }
+    }
+
+    @Composable
+    override fun Error(throwable: Throwable, viewModel: AuthViewModel) {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Center,
+            horizontalAlignment = CenterHorizontally
+        ) {
+            Text(
+                text = "Ошибка, ${throwable.localizedMessage}",
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.error
+            )
+
+            Spacer(Modifier.height(24.dp))
+
+            Button(onClick = { viewModel.returnToAuth() }) {
+                Text("Вернуться к авторизации")
             }
         }
     }

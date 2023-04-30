@@ -26,7 +26,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.rus_artur4ik.petcore.mvvm.lce.LceState
 import com.rus_artur4ik.veterinarian.R
 import com.rus_artur4ik.veterinarian.common.BaseScreen
 import com.rus_artur4ik.veterinarian.common.composables.AppointmentIcon
@@ -48,9 +47,8 @@ class HomeScreen : BaseScreen<HomeScreenState, HomeViewModel>(
 ) {
 
     @Composable
-    override fun Content(state: LceState.Content<HomeScreenState>, viewModel: HomeViewModel) {
+    override fun Content(content: HomeScreenState, viewModel: HomeViewModel) {
         val scrollState = rememberScrollState()
-        val content = state.content
 
         Column(
             modifier = Modifier

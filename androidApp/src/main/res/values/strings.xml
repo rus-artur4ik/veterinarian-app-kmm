@@ -24,13 +24,18 @@
         <item quantity="other">%1$d лет</item>
     </plurals>
 
+    <!--    Welcome Screen -->
+    <string name="welcome_title">Добро пожаловать в «Кот и доГ»!</string>
+    <string name="welcome_subtitle">Войдите в личный кабинет, чтобы следить за здоровьем своего питомца.</string>
+    <string name="go_to_auth">Войти в личный кабинет</string>
+
     <!--    Auth -->
     <string name="sign_in_title">Войти в личный кабинет</string>
     <string name="sign_in_subtitle">Укажите адрес электронной почты</string>
-    <string name="email_hint">E-mail</string>
+    <string name="email_hint">Email</string>
     <string name="password_hint">Пароль</string>
     <string name="sign_in">Войти</string>
-    <string name="forgot_password_or_no_account">Я не помню пароль / У меня нет аккаунта</string>
+    <string name="forgot_password">Не помню пароль</string>
 
     <!--    VetAppScreenTemplate-->
     <string name="top_bar_title">Здравствуйте, %s!</string>

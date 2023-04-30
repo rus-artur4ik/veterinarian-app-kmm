@@ -2,8 +2,8 @@ package com.rus_artur4ik.veterinarian.mypets
 
 import com.rus_artur4ik.petcore.mvvm.lce.LceState
 import com.rus_artur4ik.petcore.mvvm.lce.LceeViewModel
-import com.rus_artur4ik.petcore.mvvm.lce.SimpleLceState
 import com.rus_artur4ik.veterinarian.VetScreen.PetInfoScreen
+import com.rus_artur4ik.veterinarian.common.AppContextHolder
 import com.rus_artur4ik.veterinarian.data.VetRepository
 import com.rus_artur4ik.veterinarian.domain.entity.PetEntity
 import com.rus_artur4ik.veterinarian.mypets.MyPetsScreenState.SearchMode
@@ -11,7 +11,7 @@ import com.rus_artur4ik.veterinarian.mypets.MyPetsScreenState.ShowAllMode
 
 class MyPetsViewModel : LceeViewModel<MyPetsScreenState>() {
 
-    private val repository = VetRepository()
+    private val repository = VetRepository(AppContextHolder.context)
 
     init {
         emitStateAsync {
@@ -25,7 +25,7 @@ class MyPetsViewModel : LceeViewModel<MyPetsScreenState>() {
     }
 
     override fun provideInitialScreenState(): LceState<MyPetsScreenState> {
-        return SimpleLceState.Loading()
+        return LceState.Loading()
     }
 
     fun openPetInfo(pet: PetEntity) {
@@ -34,14 +34,14 @@ class MyPetsViewModel : LceeViewModel<MyPetsScreenState>() {
 
     fun goToSearchMode() {
         emitState(
-            SimpleLceState.Content(
+            LceState.Content(
                 SearchMode(items = emptyList(), petNameFilter = "")
             )
         )
     }
 
     fun goToShowAllMode() {
-        emitState(SimpleLceState.Loading())
+        emitState(LceState.Loading())
         emitStateAsync {
             ShowAllMode(repository.getPets())
         }

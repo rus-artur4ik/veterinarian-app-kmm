@@ -3,7 +3,7 @@ package com.rus_artur4ik.veterinarian.home
 import androidx.lifecycle.viewModelScope
 import com.rus_artur4ik.petcore.mvvm.lce.LceState
 import com.rus_artur4ik.petcore.mvvm.lce.LceViewModel
-import com.rus_artur4ik.petcore.mvvm.lce.SimpleLceState
+import com.rus_artur4ik.veterinarian.common.AppContextHolder
 import com.rus_artur4ik.veterinarian.data.VetRepository
 import com.rus_artur4ik.veterinarian.domain.entity.AppointmentEntity
 import com.rus_artur4ik.veterinarian.domain.entity.PetEntity
@@ -11,7 +11,7 @@ import kotlinx.coroutines.async
 
 class HomeViewModel : LceViewModel<HomeScreenState>() {
 
-    private val repository = VetRepository()
+    private val repository = VetRepository(AppContextHolder.context)
 
     init {
         val pets = viewModelScope.async { repository.getPets() }
@@ -30,7 +30,7 @@ class HomeViewModel : LceViewModel<HomeScreenState>() {
     }
 
     override fun provideInitialScreenState(): LceState<HomeScreenState> {
-        return SimpleLceState.Loading()
+        return LceState.Loading()
     }
 
     fun goToPetInfo(pet: PetEntity) {

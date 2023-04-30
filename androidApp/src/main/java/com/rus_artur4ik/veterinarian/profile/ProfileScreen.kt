@@ -22,8 +22,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.rus_artur4ik.petcore.mvvm.lce.LceState
-import com.rus_artur4ik.petcore.mvvm.lce.SimpleLceState
 import com.rus_artur4ik.veterinarian.R
 import com.rus_artur4ik.veterinarian.common.BaseScreen
 import com.rus_artur4ik.veterinarian.common.composables.AppointmentCard
@@ -38,9 +36,8 @@ class ProfileScreen : BaseScreen<ProfileScreenState, ProfileViewModel>(
 ) {
 
     @Composable
-    override fun Content(state: LceState.Content<ProfileScreenState>, viewModel: ProfileViewModel) {
+    override fun Content(content: ProfileScreenState, viewModel: ProfileViewModel) {
         val scrollableState = rememberScrollState()
-        val content = state.content
 
         Column(
             modifier = Modifier
@@ -139,11 +136,9 @@ class ProfileScreen : BaseScreen<ProfileScreenState, ProfileViewModel>(
     @Preview(showBackground = true)
     private fun Preview() {
         Content(
-            SimpleLceState.Content(
-                ProfileScreenState(
-                    profile = ProfileEntity.generate(),
-                    appointments = listOf(AppointmentEntity.generate())
-                )
+            ProfileScreenState(
+                profile = ProfileEntity.generate(),
+                appointments = listOf(AppointmentEntity.generate())
             ),
             ProfileViewModel()
         )

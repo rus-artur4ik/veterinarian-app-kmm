@@ -57,6 +57,7 @@ dependencies {
     // Tooling support (Previews, etc.)
     implementation("androidx.compose.ui:ui-tooling:1.4.2")
     implementation("com.google.android.material:compose-theme-adapter:1.2.1")
+    implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 
     // Dagger
     annotationProcessor("com.google.dagger:dagger-android-processor:2.43.1")
@@ -64,5 +65,6 @@ dependencies {
     implementation("com.google.dagger:dagger-android:2.43.1")
 
     // Misc
-    implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.31.1-alpha")
+    implementation("com.google.accompanist:accompanist-navigation-animation:0.31.1-alpha")
 }

@@ -1,7 +1,6 @@
 package com.rus_artur4ik.petcore.mvvm.lce
 
 import androidx.compose.runtime.Composable
-import com.rus_artur4ik.petcore.mvvm.lce.LceState.Content
 
 abstract class LceeScreen<S, VM: LceeViewModel<S>>(
     viewModelClass: Class<VM>
@@ -9,19 +8,21 @@ abstract class LceeScreen<S, VM: LceeViewModel<S>>(
 
     @Composable
     final override fun Content(
-        state: Content<S>,
+        content: S,
         viewModel: VM
     ) {
-        if (viewModel.isContentEmpty(state.content)) {
-            Empty(
-                content = state.content,
-                viewModel = viewModel
-            )
-        } else {
-            NotEmpty(
-                content = state.content,
-                viewModel = viewModel
-            )
+        Wrapper(viewModel = viewModel) {
+            if (viewModel.isContentEmpty(content)) {
+                Empty(
+                    content = content,
+                    viewModel = viewModel
+                )
+            } else {
+                NotEmpty(
+                    content = content,
+                    viewModel = viewModel
+                )
+            }
         }
     }
 

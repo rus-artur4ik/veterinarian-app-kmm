@@ -7,7 +7,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.rus_artur4ik.petcore.mvvm.lce.LceState
 import com.rus_artur4ik.petcore.mvvm.lce.LceeScreen
 import com.rus_artur4ik.petcore.mvvm.lce.LceeViewModel
 import com.rus_artur4ik.veterinarian.common.composables.ErrorIndicator
@@ -18,25 +17,25 @@ abstract class BaseEmptyableScreen<S, VM: LceeViewModel<S>>(
 ): LceeScreen<S, VM>(viewModelClass) {
 
     @Composable
-    override fun Loading(state: LceState.Loading<S>, viewModel: VM) {
+    override fun Wrapper(viewModel: VM, content: @Composable () -> Unit) {
+        VetScreenTemplate(viewModel.navHostController) {
+            content()
+        }
+    }
+
+    @Composable
+    override fun Loading(viewModel: VM) {
         LoadingIndicator()
     }
 
     @Composable
-    override fun Error(state: LceState.Error<S>, viewModel: VM) {
-        ErrorIndicator(t = state.throwable)
+    override fun Error(throwable: Throwable, viewModel: VM) {
+        ErrorIndicator(t = throwable)
     }
 
     @Composable
     override fun Empty(content: S, viewModel: VM) {
         EmptyIndicator()
-    }
-
-    @Composable
-    override fun Wrapper(viewModel: VM, content: @Composable () -> Unit) {
-        VetScreenTemplate(viewModel.navHostController) {
-            content()
-        }
     }
 }
 
