@@ -6,13 +6,17 @@ abstract class LceViewModel<S> : MvvmViewModel<LceState<S>>() {
 
     override fun provideInitialScreenState(): LceState<S> = LceState.Loading()
 
-    protected open fun emitStateAsync(state: suspend () -> S) {
-        emitStateAsync(
+    protected open fun emitStateAsync(
+        onContent: suspend (S) -> LceState.Content<S>? = { LceState.Content(it) },
+        onError: (Exception) -> LceState.Error<S>? = { LceState.Error(it) },
+        state: suspend () -> S,
+    ) {
+        super.emitStateAsync(
             state = {
-                LceState.Content(state())
+                onContent(state())
             },
             onError = {
-                LceState.Error(it)
+                onError(it)
             }
         )
     }

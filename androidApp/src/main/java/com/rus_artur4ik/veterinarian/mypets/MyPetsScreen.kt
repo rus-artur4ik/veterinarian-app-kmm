@@ -77,6 +77,13 @@ class MyPetsScreen : BaseEmptyableScreen<MyPetsScreenState, MyPetsViewModel>(
     }
 
     @Composable
+    override fun Error(throwable: Throwable, viewModel: MyPetsViewModel) {
+//        Wrap {    //TODO
+//
+//        }
+    }
+
+    @Composable
     private fun Wrap(
         contentState: MyPetsScreenState,
         viewModel: MyPetsViewModel,
@@ -256,10 +263,5 @@ class MyPetsScreen : BaseEmptyableScreen<MyPetsScreenState, MyPetsViewModel>(
                 sterilized = false
             )
         )
-    }
-
-    @Composable
-    override fun Error(throwable: Throwable, viewModel: MyPetsViewModel) {
-
     }
 }

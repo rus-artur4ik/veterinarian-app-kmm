@@ -2,6 +2,7 @@ package com.rus_artur4ik.veterinarian.data.dto
 
 import com.rus_artur4ik.veterinarian.domain.entity.PetEntity
 import kotlinx.datetime.LocalDateTime
+import kotlinx.serialization.Serializable
 
 @Serializable
 data class AppointmentDto(

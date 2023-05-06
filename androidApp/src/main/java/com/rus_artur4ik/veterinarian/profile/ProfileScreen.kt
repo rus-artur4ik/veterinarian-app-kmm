@@ -1,17 +1,18 @@
 package com.rus_artur4ik.veterinarian.profile
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
@@ -21,7 +22,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.rus_artur4ik.veterinarian.R
 import com.rus_artur4ik.veterinarian.common.composables.AppointmentCard
 import com.rus_artur4ik.veterinarian.common.composables.ArrowButton
@@ -41,10 +41,7 @@ class ProfileScreen : BaseScreen<ProfileScreenState, ProfileViewModel>(
 
         Column(
             modifier = Modifier
-                .scrollable(
-                    state = scrollableState,
-                    orientation = Orientation.Vertical
-                )
+                .verticalScroll(state = scrollableState)
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -90,6 +87,23 @@ class ProfileScreen : BaseScreen<ProfileScreenState, ProfileViewModel>(
                 text = stringResource(id = R.string.personal_data_agreement),
                 onClick = viewModel::goToPersonalDataAgreement
             )
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            OutlinedButton(
+                onClick = viewModel::signOut,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp)
+            ) {
+                Text(
+                    text = stringResource(id = R.string.sign_out),
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.secondary
+                )
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
         }
     }
 
@@ -109,7 +123,7 @@ class ProfileScreen : BaseScreen<ProfileScreenState, ProfileViewModel>(
             ) {
                 Text(
                     text = profile.name.first().uppercase(),
-                    fontSize = 32.sp,
+                    style = MaterialTheme.typography.headlineLarge,
                     color = MaterialTheme.colorScheme.primary
                 )
             }
@@ -117,7 +131,7 @@ class ProfileScreen : BaseScreen<ProfileScreenState, ProfileViewModel>(
             Text(
                 text = "${profile.name.trim()} ${profile.surname.trim()}",
                 fontWeight = FontWeight.Bold,
-                fontSize = 16.sp,
+                style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier.padding(top = 8.dp)
             )
@@ -125,7 +139,7 @@ class ProfileScreen : BaseScreen<ProfileScreenState, ProfileViewModel>(
             profile.email?.let { email ->
                 Text(
                     text = email,
-                    fontSize = 14.sp,
+                    style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.inverseSurface
                 )
             }

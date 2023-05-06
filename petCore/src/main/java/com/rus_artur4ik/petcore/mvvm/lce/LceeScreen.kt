@@ -11,18 +11,16 @@ abstract class LceeScreen<S, VM : LceeViewModel<S>>(
         content: S,
         viewModel: VM
     ) {
-        Wrapper(viewModel = { viewModel }) {
-            if (viewModel.isContentEmpty(content)) {
-                Empty(
-                    content = content,
-                    viewModel = viewModel
-                )
-            } else {
-                NotEmpty(
-                    content = content,
-                    viewModel = viewModel
-                )
-            }
+        if (viewModel.isContentEmpty(content)) {
+            Empty(
+                content = content,
+                viewModel = viewModel
+            )
+        } else {
+            NotEmpty(
+                content = content,
+                viewModel = viewModel
+            )
         }
     }
 

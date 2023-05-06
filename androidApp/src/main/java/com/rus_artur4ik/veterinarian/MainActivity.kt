@@ -61,7 +61,7 @@ class MainActivity : ComponentActivity() {
                     .fillMaxSize()
                     .background(colors.surface)
             ) {
-                AutowiredNavHost(startDestinationScreen = VetScreen.WelcomeScreen, VetScreen::class)
+                AutowiredNavHost(startDestinationScreen = VetScreen.HomeScreen, VetScreen::class)
             }
         }
     }

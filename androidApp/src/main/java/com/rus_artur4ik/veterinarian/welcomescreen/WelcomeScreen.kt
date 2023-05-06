@@ -28,7 +28,9 @@ class WelcomeScreen: SimpleScreen() {
 
     @Composable
     override fun Content(navHostController: NavHostController?) {
-        ConstraintLayout(Modifier.fillMaxSize()) {
+        ConstraintLayout(
+            Modifier.fillMaxSize()
+        ) {
             val (logo, pets, column) = createRefs()
 
             Image(

@@ -7,6 +7,7 @@ import com.rus_artur4ik.veterinarian.domain.entity.AppointmentEntity
 import com.rus_artur4ik.veterinarian.domain.entity.PetEntity
 import com.rus_artur4ik.veterinarian.domain.entity.ProfileEntity
 import com.rus_artur4ik.veterinarian.domain.entity.VisitEntity
+import io.ktor.client.plugins.auth.providers.BearerTokens
 import kotlinx.datetime.LocalDateTime
 
 class VetRepository(sharedPreferenceContext: SharedPreferenceContext) {
@@ -17,6 +18,10 @@ class VetRepository(sharedPreferenceContext: SharedPreferenceContext) {
     suspend fun auth(email: String, password: String) {
         val tokens = api.auth(email, password)
         tokenStorage.put(tokens)
+    }
+
+    fun signOut() {
+        tokenStorage.put(BearerTokens("", ""))
     }
 
     // -------------------------------

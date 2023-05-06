@@ -40,17 +40,17 @@ abstract class MvvmViewModel<S : MvvmState> : ViewModel() {
         _state.value = newState
     }
 
-    protected open fun emitStateAsync(state: suspend () -> S, onError: (Exception) -> S) {
+    protected open fun emitStateAsync(state: suspend () -> S?, onError: (Exception) -> S?) {
         viewModelScope.launch(Dispatchers.Main) {
             try {
-                val result: S
+                val result: S?
                 withContext(Dispatchers.IO) {
                     result = state()
                 }
-                emitState(result)
+                result?.let { emitState(result) }
             } catch (e: Exception) {
-                Log.e("MvvmViewModel", "Error while emitting state: $e\ncause: ${e.cause}")
-                emitState(onError(e))
+                Log.e("MvvmViewModel", "Error while emitting state: $e\ncause: ${e.cause}\n${e.stackTrace}")
+                onError(e)?.let { emitState(it) }
             }
         }
     }

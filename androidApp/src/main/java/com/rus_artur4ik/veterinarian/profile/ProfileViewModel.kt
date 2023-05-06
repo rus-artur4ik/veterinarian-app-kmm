@@ -1,6 +1,7 @@
 package com.rus_artur4ik.veterinarian.profile
 
 import androidx.lifecycle.viewModelScope
+import com.rus_artur4ik.veterinarian.VetScreen.WelcomeScreen
 import com.rus_artur4ik.veterinarian.common.AppContextHolder
 import com.rus_artur4ik.veterinarian.common.mvvm.BaseViewModel
 import com.rus_artur4ik.veterinarian.data.VetRepository
@@ -50,5 +51,10 @@ class ProfileViewModel: BaseViewModel<ProfileScreenState>() {
 
     fun closeMenu() {
         // TODO
+    }
+
+    fun signOut() {
+        repository.signOut()
+        navigate(WelcomeScreen)
     }
 }

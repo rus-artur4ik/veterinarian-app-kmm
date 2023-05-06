@@ -13,17 +13,36 @@ abstract class BaseViewModel<S> : LceViewModel<S>() {
         }
     }
 
-    override fun emitStateAsync(state: suspend () -> LceState<S>, onError: (Exception) -> LceState<S>) {
-        expectAuthorized {
-            super.emitStateAsync(state, onError)
+    override fun emitStateAsync(state: suspend () -> LceState<S>?, onError: (Exception) -> LceState<S>?) {
+        super.emitStateAsync(state) {
+            if (it is UnauthorizedException) {
+                onUnauthorized(it)
+                null
+            } else {
+                onError(it)
+            }
         }
     }
 
-    override fun emitStateAsync(state: suspend () -> S) {
-        expectAuthorized {
-            super.emitStateAsync(state)
-        }
+    override fun emitStateAsync(
+        onContent: suspend (S) -> LceState.Content<S>?,
+        onError: (Exception) -> LceState.Error<S>?,
+        state: suspend () -> S,
+    ) {
+        super.emitStateAsync(
+            state = state,
+            onError = {
+                if (it is UnauthorizedException) {
+                    onUnauthorized(it)
+                    null
+                } else {
+                    LceState.Error(it)
+                }
+            },
+            onContent = { LceState.Content(it) }
+        )
     }
+
     fun expectAuthorized(block: () -> Unit) {
         try {
             block()
