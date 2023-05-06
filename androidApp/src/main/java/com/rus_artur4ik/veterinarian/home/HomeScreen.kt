@@ -26,6 +26,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.rus_artur4ik.veterinarian.R
 import com.rus_artur4ik.veterinarian.common.composables.AppointmentIcon
 import com.rus_artur4ik.veterinarian.common.composables.Carousel
@@ -48,6 +49,14 @@ class HomeScreen : BaseScreen<HomeScreenState, HomeViewModel>(
 
     @Composable
     override fun Content(content: HomeScreenState, viewModel: HomeViewModel) {
+        val systemUiController = rememberSystemUiController()
+        systemUiController.setStatusBarColor(
+            color = MaterialTheme.colorScheme.surface
+        )
+        systemUiController.setNavigationBarColor(
+            color = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp)
+        )
+
         val scrollState = rememberScrollState()
 
         Column(

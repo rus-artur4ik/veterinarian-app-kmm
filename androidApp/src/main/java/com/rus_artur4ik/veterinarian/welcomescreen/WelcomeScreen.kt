@@ -12,6 +12,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -19,6 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavHostController
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.rus_artur4ik.petcore.mvvm.SimpleScreen
 import com.rus_artur4ik.petcore.navigation.Navigator.navigateTo
 import com.rus_artur4ik.veterinarian.R
@@ -28,10 +31,31 @@ class WelcomeScreen: SimpleScreen() {
 
     @Composable
     override fun Content(navHostController: NavHostController?) {
+        val systemUiController = rememberSystemUiController()
+        systemUiController.setStatusBarColor(
+            color = colorResource(id = R.color.accent_bg)
+        )
+        systemUiController.setNavigationBarColor(
+            color = MaterialTheme.colorScheme.surface
+        )
+
         ConstraintLayout(
             Modifier.fillMaxSize()
         ) {
-            val (logo, pets, column) = createRefs()
+            val (logo, pets, column, background) = createRefs()
+
+            Image(
+                painter = painterResource(id = R.drawable.welcome_screen_background),
+                contentDescription = null,
+                contentScale = ContentScale.FillWidth,
+                modifier = Modifier
+                    .constrainAs(background) {
+                        top.linkTo(parent.top)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                    }
+                    .fillMaxWidth()
+            )
 
             Image(
                 painter = painterResource(id = R.drawable.welcome_logo),
