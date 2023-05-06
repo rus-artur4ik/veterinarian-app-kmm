@@ -2,14 +2,14 @@ package com.rus_artur4ik.veterinarian.home
 
 import androidx.lifecycle.viewModelScope
 import com.rus_artur4ik.petcore.mvvm.lce.LceState
-import com.rus_artur4ik.petcore.mvvm.lce.LceViewModel
 import com.rus_artur4ik.veterinarian.common.AppContextHolder
+import com.rus_artur4ik.veterinarian.common.mvvm.BaseViewModel
 import com.rus_artur4ik.veterinarian.data.VetRepository
 import com.rus_artur4ik.veterinarian.domain.entity.AppointmentEntity
 import com.rus_artur4ik.veterinarian.domain.entity.PetEntity
 import kotlinx.coroutines.async
 
-class HomeViewModel : LceViewModel<HomeScreenState>() {
+class HomeViewModel : BaseViewModel<HomeScreenState>() {
 
     private val repository = VetRepository(AppContextHolder.context)
 

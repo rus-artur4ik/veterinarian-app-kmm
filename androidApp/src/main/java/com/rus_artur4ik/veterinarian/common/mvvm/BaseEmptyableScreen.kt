@@ -1,4 +1,4 @@
-package com.rus_artur4ik.veterinarian.common
+package com.rus_artur4ik.veterinarian.common.mvvm
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,17 +8,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.rus_artur4ik.petcore.mvvm.lce.LceeScreen
-import com.rus_artur4ik.petcore.mvvm.lce.LceeViewModel
+import com.rus_artur4ik.veterinarian.common.VetScreenTemplate
 import com.rus_artur4ik.veterinarian.common.composables.ErrorIndicator
 import com.rus_artur4ik.veterinarian.common.composables.LoadingIndicator
 
-abstract class BaseEmptyableScreen<S, VM: LceeViewModel<S>>(
+abstract class BaseEmptyableScreen<S, VM: BaseEmptyableViewModel<S>>(
     viewModelClass: Class<VM>
 ): LceeScreen<S, VM>(viewModelClass) {
-
     @Composable
-    override fun Wrapper(viewModel: VM, content: @Composable () -> Unit) {
-        VetScreenTemplate(viewModel.navHostController) {
+    override fun Wrapper(viewModel: () -> VM, content: @Composable () -> Unit) {
+        VetScreenTemplate(viewModel().navHostController) {
             content()
         }
     }
@@ -49,4 +48,3 @@ private fun EmptyIndicator() {
         Text(text = "Список пуст")
     }
 }
-

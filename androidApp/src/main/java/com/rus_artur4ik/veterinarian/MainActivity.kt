@@ -13,17 +13,22 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
+import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.rus_artur4ik.petcore.PetCore
 import com.rus_artur4ik.petcore.navigation.Navigator.AutowiredNavHost
-import com.rus_artur4ik.veterinarian.VetScreen.WelcomeScreen
 import com.rus_artur4ik.veterinarian.common.AppContextHolder
+import com.rus_artur4ik.veterinarian.data.preference.NapierInitializer
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AppContextHolder.context = application
+        NapierInitializer.initialize()
+        PetCore.initialize(application)
 
         setContent {
             Content()
@@ -42,8 +47,12 @@ class MainActivity : ComponentActivity() {
             else -> lightColorScheme()
         }
 
-        rememberSystemUiController().setSystemBarsColor(
+        val systemUiController = rememberSystemUiController()
+        systemUiController.setStatusBarColor(
             color = colors.surface
+        )
+        systemUiController.setNavigationBarColor(
+            color = colors.surfaceColorAtElevation(2.dp)
         )
 
         MaterialTheme(colorScheme = colors) {
@@ -52,7 +61,7 @@ class MainActivity : ComponentActivity() {
                     .fillMaxSize()
                     .background(colors.surface)
             ) {
-                AutowiredNavHost(startDestinationScreen = WelcomeScreen, VetScreen::class)
+                AutowiredNavHost(startDestinationScreen = VetScreen.WelcomeScreen, VetScreen::class)
             }
         }
     }

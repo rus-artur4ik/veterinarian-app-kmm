@@ -1,11 +1,13 @@
 package com.rus_artur4ik.petcore.mvvm
 
 import android.util.Log
+import androidx.annotation.MainThread
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
+import com.rus_artur4ik.petcore.AppContextHolder
 import com.rus_artur4ik.petcore.navigation.Navigator.navigateTo
 import com.rus_artur4ik.petcore.navigation.Screen
 import kotlinx.coroutines.Dispatchers
@@ -18,8 +20,10 @@ abstract class MvvmViewModel<S : MvvmState> : ViewModel() {
         private set
 
     val state get() = (_state as State<S>).value
-
     private val _state by lazy { mutableStateOf(provideInitialScreenState()) }
+
+    protected val resources = AppContextHolder.application?.resources
+        ?: throw IllegalStateException("PetCore is not initialized. Call PetCore.initialize() first.")
 
     abstract fun provideInitialScreenState(): S
 
@@ -27,15 +31,16 @@ abstract class MvvmViewModel<S : MvvmState> : ViewModel() {
         this.navHostController = navHostController
     }
 
-    protected fun emitState(newState: S) {
-        _state.value = newState
-    }
-
+    @MainThread
     protected fun navigate(screen: Screen) {
         requireNotNull(navHostController).navigateTo(screen)
     }
 
-    protected fun emitStateAsync(state: suspend () -> S, onError: (Exception) -> S) {
+    protected open fun emitState(newState: S) {
+        _state.value = newState
+    }
+
+    protected open fun emitStateAsync(state: suspend () -> S, onError: (Exception) -> S) {
         viewModelScope.launch(Dispatchers.Main) {
             try {
                 val result: S

@@ -27,7 +27,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.rus_artur4ik.veterinarian.R
-import com.rus_artur4ik.veterinarian.common.BaseScreen
 import com.rus_artur4ik.veterinarian.common.composables.AppointmentIcon
 import com.rus_artur4ik.veterinarian.common.composables.Carousel
 import com.rus_artur4ik.veterinarian.common.composables.Header
@@ -37,6 +36,7 @@ import com.rus_artur4ik.veterinarian.common.formatDayFullMonthTime
 import com.rus_artur4ik.veterinarian.common.formatDayMonthYear
 import com.rus_artur4ik.veterinarian.common.formatTime
 import com.rus_artur4ik.veterinarian.common.getIconRes
+import com.rus_artur4ik.veterinarian.common.mvvm.BaseScreen
 import com.rus_artur4ik.veterinarian.domain.entity.AppointmentEntity
 import com.rus_artur4ik.veterinarian.domain.entity.PetEntity
 import com.rus_artur4ik.veterinarian.domain.entity.ProfileEntity

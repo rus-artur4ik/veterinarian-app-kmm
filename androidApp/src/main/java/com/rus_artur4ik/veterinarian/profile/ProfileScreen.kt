@@ -23,11 +23,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.rus_artur4ik.veterinarian.R
-import com.rus_artur4ik.veterinarian.common.BaseScreen
 import com.rus_artur4ik.veterinarian.common.composables.AppointmentCard
 import com.rus_artur4ik.veterinarian.common.composables.ArrowButton
 import com.rus_artur4ik.veterinarian.common.composables.Header
 import com.rus_artur4ik.veterinarian.common.composables.RoundedBox
+import com.rus_artur4ik.veterinarian.common.mvvm.BaseScreen
 import com.rus_artur4ik.veterinarian.domain.entity.AppointmentEntity
 import com.rus_artur4ik.veterinarian.domain.entity.ProfileEntity
 

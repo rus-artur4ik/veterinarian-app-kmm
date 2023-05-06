@@ -1,14 +1,14 @@
 package com.rus_artur4ik.veterinarian.profile
 
 import androidx.lifecycle.viewModelScope
-import com.rus_artur4ik.petcore.mvvm.lce.LceViewModel
 import com.rus_artur4ik.veterinarian.common.AppContextHolder
+import com.rus_artur4ik.veterinarian.common.mvvm.BaseViewModel
 import com.rus_artur4ik.veterinarian.data.VetRepository
 import com.rus_artur4ik.veterinarian.domain.entity.AppointmentEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 
-class ProfileViewModel: LceViewModel<ProfileScreenState>() {
+class ProfileViewModel: BaseViewModel<ProfileScreenState>() {
 
     val repository = VetRepository(AppContextHolder.context)
 

@@ -1,15 +1,15 @@
 package com.rus_artur4ik.veterinarian.mypets
 
 import com.rus_artur4ik.petcore.mvvm.lce.LceState
-import com.rus_artur4ik.petcore.mvvm.lce.LceeViewModel
 import com.rus_artur4ik.veterinarian.VetScreen.PetInfoScreen
 import com.rus_artur4ik.veterinarian.common.AppContextHolder
+import com.rus_artur4ik.veterinarian.common.mvvm.BaseEmptyableViewModel
 import com.rus_artur4ik.veterinarian.data.VetRepository
 import com.rus_artur4ik.veterinarian.domain.entity.PetEntity
 import com.rus_artur4ik.veterinarian.mypets.MyPetsScreenState.SearchMode
 import com.rus_artur4ik.veterinarian.mypets.MyPetsScreenState.ShowAllMode
 
-class MyPetsViewModel : LceeViewModel<MyPetsScreenState>() {
+class MyPetsViewModel : BaseEmptyableViewModel<MyPetsScreenState>() {
 
     private val repository = VetRepository(AppContextHolder.context)
 

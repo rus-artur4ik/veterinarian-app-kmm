@@ -1,18 +1,19 @@
-package com.rus_artur4ik.veterinarian.common
+package com.rus_artur4ik.veterinarian.common.mvvm
 
 import androidx.compose.runtime.Composable
 import com.rus_artur4ik.petcore.mvvm.lce.LceScreen
 import com.rus_artur4ik.petcore.mvvm.lce.LceViewModel
+import com.rus_artur4ik.veterinarian.common.VetScreenTemplate
 import com.rus_artur4ik.veterinarian.common.composables.ErrorIndicator
 import com.rus_artur4ik.veterinarian.common.composables.LoadingIndicator
 
-abstract class BaseScreen<S, VM: LceViewModel<S>>(
+abstract class BaseScreen<S, VM : LceViewModel<S>>(
     viewModelClass: Class<VM>
 ) : LceScreen<S, VM>(viewModelClass) {
-
+    
     @Composable
-    override fun Wrapper(viewModel: VM, content: @Composable () -> Unit) {
-        VetScreenTemplate(viewModel.navHostController) {
+    override fun Wrapper(viewModel: () -> VM, content: @Composable () -> Unit) {
+        VetScreenTemplate(viewModel().navHostController) {
             content()
         }
     }

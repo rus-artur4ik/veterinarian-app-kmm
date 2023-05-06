@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--    Common -->
+    <string name="app_name">Кот и доГ</string>
     <string name="pet">Питомец</string>
     <string name="pets">Питомцы</string>
     <string name="diagnosis">Диагноз</string>
@@ -36,6 +37,7 @@
     <string name="password_hint">Пароль</string>
     <string name="sign_in">Войти</string>
     <string name="forgot_password">Не помню пароль</string>
+    <string name="wrong_login_or_password">неверный логин или пароль</string>
 
     <!--    VetAppScreenTemplate-->
     <string name="top_bar_title">Здравствуйте, %s!</string>

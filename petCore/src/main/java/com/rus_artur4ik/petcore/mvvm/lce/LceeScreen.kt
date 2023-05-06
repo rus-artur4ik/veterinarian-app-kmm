@@ -2,16 +2,16 @@ package com.rus_artur4ik.petcore.mvvm.lce
 
 import androidx.compose.runtime.Composable
 
-abstract class LceeScreen<S, VM: LceeViewModel<S>>(
+abstract class LceeScreen<S, VM : LceeViewModel<S>>(
     viewModelClass: Class<VM>
-): LceScreen<S, VM>(viewModelClass) {
+) : LceScreen<S, VM>(viewModelClass) {
 
     @Composable
     final override fun Content(
         content: S,
         viewModel: VM
     ) {
-        Wrapper(viewModel = viewModel) {
+        Wrapper(viewModel = { viewModel }) {
             if (viewModel.isContentEmpty(content)) {
                 Empty(
                     content = content,

@@ -12,15 +12,17 @@ abstract class LceScreen<S, VM: LceViewModel<S>>(
 
     @Composable
     final override fun Content(viewModel: VM) {
-        Wrapper(viewModel) {
+        Wrapper(viewModel = { viewModel }) {
             when (val state = viewModel.state) {
                 is Loading -> Loading(
                     viewModel = viewModel
                 )
+
                 is Content -> Content(
                     content = state.content,
                     viewModel = viewModel
                 )
+
                 is Error -> Error(
                     throwable = state.throwable,
                     viewModel = viewModel
@@ -28,6 +30,9 @@ abstract class LceScreen<S, VM: LceViewModel<S>>(
             }
         }
     }
+
+    @Composable
+    protected abstract fun Wrapper(viewModel: () -> VM, content: @Composable () -> Unit)
 
     @Composable
     protected abstract fun Loading(
@@ -45,9 +50,4 @@ abstract class LceScreen<S, VM: LceViewModel<S>>(
         throwable: Throwable,
         viewModel: VM
     )
-
-    @Composable
-    protected open fun Wrapper(viewModel: VM, content: @Composable () -> Unit) {
-        content()
-    }
 }

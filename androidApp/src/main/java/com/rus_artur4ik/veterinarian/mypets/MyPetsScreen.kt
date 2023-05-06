@@ -30,10 +30,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.rus_artur4ik.veterinarian.R
-import com.rus_artur4ik.veterinarian.common.BaseEmptyableScreen
 import com.rus_artur4ik.veterinarian.common.composables.RoundIconCard
 import com.rus_artur4ik.veterinarian.common.composables.RoundedBox
 import com.rus_artur4ik.veterinarian.common.getIconRes
+import com.rus_artur4ik.veterinarian.common.mvvm.BaseEmptyableScreen
 import com.rus_artur4ik.veterinarian.domain.entity.BreedEntity
 import com.rus_artur4ik.veterinarian.domain.entity.KindEntity
 import com.rus_artur4ik.veterinarian.domain.entity.PetEntity
@@ -256,5 +256,10 @@ class MyPetsScreen : BaseEmptyableScreen<MyPetsScreenState, MyPetsViewModel>(
                 sterilized = false
             )
         )
+    }
+
+    @Composable
+    override fun Error(throwable: Throwable, viewModel: MyPetsViewModel) {
+
     }
 }

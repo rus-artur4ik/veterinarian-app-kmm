@@ -1,5 +1,6 @@
 package com.rus_artur4ik.petcore.navigation
 
+import androidx.annotation.MainThread
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
@@ -81,6 +82,7 @@ object Navigator {
         }
     }
 
+    @MainThread
     fun NavController?.navigateTo(
         screen: Screen,
         navOptions: NavOptions? = null,

@@ -24,14 +24,14 @@ import androidx.compose.ui.text.input.VisualTransformation.Companion.None
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.rus_artur4ik.veterinarian.R
-import com.rus_artur4ik.veterinarian.common.BaseScreen
+import com.rus_artur4ik.veterinarian.common.mvvm.BaseScreen
 
 class AuthScreen : BaseScreen<AuthScreenState, AuthViewModel>(
     AuthViewModel::class.java
 ) {
 
     @Composable
-    override fun Wrapper(viewModel: AuthViewModel, content: @Composable () -> Unit) {
+    override fun Wrapper(viewModel: () -> AuthViewModel, content: @Composable () -> Unit) {
         content()
     }
 
@@ -131,7 +131,7 @@ class AuthScreen : BaseScreen<AuthScreenState, AuthViewModel>(
             horizontalAlignment = CenterHorizontally
         ) {
             Text(
-                text = "Ошибка, ${throwable.localizedMessage}",
+                text = "Ошибка, ${throwable.message}",
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.error
             )

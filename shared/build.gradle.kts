@@ -31,6 +31,7 @@ kotlin {
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
                 implementation("io.ktor:ktor-client-logging:$ktorVersion")
                 implementation("io.ktor:ktor-client-auth:$ktorVersion")
+                implementation("io.github.aakira:napier:2.6.1")
 
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
             }
@@ -57,4 +58,9 @@ android {
         targetSdk = 33
     }
     namespace = "com.rus_artur4ik.veterinarian"
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
 }
