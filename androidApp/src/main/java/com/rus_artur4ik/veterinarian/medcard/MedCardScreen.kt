@@ -20,12 +20,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.rus_artur4ik.petcore.mvvm.MvvmScreen
 import com.rus_artur4ik.veterinarian.R
-import com.rus_artur4ik.veterinarian.common.VetScreenTemplate
 import com.rus_artur4ik.veterinarian.common.composables.KeyValueTab
 import com.rus_artur4ik.veterinarian.common.composables.VetCard
 import com.rus_artur4ik.veterinarian.common.formatDayFullMonthTime
+import com.rus_artur4ik.veterinarian.common.mvvm.BaseEmptyableScreen
 import com.rus_artur4ik.veterinarian.domain.entity.BreedEntity
 import com.rus_artur4ik.veterinarian.domain.entity.DiagnoseEntity
 import com.rus_artur4ik.veterinarian.domain.entity.KindEntity
@@ -36,51 +35,49 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
 
-class MedCardScreen : MvvmScreen<MedCardScreenState, MedCardViewModel>(
+class MedCardScreen : BaseEmptyableScreen<MedCardScreenState, MedCardViewModel>(
     MedCardViewModel::class.java
 ) {
 
     @Composable
-    override fun Content(viewModel: MedCardViewModel) {
+    override fun NotEmpty(content: MedCardScreenState, viewModel: MedCardViewModel) {
         val lazyListState = rememberLazyListState()
 
-        VetScreenTemplate(navController = viewModel.navHostController) {
-            Column(Modifier.fillMaxSize()) {
+        Column(Modifier.fillMaxSize()) {
 
-                TextField(
-                    modifier = Modifier
-                        .align(Alignment.CenterHorizontally)
-                        .fillMaxWidth(),
-                    value = viewModel.state.petNameFilter,
-                    label = {
-                        Text(
-                            text = "Имя питомца"
-                        )
-                    },
-                    leadingIcon = {
-                        Icon(
-                            imageVector = Icons.Rounded.Search,
-                            contentDescription = null
-                        )
-                    },
-                    onValueChange = { viewModel.petNameFilterChanged(it) }
-                )
+            TextField(
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .fillMaxWidth(),
+                value = content.petNameFilter,
+                label = {
+                    Text(
+                        text = "Имя питомца"
+                    )
+                },
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Rounded.Search,
+                        contentDescription = null
+                    )
+                },
+                onValueChange = { viewModel.petNameFilterChanged(it) }
+            )
 
-                LazyColumn(
-                    state = lazyListState,
-                    contentPadding = PaddingValues(
-                        dimensionResource(id = R.dimen.default_horizontal_padding)
-                    ),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.weight(1f)
-                ) {
+            LazyColumn(
+                state = lazyListState,
+                contentPadding = PaddingValues(
+                    dimensionResource(id = R.dimen.default_horizontal_padding)
+                ),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.weight(1f)
+            ) {
 
-                    items(count = viewModel.state.visits.size) { index ->
-                        val item = viewModel.state.visits[index]
-                        VisitCard(
-                            item = item
-                        )
-                    }
+                items(count = content.visits.size) { index ->
+                    val item = content.visits[index]
+                    VisitCard(
+                        item = item
+                    )
                 }
             }
         }
@@ -109,7 +106,7 @@ class MedCardScreen : MvvmScreen<MedCardScreenState, MedCardViewModel>(
 
             KeyValueTab(
                 key = stringResource(id = R.string.diagnosis),
-                value = item.diagnoses.map { it.diagnoseName }.reduce { acc, s -> "$acc; $s" }
+                value = item.diagnoses.map { it.diagnoseName }.joinToString(separator = ";")
             )
         }
     }
