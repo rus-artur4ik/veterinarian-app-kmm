@@ -1,8 +1,10 @@
 package com.rus_artur4ik.veterinarian.medcard
 
+import com.rus_artur4ik.veterinarian.VetScreen.MyPetsSearchScreen
 import com.rus_artur4ik.veterinarian.common.AppContextHolder
 import com.rus_artur4ik.veterinarian.common.mvvm.BaseEmptyableViewModel
 import com.rus_artur4ik.veterinarian.data.VetRepository
+import com.rus_artur4ik.veterinarian.domain.entity.VisitEntity
 
 class MedCardViewModel : BaseEmptyableViewModel<MedCardScreenState>() {
 
@@ -20,7 +22,11 @@ class MedCardViewModel : BaseEmptyableViewModel<MedCardScreenState>() {
         }
     }
 
-    fun petNameFilterChanged(newName: String) {
-//        emitState(state.copy(petNameFilter = newName))
+    fun openVisitInfo(visit: VisitEntity) {
+        // TODO
+    }
+
+    fun navigateToSearchMode() {
+        navigate(MyPetsSearchScreen)
     }
 }

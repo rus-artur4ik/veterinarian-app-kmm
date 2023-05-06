@@ -78,6 +78,10 @@
 
     <string name="visits">Визиты</string>
 
+    <!--    Med Screen  -->
+    <string name="you_have_no_visits">У вас еще не было визитов :(</string>
+    <string name="medcard_title">Медкарта</string>
+
     <!--    Profile    -->
     <string name="my_appointments">Мои записи</string>
     <string name="change_appointment">Изменить запись</string>
