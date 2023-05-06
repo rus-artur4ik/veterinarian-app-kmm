@@ -1,8 +1,10 @@
 package com.rus_artur4ik.veterinarian.common
 
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import com.rus_artur4ik.veterinarian.R
 import com.rus_artur4ik.veterinarian.domain.entity.KindEntity
+import com.rus_artur4ik.veterinarian.domain.entity.VisitType
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.toJavaLocalDateTime
 import java.time.format.DateTimeFormatter
@@ -37,4 +39,13 @@ fun LocalDateTime.formatTime(): String {
 @DrawableRes
 fun KindEntity.getIconRes(): Int {
     return R.drawable.pet1  // TODO
+}
+
+@StringRes
+fun VisitType.getDescriptionRes(): Int {
+    return when (this) {
+        VisitType.FIRST -> R.string.initial_visit
+        VisitType.SECONDARY -> R.string.secondary_visit
+        VisitType.VACCINATION -> R.string.vaccination_visit
+    }
 }

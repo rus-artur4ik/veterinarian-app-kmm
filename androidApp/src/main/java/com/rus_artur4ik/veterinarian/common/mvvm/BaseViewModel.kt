@@ -13,15 +13,18 @@ abstract class BaseViewModel<S> : LceViewModel<S>() {
         }
     }
 
-    override fun emitStateAsync(state: suspend () -> LceState<S>?, onError: (Exception) -> LceState<S>?) {
-        super.emitStateAsync(state) {
-            if (it is UnauthorizedException) {
-                onUnauthorized(it)
-                null
-            } else {
-                onError(it)
-            }
-        }
+    override fun emitStateAsync(onError: (Exception) -> LceState<S>?, state: suspend () -> LceState<S>?) {
+        super.emitStateAsync(
+            {
+                if (it is UnauthorizedException) {
+                    onUnauthorized(it)
+                    null
+                } else {
+                    onError(it)
+                }
+            },
+            { state() }
+        )
     }
 
     override fun emitStateAsync(

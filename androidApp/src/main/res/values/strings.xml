@@ -54,6 +54,9 @@
     <string name="notify_about_visit">Оповестить о визите</string>
     <string name="no_closest_appointment">Нет ближайшей записи</string>
     <string name="no_closest_appointment_description">На данный момент у вас нет активных записей в клинику</string>
+    <string name="initial_visit">Первичный диагноз</string>
+    <string name="secondary_visit">Вторичный диагноз</string>
+    <string name="vaccination_visit">Вакцинация</string>
 
     <!--    My Pets -->
     <string name="search_pet">Найти питомца</string>

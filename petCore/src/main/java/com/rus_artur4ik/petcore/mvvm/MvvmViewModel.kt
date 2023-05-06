@@ -11,6 +11,7 @@ import com.rus_artur4ik.petcore.AppContextHolder
 import com.rus_artur4ik.petcore.navigation.Navigator.navigateTo
 import com.rus_artur4ik.petcore.navigation.Screen
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -21,6 +22,8 @@ abstract class MvvmViewModel<S : MvvmState> : ViewModel() {
 
     val state get() = (_state as State<S>).value
     private val _state by lazy { mutableStateOf(provideInitialScreenState()) }
+
+    private var emitStateJob: Job? = null
 
     protected val resources = AppContextHolder.application?.resources
         ?: throw IllegalStateException("PetCore is not initialized. Call PetCore.initialize() first.")
@@ -40,8 +43,10 @@ abstract class MvvmViewModel<S : MvvmState> : ViewModel() {
         _state.value = newState
     }
 
-    protected open fun emitStateAsync(state: suspend () -> S?, onError: (Exception) -> S?) {
-        viewModelScope.launch(Dispatchers.Main) {
+    protected open fun emitStateAsync(onError: (Exception) -> S?, state: suspend () -> S?) {
+        emitStateJob?.cancel()
+
+        emitStateJob = viewModelScope.launch(Dispatchers.Main) {
             try {
                 val result: S?
                 withContext(Dispatchers.IO) {

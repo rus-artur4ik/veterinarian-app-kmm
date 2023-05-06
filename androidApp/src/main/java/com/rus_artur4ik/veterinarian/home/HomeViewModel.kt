@@ -2,6 +2,7 @@ package com.rus_artur4ik.veterinarian.home
 
 import androidx.lifecycle.viewModelScope
 import com.rus_artur4ik.petcore.mvvm.lce.LceState
+import com.rus_artur4ik.veterinarian.VetScreen
 import com.rus_artur4ik.veterinarian.common.AppContextHolder
 import com.rus_artur4ik.veterinarian.common.mvvm.BaseViewModel
 import com.rus_artur4ik.veterinarian.data.VetRepository
@@ -24,7 +25,8 @@ class HomeViewModel : BaseViewModel<HomeScreenState>() {
                 pets = pets.await(),
                 visits = visit.await(),
                 profile = profile.await(),
-                closestAppointment = closestAppointment.await()
+                closestAppointment = closestAppointment.await(),
+                hasUnreadNotifications = true
             )
         }
     }
@@ -33,11 +35,19 @@ class HomeViewModel : BaseViewModel<HomeScreenState>() {
         return LceState.Loading()
     }
 
-    fun goToPetInfo(pet: PetEntity) {
+    fun navigateToPetInfo(pet: PetEntity) {
         //TODO
     }
 
-    fun onDetailedClick(appointmentEntity: AppointmentEntity) {
+    fun onAppointmentDetailsClick(appointmentEntity: AppointmentEntity) {
         //TODO
+    }
+
+    fun navigateToNotifications() {
+        //TODO
+    }
+
+    fun navigateToMyPets() {
+        navigate(VetScreen.MyPetsScreen)
     }
 }

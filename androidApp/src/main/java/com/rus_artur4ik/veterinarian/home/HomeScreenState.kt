@@ -10,5 +10,6 @@ data class HomeScreenState(
     val pets: List<PetEntity>,
     val visits: List<VisitEntity>,
     val profile: ProfileEntity,
-    val closestAppointment: AppointmentEntity?
+    val closestAppointment: AppointmentEntity?,
+    val hasUnreadNotifications: Boolean
 ) : MvvmState

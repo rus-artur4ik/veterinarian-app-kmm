@@ -200,7 +200,7 @@ class PetInfoScreen : MvvmScreen<PetInfoScreenState, PetInfoViewModel>(
 
                 KeyValueTab(
                     key = stringResource(id = R.string.diagnosis),
-                    value = visit.diagnoses.map { it.diagnoseName }.reduce { acc, s -> "$acc; $s" }
+                    value = visit.diagnoses?.joinToString(separator = ";") { it.diagnoseName } ?: ""
                 )
             }
 

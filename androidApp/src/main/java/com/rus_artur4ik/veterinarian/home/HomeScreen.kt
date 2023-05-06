@@ -2,6 +2,7 @@ package com.rus_artur4ik.veterinarian.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -36,6 +37,7 @@ import com.rus_artur4ik.veterinarian.common.composables.RoundedBox
 import com.rus_artur4ik.veterinarian.common.formatDayFullMonthTime
 import com.rus_artur4ik.veterinarian.common.formatDayMonthYear
 import com.rus_artur4ik.veterinarian.common.formatTime
+import com.rus_artur4ik.veterinarian.common.getDescriptionRes
 import com.rus_artur4ik.veterinarian.common.getIconRes
 import com.rus_artur4ik.veterinarian.common.mvvm.BaseScreen
 import com.rus_artur4ik.veterinarian.domain.entity.AppointmentEntity
@@ -63,7 +65,11 @@ class HomeScreen : BaseScreen<HomeScreenState, HomeViewModel>(
             modifier = Modifier
                 .verticalScroll(scrollState)
         ) {
-            TopBar(profile = content.profile)
+            TopBar(
+                profile = content.profile,
+                hasUnreadNotifications = content.hasUnreadNotifications,
+                viewModel = viewModel
+            )
 
             if (content.closestAppointment != null) {
                 ClosestAppointmentCard(
@@ -78,7 +84,10 @@ class HomeScreen : BaseScreen<HomeScreenState, HomeViewModel>(
 
             Header(
                 title = stringResource(id = R.string.my_pets),
-                subtitle = stringResource(id = R.string.all)
+                subtitle = stringResource(id = R.string.all),
+                onSubtitleClick = {
+                    viewModel.navigateToMyPets()
+                }
             )
 
             Carousel(
@@ -89,7 +98,7 @@ class HomeScreen : BaseScreen<HomeScreenState, HomeViewModel>(
                     pet = it,
                     modifier = Modifier
                         .padding(horizontal = 8.dp)
-                        .clickable { viewModel.goToPetInfo(it) }
+                        .clickable { viewModel.navigateToPetInfo(it) }
                 )
             }
 
@@ -155,7 +164,7 @@ class HomeScreen : BaseScreen<HomeScreenState, HomeViewModel>(
     private fun VisitCard(visit: VisitEntity) {
         RoundIconCard(
             visit.pet.name,
-            visit.pet.name, //TODO
+            stringResource(id = visit.type.getDescriptionRes()),
             visit.date.formatDayMonthYear(),
             visit.date.formatTime()
         ) {
@@ -164,7 +173,7 @@ class HomeScreen : BaseScreen<HomeScreenState, HomeViewModel>(
     }
 
     @Composable
-    private fun TopBar(profile: ProfileEntity) {
+    private fun TopBar(profile: ProfileEntity, hasUnreadNotifications: Boolean, viewModel: HomeViewModel) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -201,11 +210,20 @@ class HomeScreen : BaseScreen<HomeScreenState, HomeViewModel>(
 
 
             Image(
-                painter = painterResource(id = R.drawable.ring),
+                painter = painterResource(
+                    id = if (hasUnreadNotifications) {
+                        R.drawable.ring_with_dot
+                    } else {
+                        R.drawable.ring
+                    }
+                ),
                 contentDescription = null,
                 modifier = Modifier
                     .size(24.dp)
                     .align(CenterVertically)
+                    .clickable {
+                        viewModel.navigateToNotifications()
+                    }
             )
         }
     }
@@ -218,45 +236,56 @@ class HomeScreen : BaseScreen<HomeScreenState, HomeViewModel>(
                 .padding(horizontal = 16.dp),
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer)
         ) {
-            Text(
-                text = stringResource(id = R.string.closest_appointment),
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.secondary,
-                modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp)
-            )
+            Box(Modifier.fillMaxWidth()) {
 
-            Text(
-                text = appointment.description,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 8.dp)
-            )
-
-            Row(
-                modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 4.dp)
-            ) {
                 Image(
-                    painter = painterResource(id = R.drawable.calendar),
-                    contentDescription = null
+                    painter = painterResource(id = R.drawable.paws_down),
+                    contentDescription = null,
+                    modifier = Modifier.align(Alignment.BottomEnd)
                 )
 
-                Text(
-                    text = appointment.date.formatDayFullMonthTime(),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(start = 4.dp)
-                )
-            }
+                Column {
+                    Text(
+                        text = stringResource(id = R.string.closest_appointment),
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.secondary,
+                        modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp)
+                    )
 
-            OutlinedButton(
-                onClick = { viewModel.onDetailedClick(appointment) },
-                modifier = Modifier.padding(start = 20.dp, top = 16.dp, bottom = 20.dp)
-            ) {
-                Text(
-                    text = stringResource(id = R.string.detailed),
-                    style = MaterialTheme.typography.labelLarge,
-                    color = MaterialTheme.colorScheme.secondary
-                )
+                    Text(
+                        text = appointment.description,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 8.dp)
+                    )
+
+                    Row(
+                        modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 4.dp)
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.calendar),
+                            contentDescription = null
+                        )
+
+                        Text(
+                            text = appointment.date.formatDayFullMonthTime(),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.padding(start = 4.dp)
+                        )
+                    }
+
+                    OutlinedButton(
+                        onClick = { viewModel.onAppointmentDetailsClick(appointment) },
+                        modifier = Modifier.padding(start = 20.dp, top = 16.dp, bottom = 20.dp)
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.detailed),
+                            style = MaterialTheme.typography.labelLarge,
+                            color = MaterialTheme.colorScheme.secondary
+                        )
+                    }
+                }
             }
         }
     }
@@ -269,19 +298,29 @@ class HomeScreen : BaseScreen<HomeScreenState, HomeViewModel>(
                 .padding(horizontal = 16.dp),
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer)
         ) {
-            Text(
-                text = stringResource(id = R.string.no_closest_appointment),
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.secondary,
-                modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp)
-            )
+            Box(Modifier.fillMaxWidth()) {
+                Image(
+                    painter = painterResource(id = R.drawable.paws_down),
+                    contentDescription = null,
+                    modifier = Modifier.align(Alignment.BottomEnd)
+                )
 
-            Text(
-                text = stringResource(id = R.string.no_closest_appointment_description),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 8.dp, bottom = 20.dp)
-            )
+                Column {
+                    Text(
+                        text = stringResource(id = R.string.no_closest_appointment),
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.secondary,
+                        modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp)
+                    )
+
+                    Text(
+                        text = stringResource(id = R.string.no_closest_appointment_description),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 8.dp, bottom = 20.dp)
+                    )
+                }
+            }
         }
     }
 
@@ -306,7 +345,7 @@ class HomeScreen : BaseScreen<HomeScreenState, HomeViewModel>(
     @Composable
     @Preview(showBackground = true)
     private fun TopBarPreview() {
-        TopBar(ProfileEntity.generate())
+        TopBar(ProfileEntity.generate(), true, HomeViewModel())
     }
 
 

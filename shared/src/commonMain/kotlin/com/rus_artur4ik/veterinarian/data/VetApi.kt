@@ -43,7 +43,7 @@ internal class VetApi(sharedPreferenceContext: SharedPreferenceContext) {
         isLenient = true
         allowSpecialFloatingPointValues = true
         allowStructuredMapKeys = true
-        prettyPrint = false
+        prettyPrint = true
         useArrayPolymorphism = false
         ignoreUnknownKeys = true
     }
@@ -102,11 +102,13 @@ internal class VetApi(sharedPreferenceContext: SharedPreferenceContext) {
 
     suspend fun getPets(
         limit: Int?,
-        kindName: String?
+        kindName: String?,
+        name: String?
     ): List<PetEntity> {
         return makeGetRequest("/api/v1/pets") {
             limit?.let { parameter("max_count", it) }
             kindName?.let { parameter("kind", it) }
+            name?.let { parameter("name", it) }
         }
     }
 

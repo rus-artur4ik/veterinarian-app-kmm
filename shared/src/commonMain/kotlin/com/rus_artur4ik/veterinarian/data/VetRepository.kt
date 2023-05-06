@@ -28,9 +28,10 @@ class VetRepository(sharedPreferenceContext: SharedPreferenceContext) {
 
     suspend fun getPets(
         limit: Int? = null,
-        kindName: String? = null
+        kindName: String? = null,
+        name: String? = null
     ): List<PetEntity> {
-        return api.getPets(limit, kindName)
+        return api.getPets(limit, kindName, name)
     }
 
     suspend fun getVisits(

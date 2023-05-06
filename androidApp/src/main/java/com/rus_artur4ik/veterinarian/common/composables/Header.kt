@@ -15,7 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun Header(title: String, subtitle: String = "", onValueClick: () -> Unit = {}) {
+fun Header(title: String, subtitle: String = "", onSubtitleClick: () -> Unit = {}) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -35,7 +35,7 @@ fun Header(title: String, subtitle: String = "", onValueClick: () -> Unit = {}) 
             style = MaterialTheme.typography.labelLarge,
             color = MaterialTheme.colorScheme.primary,
             modifier = Modifier
-                .clickable { onValueClick() }
+                .clickable { onSubtitleClick() }
                 .align(Alignment.CenterEnd)
         )
     }

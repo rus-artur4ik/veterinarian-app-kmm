@@ -8,12 +8,28 @@ data class DiagnoseEntity(
     @SerialName("diagnosis_id")
     val diagnoseId:Int,
     @SerialName("diagnosis_name")
-    val diagnoseName: String
+    val diagnoseName: String,
+    @SerialName("diagnosis_type")
+    val diagnoseType: DiagloseType
 ) {
     companion object {
         fun generate() = DiagnoseEntity(
             diagnoseId = 1,
-            diagnoseName = "Эпилепсия"
+            diagnoseName = "Эпилепсия",
+            diagnoseType = DiagloseType.generate()
+        )
+    }
+}
+
+@Serializable
+data class DiagloseType(
+    val id: Int,
+    val value: String
+) {
+    companion object {
+        fun generate() = DiagloseType(
+            id = 1,
+            value = "Very scary diagnosis"
         )
     }
 }

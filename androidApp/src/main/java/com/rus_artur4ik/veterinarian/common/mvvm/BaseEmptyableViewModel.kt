@@ -6,7 +6,7 @@ import com.rus_artur4ik.petcore.mvvm.lce.LceeViewModel
 import com.rus_artur4ik.veterinarian.VetScreen
 import com.rus_artur4ik.veterinarian.data.exception.UnauthorizedException
 
-abstract class BaseEmptyableViewModel<S>: LceeViewModel<S>() {
+abstract class BaseEmptyableViewModel<S> : LceeViewModel<S>() {
 
     override fun emitState(newState: LceState<S>) {
         expectAuthorized {
@@ -15,17 +15,20 @@ abstract class BaseEmptyableViewModel<S>: LceeViewModel<S>() {
     }
 
     override fun emitStateAsync(
+        onError: (Exception) -> LceState<S>?,
         state: suspend () -> LceState<S>?,
-        onError: (Exception) -> LceState<S>?
     ) {
-        super.emitStateAsync(state) {
-            if (it is UnauthorizedException) {
-                onUnauthorized(it)
-                null
-            } else {
-                onError(it)
-            }
-        }
+        super.emitStateAsync(
+            {
+                if (it is UnauthorizedException) {
+                    onUnauthorized(it)
+                    null
+                } else {
+                    onError(it)
+                }
+            },
+            { state() }
+        )
     }
 
     override fun emitStateAsync(
