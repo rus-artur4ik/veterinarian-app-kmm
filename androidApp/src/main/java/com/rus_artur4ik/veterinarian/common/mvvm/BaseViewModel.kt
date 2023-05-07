@@ -1,6 +1,8 @@
 package com.rus_artur4ik.veterinarian.common.mvvm
 
 import android.util.Log
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
 import com.rus_artur4ik.petcore.mvvm.lce.LceState
 import com.rus_artur4ik.petcore.mvvm.lce.LceViewModel
 import com.rus_artur4ik.veterinarian.VetScreen.WelcomeScreen
@@ -20,6 +22,7 @@ abstract class BaseViewModel<S> : LceViewModel<S>() {
                     onUnauthorized(it)
                     null
                 } else {
+                    Firebase.crashlytics.recordException(it)
                     onError(it)
                 }
             },
@@ -39,6 +42,7 @@ abstract class BaseViewModel<S> : LceViewModel<S>() {
                     onUnauthorized(it)
                     null
                 } else {
+                    Firebase.crashlytics.recordException(it)
                     LceState.Error(it)
                 }
             },

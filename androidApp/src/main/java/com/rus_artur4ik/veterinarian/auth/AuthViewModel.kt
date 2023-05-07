@@ -2,6 +2,8 @@ package com.rus_artur4ik.veterinarian.auth
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
 import com.rus_artur4ik.petcore.mvvm.lce.LceState
 import com.rus_artur4ik.veterinarian.R
 import com.rus_artur4ik.veterinarian.VetScreen
@@ -75,6 +77,7 @@ class AuthViewModel : BaseViewModel<AuthScreenState>() {
                         )
                     )
                 } catch (e: Exception) {
+                    Firebase.crashlytics.recordException(e)
                     Log.e("Auth", e.stackTraceToString())
                     previousState = LceState.Content(it)
                     emitState(LceState.Error(e))

@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -67,6 +69,11 @@ dependencies {
     annotationProcessor("com.google.dagger:dagger-android-processor:2.43.1")
     annotationProcessor("com.google.dagger:dagger-compiler:2.43.1")
     implementation("com.google.dagger:dagger-android:2.43.1")
+
+    // Firebase
+    implementation(platform("com.google.firebase:firebase-bom:32.0.0"))
+    implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation("com.google.firebase:firebase-crashlytics-ktx")
 
     // Misc
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.31.1-alpha")

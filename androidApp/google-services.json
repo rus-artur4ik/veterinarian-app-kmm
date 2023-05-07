@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "372854046324",
+    "project_id": "cat-and-dog-9c8e5",
+    "storage_bucket": "cat-and-dog-9c8e5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:372854046324:android:09c48ce6bba2c4960e9b21",
+        "android_client_info": {
+          "package_name": "com.rus_artur4ik.veterinarian"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "372854046324-5ccsru040n6h59rhqo0fqf59d3nnh7ig.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqOHluVm_JhjYuQstiQm2y_jbeIaR3_rU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "372854046324-5ccsru040n6h59rhqo0fqf59d3nnh7ig.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
