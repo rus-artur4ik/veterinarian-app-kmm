@@ -2,9 +2,9 @@ package com.rus_artur4ik.petcore.mvvm.lce
 
 import androidx.compose.runtime.Composable
 import com.rus_artur4ik.petcore.mvvm.MvvmScreen
-import com.rus_artur4ik.petcore.mvvm.lce.LceState.Content
-import com.rus_artur4ik.petcore.mvvm.lce.LceState.Error
-import com.rus_artur4ik.petcore.mvvm.lce.LceState.Loading
+import com.rus_artur4ik.petcore.mvvm.lce.LceState.Lce.Content
+import com.rus_artur4ik.petcore.mvvm.lce.LceState.Lce.Error
+import com.rus_artur4ik.petcore.mvvm.lce.LceState.Lce.Loading
 
 abstract class LceScreen<S, VM: LceViewModel<S>>(
     viewModelClass: Class<VM>
@@ -13,18 +13,22 @@ abstract class LceScreen<S, VM: LceViewModel<S>>(
     @Composable
     final override fun Content(viewModel: VM) {
         Wrapper(viewModel = { viewModel }) {
-            when (val state = viewModel.state) {
+            when (val lce = viewModel.state.lce) {
                 is Loading -> Loading(
                     viewModel = viewModel
                 )
 
-                is Content -> Content(
-                    content = state.content,
-                    viewModel = viewModel
-                )
+                is Content -> {
+                    viewModel.state.state?.let {
+                        Content(
+                            content = it,
+                            viewModel = viewModel
+                        )
+                    }
+                }
 
                 is Error -> Error(
-                    throwable = state.throwable,
+                    throwable = lce.t,
                     viewModel = viewModel
                 )
             }

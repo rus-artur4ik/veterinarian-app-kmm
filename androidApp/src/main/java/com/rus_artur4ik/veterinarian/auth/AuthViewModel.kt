@@ -23,7 +23,7 @@ class AuthViewModel : BaseViewModel<AuthScreenState>() {
     private var previousState = provideInitialScreenState()
 
     override fun provideInitialScreenState(): LceState<AuthScreenState> {
-        return LceState.Content(AuthScreenState("", "", false))
+        return LceState.content(AuthScreenState("", "", false))
     }
 
     fun navigateBack() {
@@ -37,7 +37,7 @@ class AuthViewModel : BaseViewModel<AuthScreenState>() {
     fun togglePasswordVisibility() {
         state.doIfContent {
             emitState(
-                LceState.Content(it.copy(isPasswordVisible = !it.isPasswordVisible))
+                LceState.content(it.copy(isPasswordVisible = !it.isPasswordVisible))
             )
         }
     }
@@ -45,7 +45,7 @@ class AuthViewModel : BaseViewModel<AuthScreenState>() {
     fun setEmail(newEmail: String) {
         state.doIfContent {
             emitState(
-                LceState.Content(it.copy(email = newEmail))
+                LceState.content(it.copy(email = newEmail))
             )
         }
     }
@@ -53,7 +53,7 @@ class AuthViewModel : BaseViewModel<AuthScreenState>() {
     fun setPassword(newPassword: String) {
         state.doIfContent {
             emitState(
-                LceState.Content(it.copy(password = newPassword))
+                LceState.content(it.copy(password = newPassword))
             )
         }
 
@@ -61,7 +61,7 @@ class AuthViewModel : BaseViewModel<AuthScreenState>() {
 
     fun auth() {
         state.doIfContent {
-            emitState(LceState.Loading())
+            emitState(LceState.loading())
 
             viewModelScope.launch(Dispatchers.IO) {
                 try {
@@ -70,17 +70,17 @@ class AuthViewModel : BaseViewModel<AuthScreenState>() {
                         navigateToHome()
                     }
                 } catch (e: WrongCredentialsException) {
-                    previousState = LceState.Content(it)
+                    previousState = LceState.content(it)
                     emitState(
-                        LceState.Error(
+                        LceState.error(
                             IOException(resources.getString(R.string.wrong_login_or_password))
                         )
                     )
                 } catch (e: Exception) {
                     Firebase.crashlytics.recordException(e)
                     Log.e("Auth", e.stackTraceToString())
-                    previousState = LceState.Content(it)
-                    emitState(LceState.Error(e))
+                    previousState = LceState.content(it)
+                    emitState(LceState.error(e))
                 }
             }
         }

@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import com.rus_artur4ik.petcore.mvvm.MvvmScreen
 import com.rus_artur4ik.veterinarian.R
 import com.rus_artur4ik.veterinarian.common.composables.ErrorIndicator
+import com.rus_artur4ik.veterinarian.common.composables.HeaderWithBackButton
 import com.rus_artur4ik.veterinarian.common.composables.LoadingIndicator
 
 class MyPetsSearchScreen : MvvmScreen<MyPetsSearchScreenState, MyPetsSearchViewModel>(
@@ -72,15 +73,8 @@ class MyPetsSearchScreen : MvvmScreen<MyPetsSearchScreenState, MyPetsSearchViewM
     ) {
         Column(Modifier.fillMaxSize()) {
 
-            Text(
-                text = stringResource(id = R.string.back),
-                style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier
-                    .padding(vertical = 10.dp, horizontal = 28.dp)
-                    .clickable {
-                        viewModel.popBack()
-                    }
+            HeaderWithBackButton(
+                onBackClick = { viewModel.popBack() }
             )
 
             OutlinedTextField(

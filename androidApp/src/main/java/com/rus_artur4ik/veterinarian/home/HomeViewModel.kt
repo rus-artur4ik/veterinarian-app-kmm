@@ -32,7 +32,7 @@ class HomeViewModel : BaseViewModel<HomeScreenState>() {
     }
 
     override fun provideInitialScreenState(): LceState<HomeScreenState> {
-        return LceState.Loading()
+        return LceState.loading()
     }
 
     fun navigateToPetInfo(pet: PetEntity) {

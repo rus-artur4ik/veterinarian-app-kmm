@@ -23,7 +23,7 @@ class MyPetsViewModel : BaseEmptyableViewModel<MyPetsScreenState>() {
     }
 
     override fun provideInitialScreenState(): LceState<MyPetsScreenState> {
-        return LceState.Loading()
+        return LceState.loading()
     }
 
     fun openPetInfo(pet: PetEntity) {

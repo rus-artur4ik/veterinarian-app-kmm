@@ -35,8 +35,8 @@ abstract class BaseEmptyableViewModel<S> : LceeViewModel<S>() {
     }
 
     override fun emitStateAsync(
-        onContent: suspend (S) -> LceState.Content<S>?,
-        onError: (Exception) -> LceState.Error<S>?,
+        onContent: (S) -> LceState<S>?,
+        onError: (Exception) -> LceState<S>?,
         state: suspend () -> S,
     ) {
         super.emitStateAsync(
@@ -47,10 +47,10 @@ abstract class BaseEmptyableViewModel<S> : LceeViewModel<S>() {
                     null
                 } else {
                     Firebase.crashlytics.recordException(it)
-                    LceState.Error(it)
+                    LceState.error(it)
                 }
             },
-            onContent = { LceState.Content(it) }
+            onContent = { LceState.content(it) }
         )
     }
 
