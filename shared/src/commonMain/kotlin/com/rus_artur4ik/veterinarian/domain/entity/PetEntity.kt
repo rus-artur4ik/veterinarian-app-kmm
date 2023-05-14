@@ -14,7 +14,9 @@ data class PetEntity(
     val sex: SexEntity? = null,
     val birthday: LocalDateTime? = null,
     val sterilized: Boolean,
-    val color: ColorEntity? = null
+    val color: ColorEntity? = null,
+    @SerialName("chip_number")
+    val chipNumber: String? = null
 ) {
     companion object {
         fun generate() = PetEntity(

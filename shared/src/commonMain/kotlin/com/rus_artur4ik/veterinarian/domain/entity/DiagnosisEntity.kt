@@ -4,19 +4,19 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class DiagnoseEntity(
+data class DiagnosisEntity(
     @SerialName("diagnosis_id")
-    val diagnoseId:Int,
+    val diagnosisId:Int,
     @SerialName("diagnosis_name")
-    val diagnoseName: String,
+    val diagnosisName: String,
     @SerialName("diagnosis_type")
-    val diagnoseType: DiagloseType
+    val diagnosisType: DiagloseType
 ) {
     companion object {
-        fun generate() = DiagnoseEntity(
-            diagnoseId = 1,
-            diagnoseName = "Эпилепсия",
-            diagnoseType = DiagloseType.generate()
+        fun generate() = DiagnosisEntity(
+            diagnosisId = 1,
+            diagnosisName = "Эпилепсия",
+            diagnosisType = DiagloseType.generate()
         )
     }
 }

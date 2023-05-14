@@ -2,7 +2,6 @@ package com.rus_artur4ik.veterinarian.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -16,7 +15,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
@@ -31,10 +29,11 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.rus_artur4ik.veterinarian.R
 import com.rus_artur4ik.veterinarian.common.composables.AppointmentIcon
 import com.rus_artur4ik.veterinarian.common.composables.Carousel
+import com.rus_artur4ik.veterinarian.common.composables.ClosestAppointmentCard
 import com.rus_artur4ik.veterinarian.common.composables.Header
+import com.rus_artur4ik.veterinarian.common.composables.NoClosestAppointmentCard
 import com.rus_artur4ik.veterinarian.common.composables.RoundIconCard
 import com.rus_artur4ik.veterinarian.common.composables.RoundedBox
-import com.rus_artur4ik.veterinarian.common.formatDayFullMonthTime
 import com.rus_artur4ik.veterinarian.common.formatDayMonthYear
 import com.rus_artur4ik.veterinarian.common.formatTime
 import com.rus_artur4ik.veterinarian.common.getDescriptionRes
@@ -74,7 +73,7 @@ class HomeScreen : BaseScreen<HomeScreenState, HomeViewModel>(
             if (content.closestAppointment != null) {
                 ClosestAppointmentCard(
                     appointment = content.closestAppointment,
-                    viewModel = viewModel
+                    onClick = { viewModel.onAppointmentDetailsClick(it) }
                 )
             } else {
                 NoClosestAppointmentCard()
@@ -163,10 +162,10 @@ class HomeScreen : BaseScreen<HomeScreenState, HomeViewModel>(
     @Composable
     private fun VisitCard(visit: VisitEntity) {
         RoundIconCard(
-            visit.pet.name,
-            stringResource(id = visit.type.getDescriptionRes()),
-            visit.date.formatDayMonthYear(),
-            visit.date.formatTime()
+            rightTitle = visit.pet.name,
+            rightSubtitle = stringResource(id = visit.type.getDescriptionRes()),
+            leftTitle = visit.date.formatDayMonthYear(),
+            leftSubtitle = visit.date.formatTime()
         ) {
             AppointmentIcon(appointment = AppointmentEntity.generate()) //TODO поменять на визит
         }
@@ -229,102 +228,6 @@ class HomeScreen : BaseScreen<HomeScreenState, HomeViewModel>(
     }
 
     @Composable
-    private fun ClosestAppointmentCard(appointment: AppointmentEntity, viewModel: HomeViewModel) {
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer)
-        ) {
-            Box(Modifier.fillMaxWidth()) {
-
-                Image(
-                    painter = painterResource(id = R.drawable.paws_down),
-                    contentDescription = null,
-                    modifier = Modifier.align(Alignment.BottomEnd)
-                )
-
-                Column {
-                    Text(
-                        text = stringResource(id = R.string.closest_appointment),
-                        style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.secondary,
-                        modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp)
-                    )
-
-                    Text(
-                        text = appointment.description,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 8.dp)
-                    )
-
-                    Row(
-                        modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 4.dp)
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.calendar),
-                            contentDescription = null
-                        )
-
-                        Text(
-                            text = appointment.date.formatDayFullMonthTime(),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            modifier = Modifier.padding(start = 4.dp)
-                        )
-                    }
-
-                    OutlinedButton(
-                        onClick = { viewModel.onAppointmentDetailsClick(appointment) },
-                        modifier = Modifier.padding(start = 20.dp, top = 16.dp, bottom = 20.dp)
-                    ) {
-                        Text(
-                            text = stringResource(id = R.string.detailed),
-                            style = MaterialTheme.typography.labelLarge,
-                            color = MaterialTheme.colorScheme.secondary
-                        )
-                    }
-                }
-            }
-        }
-    }
-
-    @Composable
-    private fun NoClosestAppointmentCard() {
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer)
-        ) {
-            Box(Modifier.fillMaxWidth()) {
-                Image(
-                    painter = painterResource(id = R.drawable.paws_down),
-                    contentDescription = null,
-                    modifier = Modifier.align(Alignment.BottomEnd)
-                )
-
-                Column {
-                    Text(
-                        text = stringResource(id = R.string.no_closest_appointment),
-                        style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.secondary,
-                        modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp)
-                    )
-
-                    Text(
-                        text = stringResource(id = R.string.no_closest_appointment_description),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 8.dp, bottom = 20.dp)
-                    )
-                }
-            }
-        }
-    }
-
-    @Composable
     @Preview(showBackground = true)
     private fun Preview() {
         Content(HomeViewModel())
@@ -346,18 +249,5 @@ class HomeScreen : BaseScreen<HomeScreenState, HomeViewModel>(
     @Preview(showBackground = true)
     private fun TopBarPreview() {
         TopBar(ProfileEntity.generate(), true, HomeViewModel())
-    }
-
-
-    @Composable
-    @Preview(showBackground = true)
-    private fun ClosestAppointmentCardPreview() {
-        ClosestAppointmentCard(AppointmentEntity.generate(), HomeViewModel())
-    }
-
-    @Composable
-    @Preview(showBackground = true)
-    private fun NoClosestAppointmentCardPreview() {
-        NoClosestAppointmentCard()
     }
 }

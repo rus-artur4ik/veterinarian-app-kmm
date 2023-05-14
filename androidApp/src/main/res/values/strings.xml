@@ -74,9 +74,11 @@
     <string name="chip">Чип</string>
     <string name="sterilization">Стерилизация</string>
 
+    <string name="last_visit">Последнее посещение</string>
+
     <string name="service">Услуга</string>
 
-    <string name="visits">Визиты</string>
+    <string name="pet_is_treating">Сейчас %s лечит</string>
 
     <!--    Med Screen  -->
     <string name="you_have_no_visits">У вас еще не было визитов :(</string>

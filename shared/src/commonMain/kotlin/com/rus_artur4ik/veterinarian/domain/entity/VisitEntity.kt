@@ -10,7 +10,7 @@ data class VisitEntity(
     @SerialName("visit_id")
     val id: Int,
     val date: LocalDateTime,
-    val diagnoses: List<DiagnoseEntity>? = null,
+    val diagnoses: List<DiagnosisEntity>? = null,
     val type: VisitType,
     @SerialName("first_visit_id")
     val firstVisitId: Int? = null,
@@ -20,7 +20,7 @@ data class VisitEntity(
         fun generate() = VisitEntity(
             id = 1,
             date = LocalDateTime(2021, 1, 12, 10, 32),
-            diagnoses = listOf(DiagnoseEntity.generate(), DiagnoseEntity.generate()),
+            diagnoses = listOf(DiagnosisEntity.generate(), DiagnosisEntity.generate()),
             type = SECONDARY,
             firstVisitId = 1,
             pet = PetEntity.generate()

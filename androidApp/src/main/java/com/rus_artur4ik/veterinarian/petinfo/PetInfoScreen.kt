@@ -1,213 +1,181 @@
 package com.rus_artur4ik.veterinarian.petinfo
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.ArrowForward
-import androidx.compose.material3.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.ColorPainter
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.rus_artur4ik.petcore.mvvm.MvvmScreen
 import com.rus_artur4ik.veterinarian.R
-import com.rus_artur4ik.veterinarian.common.VetScreenTemplate
-import com.rus_artur4ik.veterinarian.common.composables.KeyValueTab
-import com.rus_artur4ik.veterinarian.common.composables.VetCard
-import com.rus_artur4ik.veterinarian.common.formatDayFullMonth
-import com.rus_artur4ik.veterinarian.common.formatDayFullMonthTime
+import com.rus_artur4ik.veterinarian.common.composables.ClosestAppointmentCard
+import com.rus_artur4ik.veterinarian.common.composables.ExpandableDiagnoseCard
+import com.rus_artur4ik.veterinarian.common.composables.Header
+import com.rus_artur4ik.veterinarian.common.composables.HeaderWithBackButton
+import com.rus_artur4ik.veterinarian.common.composables.NoClosestAppointmentCard
+import com.rus_artur4ik.veterinarian.common.composables.RoundIconCard
+import com.rus_artur4ik.veterinarian.common.composables.VisitIcon
 import com.rus_artur4ik.veterinarian.common.formatDayMonthYear
-import com.rus_artur4ik.veterinarian.common.formatTime
-import com.rus_artur4ik.veterinarian.domain.entity.AppointmentEntity
-import com.rus_artur4ik.veterinarian.domain.entity.PetEntity
-import com.rus_artur4ik.veterinarian.domain.entity.VisitEntity
+import com.rus_artur4ik.veterinarian.common.getIconRes
+import com.rus_artur4ik.veterinarian.common.mvvm.BaseScreen
 
-class PetInfoScreen : MvvmScreen<PetInfoScreenState, PetInfoViewModel>(
+class PetInfoScreen : BaseScreen<PetInfoScreenState, PetInfoViewModel>(
     PetInfoViewModel::class.java
 ) {
 
     @Composable
-    override fun Content(viewModel: PetInfoViewModel) {
-        VetScreenTemplate(navController = viewModel.navHostController) {
-            val scrollState = rememberScrollState()
-            val pet = viewModel.state.pet
-            val appointment = viewModel.state.closestAppointment
-            val visits = viewModel.state.visits
+    override fun Content(content: PetInfoScreenState, viewModel: PetInfoViewModel) {
+        val scrollState = rememberScrollState()
 
-            Column(
-                modifier = Modifier
-                    .verticalScroll(scrollState)
-                    .padding(horizontal = 16.dp)
-            ) {
-                SimplePetInfoCard(pet)
-                Spacer(modifier = Modifier.height(22.dp))
-                ExtendedPetInfoCard(pet)
-                Spacer(modifier = Modifier.height(22.dp))
-                ClosestAppointmentCard(appointment)
-                Spacer(modifier = Modifier.height(22.dp))
-                VisitsCard(visits, viewModel)
-            }
+        HeaderWithBackButton {
+            viewModel.popBack()
         }
-    }
 
-    @Composable
-    private fun SimplePetInfoCard(pet: PetEntity) {
-        VetCard(Modifier.fillMaxWidth()) {
-            Row(Modifier.fillMaxWidth()) {
-                Image(
-                    painter = ColorPainter(Color.Gray),
-                    contentDescription = null,
-                    modifier = Modifier.size(48.dp)
-                )
+        LazyColumn(
+            modifier = Modifier
+                .verticalScroll(scrollState)
+                .padding(horizontal = 16.dp)
+        ) {
 
-                Column(
-                    Modifier
-                        .weight(1f)
-                        .padding(start = 16.dp)
+            item {
+                if (content.closestAppointment != null) {
+                    ClosestAppointmentCard(
+                        appointment = content.closestAppointment,
+                        onClick = { viewModel.showAppointmentDetails(it) }
+                    )
+                } else {
+                    NoClosestAppointmentCard()
+                }
+            }
+
+            item {
+                Spacer(modifier = Modifier.height(20.dp))
+
+                RoundIconCard(
+                    leftTitle = content.pet.name,
+                    leftSubtitle = content.pet.breed?.name ?: ""
                 ) {
+                    Image(
+                        painter = painterResource(id = content.pet.kind.getIconRes()),
+                        contentDescription = null
+                    )
+                }
+            }
 
-                    Text(text = pet.name)
+            content.pet.birthday?.let { birthday ->
+                item {
+                    PetInfoCard(
+                        title = stringResource(id = R.string.date_of_birth),
+                        subtitle = birthday.formatDayMonthYear(),
+                        iconPainter = painterResource(id = R.drawable.date_of_birth_icon),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 8.dp)
+                    )
+                }
+            }
 
-                    pet.breed?.let {
-                        Text(text = it.name)
+            content.pet.sex?.let { sex ->
+                item {
+                    PetInfoCard(
+                        title = stringResource(id = R.string.sex),
+                        subtitle = sex.name,
+                        iconPainter = painterResource(id = R.drawable.sex_icon),
+                        modifier = Modifier
+                            .padding(top = 8.dp)
+                    )
+                }
+            }
+
+            content.pet.color?.let { color ->
+                item {
+                    PetInfoCard(
+                        title = stringResource(id = R.string.color),
+                        subtitle = color.name,
+                        iconPainter = painterResource(id = R.drawable.color_icon),
+                        modifier = Modifier.padding(top = 8.dp)
+                    )
+                }
+            }
+
+            content.pet.chipNumber?.let { chipNumber ->
+                item {
+                    PetInfoCard(
+                        title = stringResource(id = R.string.chip),
+                        subtitle = chipNumber,
+                        iconPainter = painterResource(id = R.drawable.chip_icon),
+                        modifier = Modifier.padding(top = 8.dp)
+                    )
+                }
+            }
+
+            content.visits.maxByOrNull { it.date }?.let { visit ->
+                item {
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    Header(title = stringResource(id = R.string.last_visit))
+                }
+
+                item {
+                    RoundIconCard {
+                        VisitIcon(visit = visit.toVisitEntity())
                     }
                 }
             }
 
-            pet.birthday?.let {
-                KeyValueTab(
-                    key = stringResource(id = R.string.date_of_birth),
-                    value = it.formatDayMonthYear()
-                )
-            }
+            if (content.visits.flatMap { it.diagnoses ?: listOf() }.isNotEmpty()) {
+                item {
+                    Spacer(modifier = Modifier.height(20.dp))
 
-            KeyValueTab(
-                key = stringResource(id = R.string.kind_of_pet),
-                value = pet.kind.name
-            )
+                    Header(title = stringResource(id = R.string.pet_is_treating, content.pet.name))
 
-            pet.sex?.let {
-                KeyValueTab(
-                    key = stringResource(id = R.string.sex),
-                    value = it.name
-                )
-            }
-        }
-    }
+                    Spacer(modifier = Modifier.height(16.dp))
+                }
 
-    @Composable
-    private fun ExtendedPetInfoCard(pet: PetEntity) {
-        VetCard(Modifier.fillMaxWidth()) {
-            Text(
-                text = stringResource(id = R.string.additional_info),
-                fontWeight = FontWeight.Bold
-            )
 
-            KeyValueTab(
-                key = stringResource(id = R.string.color),
-                value = "Красный"
-            )
-
-            KeyValueTab(
-                key = stringResource(id = R.string.chip),
-                value = "12345678"
-            )
-
-            KeyValueTab(
-                key = stringResource(id = R.string.sterilization),
-                value = "Есть"
-            )
-        }
-    }
-
-    @Composable
-    private fun ClosestAppointmentCard(appointmentEntity: AppointmentEntity) {
-        VetCard(Modifier.fillMaxWidth()) {
-            Text(
-                text = stringResource(id = R.string.closest_appointment),
-                fontWeight = FontWeight.Bold
-            )
-
-            KeyValueTab(
-                key = stringResource(id = R.string.service),
-                value = "Название услуги"
-            )
-
-            KeyValueTab(
-                key = stringResource(id = R.string.date),
-                value = appointmentEntity.date.formatDayFullMonth()
-            )
-
-            KeyValueTab(
-                key = stringResource(id = R.string.time),
-                value = appointmentEntity.date.formatTime()
-            )
-        }
-    }
-
-    @Composable
-    private fun VisitsCard(visits: List<VisitEntity>, viewModel: PetInfoViewModel) {
-        VetCard(Modifier.fillMaxWidth()) {
-            Box(Modifier.fillMaxWidth()) {
-                Text(
-                    text = stringResource(id = R.string.visits),
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.align(Alignment.CenterStart)
-                )
-
-                Text(
-                    text = stringResource(id = R.string.all),
-                    modifier = Modifier
-                        .align(Alignment.CenterEnd)
-                        .clickable { viewModel.showAllVisits() }
-                )
-            }
-
-            Column {
-                visits.take(3).forEach {
-                    VisitItem(visit = it)
+                content.visits.forEach { visit ->
+                    visit.diagnoses?.forEach { diagnosis ->
+                        item {
+                            ExpandableDiagnoseCard(
+                                diagnose = diagnosis.diagnosis,
+                                isExpanded = diagnosis.isExpanded,
+                                onToggleExpand = { viewModel.toggleExpandDiagnosis(visit, diagnosis) }
+                            )
+                        }
+                    }
                 }
             }
         }
     }
 
     @Composable
-    private fun VisitItem(visit: VisitEntity) {
-        Row(
-            modifier = Modifier
-                .border(width = 1.dp, color = Color.Gray)
-                .padding(vertical = 8.dp)
+    private fun PetInfoCard(
+        title: String,
+        subtitle: String,
+        iconPainter: Painter,
+        modifier: Modifier = Modifier
+    ) {
+        RoundIconCard(
+            leftTitle = title,
+            leftTitleStyle = MaterialTheme.typography.bodySmall,
+            leftTitleColor = MaterialTheme.colorScheme.onSurfaceVariant,
+            leftSubtitle = subtitle,
+            leftSubtitleStyle = MaterialTheme.typography.titleMedium,
+            leftSubtitleColor = MaterialTheme.colorScheme.secondary,
+            modifier = modifier
         ) {
-            Column(Modifier.weight(1f)) {
-                Text(text = visit.date.formatDayFullMonthTime())
-
-                KeyValueTab(
-                    key = stringResource(id = R.string.diagnosis),
-                    value = visit.diagnoses?.joinToString(separator = ";") { it.diagnoseName } ?: ""
-                )
-            }
-
             Image(
-                painter = rememberVectorPainter(image = Icons.Rounded.ArrowForward),
-                contentDescription = null,
-                modifier = Modifier.size(24.dp)
+                painter = iconPainter,
+                contentDescription = null
             )
         }
     }
