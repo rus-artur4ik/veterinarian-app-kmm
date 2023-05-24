@@ -5,6 +5,7 @@
     <string name="pet">Питомец</string>
     <string name="pets">Питомцы</string>
     <string name="diagnosis">Диагноз</string>
+    <string name="research">Обследование</string>
     <string name="date">Дата</string>
     <string name="time">Время</string>
     <string name="error">Ошибка.\n%s</string>
