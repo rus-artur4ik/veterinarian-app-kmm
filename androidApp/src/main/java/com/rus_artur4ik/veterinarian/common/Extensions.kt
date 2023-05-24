@@ -4,6 +4,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.rus_artur4ik.veterinarian.R
 import com.rus_artur4ik.veterinarian.domain.entity.KindEntity
+import com.rus_artur4ik.veterinarian.domain.entity.SexEntity
 import com.rus_artur4ik.veterinarian.domain.entity.VisitType
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.toJavaLocalDateTime
@@ -47,5 +48,13 @@ fun VisitType.getDescriptionRes(): Int {
         VisitType.FIRST -> R.string.initial_visit
         VisitType.SECONDARY -> R.string.secondary_visit
         VisitType.VACCINATION -> R.string.vaccination_visit
+    }
+}
+
+@StringRes
+fun SexEntity.getStringRes(): Int {
+    return when (id) {
+        0 -> R.string.male
+        else -> R.string.female //TODO
     }
 }

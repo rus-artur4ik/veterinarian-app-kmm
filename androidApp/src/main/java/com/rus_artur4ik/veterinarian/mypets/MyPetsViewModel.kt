@@ -7,6 +7,7 @@ import com.rus_artur4ik.veterinarian.common.AppContextHolder
 import com.rus_artur4ik.veterinarian.common.mvvm.BaseEmptyableViewModel
 import com.rus_artur4ik.veterinarian.data.VetRepository
 import com.rus_artur4ik.veterinarian.domain.entity.PetEntity
+import com.rus_artur4ik.veterinarian.petinfo.PetInfoScreen.Companion.PET_ID_KEY
 
 class MyPetsViewModel : BaseEmptyableViewModel<MyPetsScreenState>() {
 
@@ -27,7 +28,7 @@ class MyPetsViewModel : BaseEmptyableViewModel<MyPetsScreenState>() {
     }
 
     fun openPetInfo(pet: PetEntity) {
-        navigate(PetInfoScreen) //todo
+        navigate(PetInfoScreen, listOf(PET_ID_KEY to pet.id))
     }
 
     fun goToSearchMode() {

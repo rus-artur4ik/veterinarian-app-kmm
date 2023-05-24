@@ -23,13 +23,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.rus_artur4ik.veterinarian.R
-import com.rus_artur4ik.veterinarian.common.composables.RoundIconCard
-import com.rus_artur4ik.veterinarian.common.composables.VisitIcon
-import com.rus_artur4ik.veterinarian.common.formatDayMonthYear
-import com.rus_artur4ik.veterinarian.common.formatTime
-import com.rus_artur4ik.veterinarian.common.getDescriptionRes
+import com.rus_artur4ik.veterinarian.common.composables.VisitCard
 import com.rus_artur4ik.veterinarian.common.mvvm.BaseEmptyableScreen
-import com.rus_artur4ik.veterinarian.domain.entity.VisitEntity
 
 class MedCardScreen : BaseEmptyableScreen<MedCardScreenState, MedCardViewModel>(
     MedCardViewModel::class.java
@@ -121,30 +116,9 @@ class MedCardScreen : BaseEmptyableScreen<MedCardScreenState, MedCardViewModel>(
         }
     }
 
-    @Composable
-    private fun VisitCard(item: VisitEntity, modifier: Modifier = Modifier) {
-        RoundIconCard(
-            leftTitle = item.pet.name,
-            leftSubtitle = stringResource(id = item.type.getDescriptionRes()),
-            rightTitle = item.date.formatDayMonthYear(),
-            rightSubtitle = item.date.formatTime(),
-            modifier = modifier
-        ) {
-            VisitIcon(visit = item)
-        }
-    }
-
     @Preview(showBackground = true)
     @Composable
     private fun Preview() {
         Content(MedCardViewModel())
-    }
-
-    @Preview
-    @Composable
-    private fun VisitCardPreview() {
-        VisitCard(
-            VisitEntity.generate()
-        )
     }
 }

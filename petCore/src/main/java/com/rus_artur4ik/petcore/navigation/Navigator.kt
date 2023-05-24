@@ -3,6 +3,7 @@ package com.rus_artur4ik.petcore.navigation
 import androidx.annotation.MainThread
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -39,7 +40,7 @@ object Navigator {
         screens: List<Screen>
     ) {
         screens.forEach {
-            registerScreen(it, navHostController)
+            registerScreen(it, navHostController, it.arguments)
         }
     }
 
@@ -78,23 +79,47 @@ object Navigator {
         }
 
         screenClasses.forEach {
-            registerScreen(it, navHostController)
+            registerScreen(it, navHostController, it.arguments)
         }
     }
 
     @MainThread
     fun NavController?.navigateTo(
         screen: Screen,
+        arguments: List<Pair<String, Any>> = listOf(),
         navOptions: NavOptions? = null,
         navigatorExtras: Navigator.Extras? = null
     ) {
-        requireNotNull(this).navigate(screen.id, navOptions, navigatorExtras)
+        val route = StringBuilder(screen.id)
+        arguments.firstOrNull()?.let { route.append("/${it.second}") }
+        arguments.getOrNull(1)?.let { route.append("?${it.first}={${it.second}}") }
+        if (arguments.size > 2) {
+            for (i in 2 until arguments.size) {
+                val arg = arguments[i]
+                route.append("&${arg.first}={${arg.second}}")
+            }
+        }
+
+        requireNotNull(this).navigate(route.toString(), navOptions, navigatorExtras)
     }
 
     private fun NavGraphBuilder.registerScreen(
         screen: Screen,
-        navHostController: NavHostController
+        navHostController: NavHostController,
+        arguments: List<NamedNavArgument>
     ) {
-        composable(screen.id) { screen.screenFactory().Content(navHostController) }
+        val additionalRoute = StringBuilder()
+        arguments.firstOrNull()?.let { additionalRoute.append("/{${it.name}}") }
+        arguments.getOrNull(1)?.let { additionalRoute.append("?${it.name}={${it.name}}") }
+        if (arguments.size > 2) {
+            for (i in 2 until arguments.size) {
+                val name = arguments[i].name
+                additionalRoute.append("&$name={$name}")
+            }
+        }
+
+        composable("${screen.id}$additionalRoute", arguments = arguments) { backStackEntry ->
+            screen.screenFactory(backStackEntry).Content(navHostController)
+        }
     }
 }

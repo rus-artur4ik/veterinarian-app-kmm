@@ -94,10 +94,10 @@ internal class VetApi(sharedPreferenceContext: SharedPreferenceContext) {
     }
 
     suspend fun refresh(refreshToken: String): AccessTokenDto {
-        return client.post("$BASE_URL/api/v5/auth/refresh") {
+        return makePostRequest("/api/v5/auth/refresh") {
             contentType(ContentType.Application.Json)
             setBody(RefreshTokenDto(refreshToken))
-        }.body()
+        }
     }
 
     suspend fun getPets(
@@ -112,8 +112,17 @@ internal class VetApi(sharedPreferenceContext: SharedPreferenceContext) {
         }
     }
 
+    suspend fun getPet(
+        id: Int
+    ): PetEntity {
+        return makeGetRequest("/api/v1/get_pet") {
+            parameter("pet_id", id)
+        }
+    }
+
     suspend fun getVisits(
         limit: Int? = null,
+        petId: Int? = null,
         breedId: Int? = null,
         kindId: Int? = null,
         dateFrom: LocalDateTime? = null,
@@ -121,6 +130,7 @@ internal class VetApi(sharedPreferenceContext: SharedPreferenceContext) {
     ): List<VisitEntity> {
         return makeGetRequest("/api/v2/visits") {
             limit?.let { parameter("max_count", it) }
+            petId?.let { parameter("pet_id", it) }
             breedId?.let { parameter("breed_id", it) }
             kindId?.let { parameter("kind_id", it) }
             dateFrom?.let { parameter("date1", it) } //TODO
@@ -142,7 +152,13 @@ internal class VetApi(sharedPreferenceContext: SharedPreferenceContext) {
         val response = client.get("$BASE_URL$path") { block() }
 
         if (response.status == HttpStatusCode.Unauthorized) throw UnauthorizedException()
+        return response.body()
+    }
 
+    private suspend inline fun <reified T> makePostRequest(path: String, block: HttpRequestBuilder.() -> Unit = {}): T {
+        val response = client.post("$BASE_URL$path") { block() }
+
+        if (response.status == HttpStatusCode.Unauthorized) throw UnauthorizedException()
         return response.body()
     }
 

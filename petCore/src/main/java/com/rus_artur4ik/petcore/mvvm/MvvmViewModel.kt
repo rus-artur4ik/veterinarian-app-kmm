@@ -35,8 +35,8 @@ abstract class MvvmViewModel<S : MvvmState> : ViewModel() {
     }
 
     @MainThread
-    protected fun navigate(screen: Screen) {
-        requireNotNull(navHostController).navigateTo(screen)
+    protected fun navigate(screen: Screen, arguments: List<Pair<String, Any>> = listOf()) {
+        requireNotNull(navHostController).navigateTo(screen, arguments)
     }
 
     protected open fun emitState(newState: S) {
