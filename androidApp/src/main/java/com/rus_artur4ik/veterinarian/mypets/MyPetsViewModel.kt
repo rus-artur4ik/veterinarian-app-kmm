@@ -28,7 +28,7 @@ class MyPetsViewModel : BaseEmptyableViewModel<MyPetsScreenState>() {
     }
 
     fun openPetInfo(pet: PetEntity) {
-        navigate(PetInfoScreen, listOf(PET_ID_KEY to pet.id))
+        navigate(PetInfoScreen, mapOf(PET_ID_KEY to pet.id))
     }
 
     fun goToSearchMode() {

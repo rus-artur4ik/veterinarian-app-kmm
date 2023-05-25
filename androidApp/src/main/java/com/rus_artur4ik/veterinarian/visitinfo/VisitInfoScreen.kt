@@ -80,4 +80,8 @@ class VisitInfoScreen : BaseScreen<VisitInfoScreenState, VisitInfoViewModel>(
     private fun ResearchPreview() {
         ResearchPage(VisitEntity.generate())
     }
+
+    companion object {
+        const val VISIT_ID_KEY = "visitId"
+    }
 }

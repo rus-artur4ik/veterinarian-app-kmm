@@ -15,6 +15,7 @@ import com.rus_artur4ik.veterinarian.petinfo.PetInfoScreen
 import com.rus_artur4ik.veterinarian.petinfo.PetInfoScreen.Companion.PET_ID_KEY
 import com.rus_artur4ik.veterinarian.profile.ProfileScreen
 import com.rus_artur4ik.veterinarian.visitinfo.VisitInfoScreen
+import com.rus_artur4ik.veterinarian.visitinfo.VisitInfoScreen.Companion.VISIT_ID_KEY
 import com.rus_artur4ik.veterinarian.welcomescreen.WelcomeScreen
 
 sealed class VetScreen(
@@ -33,6 +34,10 @@ sealed class VetScreen(
         listOf(navArgument(PET_ID_KEY) { type = NavType.IntType })
     )
     object MedCardScreen : VetScreen("med_card", { MedCardScreen() })
-    object VisitInfoScreen: VetScreen("visit_info", { VisitInfoScreen() })
+    object VisitInfoScreen: VetScreen(
+        "visit_info",
+        { VisitInfoScreen() },
+        listOf(navArgument(VISIT_ID_KEY) { type = NavType.IntType })
+    )
     object ProfileScreen : VetScreen("profile", { ProfileScreen() })
 }

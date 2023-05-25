@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
@@ -15,6 +16,8 @@ import androidx.navigation.compose.rememberNavController
 import kotlin.reflect.KClass
 
 object Navigator {
+
+    private const val WITH_ARGS_PLACEHOLDER = "withArgs"
 
     @Composable
     fun NavHost(
@@ -74,7 +77,7 @@ object Navigator {
             .filter { it.isFinal }
             .mapNotNull { it.objectInstance as? Screen }
 
-        if(screenClasses.isEmpty()) {
+        if (screenClasses.isEmpty()) {
             throw IllegalArgumentException("ScreensSuperclass contains no screens or it is not a sealed class!")
         }
 
@@ -86,21 +89,57 @@ object Navigator {
     @MainThread
     fun NavController?.navigateTo(
         screen: Screen,
-        arguments: List<Pair<String, Any>> = listOf(),
+        arguments: Map<String, Any> = mapOf(),
         navOptions: NavOptions? = null,
         navigatorExtras: Navigator.Extras? = null
     ) {
+        val currentDestination = findCurrentDestination(screen)!!
+
+        assertAllArgsPassed(currentDestination, arguments)
+
+        val primaryArgKey = currentDestination.route
+            ?.split("$WITH_ARGS_PLACEHOLDER/")
+            ?.last()
+            ?.split("/")
+            ?.first()
+
         val route = StringBuilder(screen.id)
-        arguments.firstOrNull()?.let { route.append("/${it.second}") }
-        arguments.getOrNull(1)?.let { route.append("?${it.first}={${it.second}}") }
-        if (arguments.size > 2) {
-            for (i in 2 until arguments.size) {
-                val arg = arguments[i]
-                route.append("&${arg.first}={${arg.second}}")
+        arguments[primaryArgKey]?.let {
+            route.append("/$WITH_ARGS_PLACEHOLDER/$primaryArgKey/${it}")
+        }
+
+        val otherEntries = arguments.entries.filter { it.key != primaryArgKey }
+
+        for (i in otherEntries.indices) {
+            if (i == 0) {
+                otherEntries[i].let { route.append("?${it.key}={${it.value}}") }
+            } else {
+                val arg = otherEntries[i]
+                route.append("&${arg.key}={${arg.value}}")
             }
         }
 
         requireNotNull(this).navigate(route.toString(), navOptions, navigatorExtras)
+    }
+
+    private fun NavController?.findCurrentDestination(screen: Screen): NavDestination? {
+        return this?.graph?.find { it.route?.startsWith(screen.id) == true }
+    }
+
+    private fun assertAllArgsPassed(
+        destination: NavDestination,
+        arguments: Map<String, Any>
+    ) {
+        val destinationArgNames = destination.arguments.keys
+        destinationArgNames.all {
+            val argName = arguments[it]?.javaClass?.simpleName?.lowercase()
+            val destinationArgName = destination.arguments[it]?.type?.name
+            if (argName == destinationArgName) {
+                true
+            } else {
+                throw java.lang.IllegalArgumentException("Expected argument with key $it of class $destinationArgName, but got $argName}")
+            }
+        }
     }
 
     private fun NavGraphBuilder.registerScreen(
@@ -109,7 +148,9 @@ object Navigator {
         arguments: List<NamedNavArgument>
     ) {
         val additionalRoute = StringBuilder()
-        arguments.firstOrNull()?.let { additionalRoute.append("/{${it.name}}") }
+        arguments.firstOrNull()?.let {
+            additionalRoute.append("/$WITH_ARGS_PLACEHOLDER/${it.name}/{${it.name}}")
+        }
         arguments.getOrNull(1)?.let { additionalRoute.append("?${it.name}={${it.name}}") }
         if (arguments.size > 2) {
             for (i in 2 until arguments.size) {

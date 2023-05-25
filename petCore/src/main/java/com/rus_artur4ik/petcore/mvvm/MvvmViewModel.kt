@@ -35,7 +35,7 @@ abstract class MvvmViewModel<S : MvvmState> : ViewModel() {
     }
 
     @MainThread
-    protected fun navigate(screen: Screen, arguments: List<Pair<String, Any>> = listOf()) {
+    protected fun navigate(screen: Screen, arguments: Map<String, Any> = mapOf()) {
         requireNotNull(navHostController).navigateTo(screen, arguments)
     }
 
