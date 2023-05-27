@@ -49,6 +49,10 @@ class VetRepository(sharedPreferenceContext: SharedPreferenceContext) {
         return api.getVisits(limit, petId, breedId, kindId, dateFrom, dateTo)
     }
 
+    suspend fun getVisit(id: Int): VisitEntity {
+        return api.getVisit(id)
+    }
+
     suspend fun getAppointments(limit: Int? = null): List<AppointmentEntity> {
         return api.getAppointments(limit).map { AppointmentMapper.map(it) }
     }

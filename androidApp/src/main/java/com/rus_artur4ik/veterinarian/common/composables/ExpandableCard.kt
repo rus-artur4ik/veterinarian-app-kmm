@@ -10,13 +10,16 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -27,34 +30,39 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.rus_artur4ik.veterinarian.R
-import com.rus_artur4ik.veterinarian.domain.entity.DiagnosisEntity
 
 const val EXPAND_ANIMATION_DURATION = 500
 const val ALPHA_DELAY = 300
+
 @Composable
-fun ExpandableDiagnoseCard(
-    diagnose: DiagnosisEntity,
+fun ExpandableCard(
+    title: String,
+    description: String,
     isExpanded: Boolean,
-    onToggleExpand: (Boolean) -> Unit
+    onToggleExpand: () -> Unit
 ) {
     val transitionState = remember {
-        MutableTransitionState(isExpanded).apply {
-            targetState = !isExpanded
-        }
+        MutableTransitionState(isExpanded)
     }
+    transitionState.targetState = isExpanded
+
     val transition = updateTransition(transitionState, label = "transition")
 
     val arrowRotationDegree by transition.animateFloat({
         tween(durationMillis = EXPAND_ANIMATION_DURATION)
     }, label = "arrow rotation") {
-        if (it) 0f else 180f
+        if (it) 180f else 0f
     }
 
     Card(
         shape = MaterialTheme.shapes.medium,
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(1.dp)
+        ),
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp)
+            .clickable { onToggleExpand() }
     ) {
         Column {
             Row(
@@ -62,7 +70,7 @@ fun ExpandableDiagnoseCard(
                 modifier = Modifier.padding(16.dp)
             ) {
                 Text(
-                    text = diagnose.diagnosisName,
+                    text = title,
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.weight(1f)
@@ -78,7 +86,7 @@ fun ExpandableDiagnoseCard(
 
             ExpandableContent(
                 isExpanded = isExpanded,
-                diagnose = diagnose
+                description = description
             )
         }
     }
@@ -87,7 +95,7 @@ fun ExpandableDiagnoseCard(
 @Composable
 private fun ExpandableContent(
     isExpanded: Boolean = true,
-    diagnose: DiagnosisEntity
+    description: String
 ) {
     val enterTransition = remember {
         expandVertically(
@@ -121,10 +129,10 @@ private fun ExpandableContent(
     ) {
         Column(
             modifier = Modifier
-            .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
+                .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
         ) {
             Text(
-                text = diagnose.diagnosisType.value,
+                text = description,
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -135,11 +143,11 @@ private fun ExpandableContent(
 @Composable
 @Preview
 private fun Collapsed() {
-    ExpandableDiagnoseCard(diagnose = DiagnosisEntity.generate(), isExpanded = false) {}
+    ExpandableCard(title = "Title", description = "Description", isExpanded = false) {}
 }
 
 @Composable
 @Preview
 private fun Expanded() {
-    ExpandableDiagnoseCard(diagnose = DiagnosisEntity.generate(), isExpanded = true) {}
+    ExpandableCard(title = "Title", description = "Description", isExpanded = true) {}
 }

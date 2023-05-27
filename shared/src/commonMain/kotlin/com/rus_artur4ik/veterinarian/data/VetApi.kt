@@ -112,9 +112,7 @@ internal class VetApi(sharedPreferenceContext: SharedPreferenceContext) {
         }
     }
 
-    suspend fun getPet(
-        id: Int
-    ): PetEntity {
+    suspend fun getPet(id: Int): PetEntity {
         return makeGetRequest("/api/v1/get_pet") {
             parameter("pet_id", id)
         }
@@ -133,8 +131,14 @@ internal class VetApi(sharedPreferenceContext: SharedPreferenceContext) {
             petId?.let { parameter("pet_id", it) }
             breedId?.let { parameter("breed_id", it) }
             kindId?.let { parameter("kind_id", it) }
-            dateFrom?.let { parameter("date1", it) } //TODO
-            dateTo?.let { parameter("date2", it) } //TODO
+            dateFrom?.let { parameter("date1", it) }
+            dateTo?.let { parameter("date2", it) }
+        }
+    }
+    
+    suspend fun getVisit(id: Int): VisitEntity {
+        return makeGetRequest("/api/v4/visit") {
+            parameter("visit_id", id)
         }
     }
 

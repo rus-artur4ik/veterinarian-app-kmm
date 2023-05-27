@@ -1,4 +1,4 @@
-package com.rus_artur4ik.veterinarian.petinfo
+package com.rus_artur4ik.veterinarian.common.uimodel
 
 import com.rus_artur4ik.veterinarian.domain.entity.DiagnosisEntity
 

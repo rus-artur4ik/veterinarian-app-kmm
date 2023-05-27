@@ -31,11 +31,12 @@ fun RoundIconCard(
     leftSubtitleColor: Color = MaterialTheme.colorScheme.onSurfaceVariant,
     rightTitle: String = "",
     rightSubtitle: String = "",
+    cardBackgroundColor: Color = MaterialTheme.colorScheme.surfaceColorAtElevation(1.dp),
     icon: @Composable () -> Unit
 ) {
     Card(
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(1.dp)
+            containerColor = cardBackgroundColor
         ),
         shape = MaterialTheme.shapes.medium,
         modifier = modifier
@@ -70,7 +71,11 @@ fun RoundIconCard(
                 horizontalAlignment = Alignment.End,
                 modifier = Modifier
                     .padding(start = 8.dp)
-                    .weight(1f)
+                    .apply {
+                        if (rightTitle.isNotBlank() || rightSubtitle.isNotBlank()) {
+                            weight(1f)
+                        }
+                    }
             ) {
                 Text(
                     text = rightTitle,

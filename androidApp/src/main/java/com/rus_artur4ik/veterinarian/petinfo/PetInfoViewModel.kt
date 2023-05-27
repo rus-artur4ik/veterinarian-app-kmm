@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.rus_artur4ik.petcore.mvvm.lce.LceState
 import com.rus_artur4ik.veterinarian.common.AppContextHolder
 import com.rus_artur4ik.veterinarian.common.mvvm.BaseViewModel
+import com.rus_artur4ik.veterinarian.common.uimodel.DiagnosisUiModel
+import com.rus_artur4ik.veterinarian.common.uimodel.VisitUiModel
 import com.rus_artur4ik.veterinarian.data.VetRepository
 import com.rus_artur4ik.veterinarian.domain.entity.AppointmentEntity
 import com.rus_artur4ik.veterinarian.petinfo.PetInfoScreen.Companion.PET_ID_KEY
@@ -49,25 +51,23 @@ class PetInfoViewModel(
 
     fun toggleExpandDiagnosis(visitModel: VisitUiModel, diagnosisModel: DiagnosisUiModel) {
         state.doIfContent {
-            emitState(LceState.content(
-                it.copy(visits = it.visits.map { visit ->
-                        if (visit.id == visitModel.id) {
-                            visit.copy(
-                                diagnoses = visit.diagnoses?.map { diagnosis ->
-                                    if (diagnosis.diagnosis.diagnosisId == diagnosisModel.diagnosis.diagnosisId) {
-                                        diagnosis.copy(isExpanded = !diagnosis.isExpanded)
-                                    } else {
-                                        diagnosis
-                                    }
-                                }
-                            )
-                        } else {
-                            visit
+            val newState = it.copy(visits = it.visits.map { visit ->
+                if (visit.id == visitModel.id) {
+                    visit.copy(
+                        diagnoses = visit.diagnoses?.map { diagnosis ->
+                            if (diagnosis.diagnosis.diagnosisId == diagnosisModel.diagnosis.diagnosisId) {
+                                diagnosis.copy(isExpanded = !diagnosis.isExpanded)
+                            } else {
+                                diagnosis
+                            }
                         }
-                    }
-                )
+                    )
+                } else {
+                    visit
+                }
+            }
             )
-            )
+            emitState(LceState.content(newState))
         }
     }
 
