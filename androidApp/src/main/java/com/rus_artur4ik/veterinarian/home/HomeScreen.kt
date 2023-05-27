@@ -27,19 +27,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.rus_artur4ik.veterinarian.R
-import com.rus_artur4ik.veterinarian.common.composables.AppointmentIcon
 import com.rus_artur4ik.veterinarian.common.composables.Carousel
 import com.rus_artur4ik.veterinarian.common.composables.ClosestAppointmentCard
 import com.rus_artur4ik.veterinarian.common.composables.Header
 import com.rus_artur4ik.veterinarian.common.composables.NoClosestAppointmentCard
 import com.rus_artur4ik.veterinarian.common.composables.RoundIconCard
 import com.rus_artur4ik.veterinarian.common.composables.RoundedBox
+import com.rus_artur4ik.veterinarian.common.composables.VisitIcon
 import com.rus_artur4ik.veterinarian.common.formatDayMonthYear
 import com.rus_artur4ik.veterinarian.common.formatTime
 import com.rus_artur4ik.veterinarian.common.getDescriptionRes
 import com.rus_artur4ik.veterinarian.common.getIconRes
 import com.rus_artur4ik.veterinarian.common.mvvm.BaseScreen
-import com.rus_artur4ik.veterinarian.domain.entity.AppointmentEntity
 import com.rus_artur4ik.veterinarian.domain.entity.PetEntity
 import com.rus_artur4ik.veterinarian.domain.entity.ProfileEntity
 import com.rus_artur4ik.veterinarian.domain.entity.VisitEntity
@@ -106,12 +105,15 @@ class HomeScreen : BaseScreen<HomeScreenState, HomeViewModel>(
             if (content.visits.isNotEmpty()) {
                 Header(
                     title = stringResource(id = R.string.last_visits),
-                    subtitle = stringResource(id = R.string.all)
+                    subtitle = stringResource(id = R.string.all),
+                    onSubtitleClick = {
+                        viewModel.navigateToMedCard()
+                    }
                 )
             }
 
             content.visits.forEach {
-                VisitCard(visit = it)
+                VisitCard(visit = it, viewModel)
             }
         }
     }
@@ -160,14 +162,17 @@ class HomeScreen : BaseScreen<HomeScreenState, HomeViewModel>(
     }
 
     @Composable
-    private fun VisitCard(visit: VisitEntity) {
+    private fun VisitCard(visit: VisitEntity, viewModel: HomeViewModel) {
         RoundIconCard(
-            rightTitle = visit.pet.name,
-            rightSubtitle = stringResource(id = visit.type.getDescriptionRes()),
-            leftTitle = visit.date.formatDayMonthYear(),
-            leftSubtitle = visit.date.formatTime()
+            leftTitle = visit.pet.name,
+            leftSubtitle = stringResource(id = visit.type.getDescriptionRes()),
+            rightTitle = visit.date.formatDayMonthYear(),
+            rightSubtitle = visit.date.formatTime(),
+            modifier = Modifier.clickable {
+                viewModel.navigateToVisitInfo(visit)
+            }
         ) {
-            AppointmentIcon(appointment = AppointmentEntity.generate()) //TODO поменять на визит
+            VisitIcon(visit)
         }
     }
 
@@ -242,7 +247,7 @@ class HomeScreen : BaseScreen<HomeScreenState, HomeViewModel>(
     @Composable
     @Preview(showBackground = true)
     private fun VisitCardPreview() {
-        VisitCard(VisitEntity.generate())
+        VisitCard(VisitEntity.generate(), HomeViewModel())
     }
 
     @Composable

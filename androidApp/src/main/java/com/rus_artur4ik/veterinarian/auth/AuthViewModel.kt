@@ -1,6 +1,7 @@
 package com.rus_artur4ik.veterinarian.auth
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
@@ -31,6 +32,11 @@ class AuthViewModel : BaseViewModel<AuthScreenState>() {
     }
 
     fun forgotPassword() {
+        Toast.makeText(
+            AppContextHolder.context,
+            "Этот функционал в разработке.\nОбратитесь в клинику для восстановления пароля",
+            Toast.LENGTH_SHORT
+        ).show()
         // TODO
     }
 

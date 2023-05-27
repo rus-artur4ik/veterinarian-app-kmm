@@ -23,7 +23,7 @@
         <item quantity="two">%d года</item>
         <item quantity="few">%d года</item>
         <item quantity="many">%d лет</item>
-        <item quantity="other">%d лет</item>
+        <item quantity="other">%d года</item>
     </plurals>
 
     <!--    Welcome Screen -->
@@ -70,6 +70,7 @@
     <string name="sex">Пол</string>
     <string name="male">Самец</string>
     <string name="female">Самка</string>
+    <string name="other_sex">Небинарный</string>
 
     <string name="color">Цвет</string>
     <string name="chip">Чип</string>

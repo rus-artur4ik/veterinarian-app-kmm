@@ -39,7 +39,18 @@ fun LocalDateTime.formatTime(): String {
 
 @DrawableRes
 fun KindEntity.getIconRes(): Int {
-    return R.drawable.pet1  // TODO
+    return when (id) {
+        52 -> R.drawable.pet1
+        53, 188, 189, 190 -> R.drawable.pet2
+        191 -> R.drawable.pet3
+        38 -> R.drawable.pet4
+        185 -> R.drawable.pet5
+        54, 67, 187, 192 -> R.drawable.pet6
+        181, 183, 186 -> R.drawable.pet7
+        70, 179 -> R.drawable.pet8
+        68 -> R.drawable.pet9
+        else -> R.drawable.pet10
+    }
 }
 
 @StringRes
@@ -54,7 +65,8 @@ fun VisitType.getDescriptionRes(): Int {
 @StringRes
 fun SexEntity.getStringRes(): Int {
     return when (id) {
-        0 -> R.string.male
-        else -> R.string.female //TODO
+        7 -> R.string.female
+        8 -> R.string.male
+        else -> R.string.other_sex
     }
 }

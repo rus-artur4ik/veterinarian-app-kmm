@@ -22,7 +22,7 @@ fun PetCard(item: PetEntity, modifier: Modifier = Modifier) {
         if (it < 1) {
             stringResource(id = R.string.less_than_one_year)
         } else {
-            pluralStringResource(id = R.plurals.years, it)
+            pluralStringResource(id = R.plurals.years, it, it)
         }
     } ?: ""
 

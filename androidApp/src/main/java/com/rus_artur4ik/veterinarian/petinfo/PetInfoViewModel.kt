@@ -3,6 +3,7 @@ package com.rus_artur4ik.veterinarian.petinfo
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.rus_artur4ik.petcore.mvvm.lce.LceState
+import com.rus_artur4ik.veterinarian.VetScreen
 import com.rus_artur4ik.veterinarian.common.AppContextHolder
 import com.rus_artur4ik.veterinarian.common.mvvm.BaseViewModel
 import com.rus_artur4ik.veterinarian.common.uimodel.DiagnosisUiModel
@@ -10,6 +11,7 @@ import com.rus_artur4ik.veterinarian.common.uimodel.VisitUiModel
 import com.rus_artur4ik.veterinarian.data.VetRepository
 import com.rus_artur4ik.veterinarian.domain.entity.AppointmentEntity
 import com.rus_artur4ik.veterinarian.petinfo.PetInfoScreen.Companion.PET_ID_KEY
+import com.rus_artur4ik.veterinarian.visitinfo.VisitInfoScreen.Companion.VISIT_ID_KEY
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 
@@ -42,7 +44,11 @@ class PetInfoViewModel(
     }
 
     fun showAllVisits() {
-        //TODO
+        navigate(VetScreen.MedCardScreen)
+    }
+
+    fun showVisitInfo(visit: VisitUiModel) {
+        navigate(VetScreen.VisitInfoScreen, mapOf(VISIT_ID_KEY to visit.id))
     }
 
     fun showAppointmentDetails(appointment: AppointmentEntity) {

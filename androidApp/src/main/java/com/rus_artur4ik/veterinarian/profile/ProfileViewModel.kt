@@ -45,11 +45,19 @@ class ProfileViewModel: BaseViewModel<ProfileScreenState>() {
         //TODO
     }
 
-    fun openAppointmentMenu(appointmentEntity: AppointmentEntity) {
+    fun openAppointmentMenu(appointment: AppointmentEntity) {
         //TODO
     }
 
     fun closeMenu() {
+        // TODO
+    }
+
+    fun changeAppointment(appointment: AppointmentEntity) {
+        // TODO
+    }
+
+    fun cancelAppointment(appointment: AppointmentEntity) {
         // TODO
     }
 

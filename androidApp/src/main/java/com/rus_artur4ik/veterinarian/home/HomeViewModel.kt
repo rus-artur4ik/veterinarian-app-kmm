@@ -8,6 +8,9 @@ import com.rus_artur4ik.veterinarian.common.mvvm.BaseViewModel
 import com.rus_artur4ik.veterinarian.data.VetRepository
 import com.rus_artur4ik.veterinarian.domain.entity.AppointmentEntity
 import com.rus_artur4ik.veterinarian.domain.entity.PetEntity
+import com.rus_artur4ik.veterinarian.domain.entity.VisitEntity
+import com.rus_artur4ik.veterinarian.petinfo.PetInfoScreen
+import com.rus_artur4ik.veterinarian.visitinfo.VisitInfoScreen.Companion.VISIT_ID_KEY
 import kotlinx.coroutines.async
 
 class HomeViewModel : BaseViewModel<HomeScreenState>() {
@@ -35,8 +38,20 @@ class HomeViewModel : BaseViewModel<HomeScreenState>() {
         return LceState.loading()
     }
 
+    fun navigateToMyPets() {
+        navigate(VetScreen.MyPetsScreen)
+    }
+
     fun navigateToPetInfo(pet: PetEntity) {
-        //TODO
+        navigate(VetScreen.PetInfoScreen, mapOf(PetInfoScreen.PET_ID_KEY to pet.id))
+    }
+
+    fun navigateToMedCard() {
+        navigate(VetScreen.MedCardScreen)
+    }
+
+    fun navigateToVisitInfo(visit: VisitEntity) {
+        navigate(VetScreen.VisitInfoScreen, mapOf(VISIT_ID_KEY to visit.id))
     }
 
     fun onAppointmentDetailsClick(appointmentEntity: AppointmentEntity) {
@@ -45,9 +60,5 @@ class HomeViewModel : BaseViewModel<HomeScreenState>() {
 
     fun navigateToNotifications() {
         //TODO
-    }
-
-    fun navigateToMyPets() {
-        navigate(VetScreen.MyPetsScreen)
     }
 }

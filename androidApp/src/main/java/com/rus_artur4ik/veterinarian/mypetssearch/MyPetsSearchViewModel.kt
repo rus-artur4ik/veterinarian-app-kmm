@@ -1,12 +1,14 @@
 package com.rus_artur4ik.veterinarian.mypetssearch
 
 import com.rus_artur4ik.petcore.mvvm.MvvmViewModel
+import com.rus_artur4ik.veterinarian.VetScreen
 import com.rus_artur4ik.veterinarian.common.AppContextHolder
 import com.rus_artur4ik.veterinarian.data.VetRepository
 import com.rus_artur4ik.veterinarian.domain.entity.PetEntity
 import com.rus_artur4ik.veterinarian.mypetssearch.MyPetsSearchScreenState.State.CONTENT
 import com.rus_artur4ik.veterinarian.mypetssearch.MyPetsSearchScreenState.State.ERROR
 import com.rus_artur4ik.veterinarian.mypetssearch.MyPetsSearchScreenState.State.LOADING
+import com.rus_artur4ik.veterinarian.petinfo.PetInfoScreen
 
 class MyPetsSearchViewModel : MvvmViewModel<MyPetsSearchScreenState>() {
 
@@ -57,7 +59,7 @@ class MyPetsSearchViewModel : MvvmViewModel<MyPetsSearchScreenState>() {
     }
 
     fun openPetInfo(pet: PetEntity) {
-        // TODO
+        navigate(VetScreen.PetInfoScreen, mapOf(PetInfoScreen.PET_ID_KEY to pet.id))
     }
 
     fun popBack() {

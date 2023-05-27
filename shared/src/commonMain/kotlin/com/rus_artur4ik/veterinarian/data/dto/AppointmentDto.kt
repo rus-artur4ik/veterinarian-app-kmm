@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
 data class AppointmentDto(
     val appointment_id: Int,
     val doctor_name: String? = null,
-    val description: String = "Appointment description", //TODO
+    val description: String,
     val date: LocalDateTime,
     val type: String,
     val pet: PetEntity

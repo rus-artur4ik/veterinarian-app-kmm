@@ -1,6 +1,7 @@
 package com.rus_artur4ik.veterinarian.petinfo
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -129,11 +130,22 @@ class PetInfoScreen : BaseScreen<PetInfoScreenState, PetInfoViewModel>(
                     item {
                         Spacer(modifier = Modifier.height(20.dp))
 
-                        Header(title = stringResource(id = R.string.last_visit))
+                        Header(
+                            title = stringResource(id = R.string.last_visit),
+                            subtitle = stringResource(id = R.string.all),
+                            onSubtitleClick = {
+                                viewModel.showAllVisits()
+                            }
+                        )
                     }
 
                     item {
-                        VisitCard(visit.toVisitEntity())
+                        VisitCard(
+                            item = visit.toVisitEntity(),
+                            modifier = Modifier.clickable {
+                                viewModel.showVisitInfo(visit)
+                            }
+                        )
                     }
                 }
 
