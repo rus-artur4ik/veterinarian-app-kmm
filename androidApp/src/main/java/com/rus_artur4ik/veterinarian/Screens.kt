@@ -6,6 +6,7 @@ import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.rus_artur4ik.petcore.mvvm.SimpleScreen
 import com.rus_artur4ik.petcore.navigation.Screen
+import com.rus_artur4ik.veterinarian.appointmentselector.AppointmentSelectorScreen
 import com.rus_artur4ik.veterinarian.auth.AuthScreen
 import com.rus_artur4ik.veterinarian.home.HomeScreen
 import com.rus_artur4ik.veterinarian.medcard.MedCardScreen
@@ -40,4 +41,8 @@ sealed class VetScreen(
         listOf(navArgument(VISIT_ID_KEY) { type = NavType.IntType })
     )
     object ProfileScreen : VetScreen("profile", { ProfileScreen() })
+    object AppointmentSelectorScreen: VetScreen(
+        "appointment_selector",
+        { AppointmentSelectorScreen() }
+    )
 }

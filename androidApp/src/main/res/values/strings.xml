@@ -16,6 +16,7 @@
     <string name="closest_appointment">Ближайшая запись</string>
     <string name="less_than_one_year">&lt;1 года</string>
     <string name="back">Назад</string>
+    <string name="notify_about_visit">Оповестить о визите</string>
 
     <plurals name="years">
         <item quantity="zero">%d лет</item>
@@ -52,7 +53,6 @@
     <string name="my_pets">Мои питомцы</string>
     <string name="last_visits">Последние посещения</string>
     <string name="make_an_appointment">Записаться на услугу</string>
-    <string name="notify_about_visit">Оповестить о визите</string>
     <string name="no_closest_appointment">Нет ближайшей записи</string>
     <string name="no_closest_appointment_description">На данный момент у вас нет активных записей в клинику</string>
     <string name="initial_visit">Первичный диагноз</string>
@@ -106,4 +106,11 @@
     <string name="user_agreement">Пользовательское соглашение</string>
     <string name="personal_data_agreement">Соглашение о персональных данных</string>
     <string name="sign_out">Выйти из приложения</string>
+
+    <!--    Appointment     -->
+    <string name="appointment_to_clinic">Запись в клинику</string>
+    <string name="make_appointment">Записаться на прием</string>
+    <string name="make_appointment_info">Запись на ультразвуковое исследование или несрочную операцию</string>
+    <string name="notify_about_visit_info">Оповестить о скором визите в клинику или о срочной операции</string>
+
 </resources>
