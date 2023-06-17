@@ -9,8 +9,11 @@ import com.rus_artur4ik.veterinarian.data.exception.UnauthorizedException
 import com.rus_artur4ik.veterinarian.data.exception.WrongCredentialsException
 import com.rus_artur4ik.veterinarian.data.preference.SharedPreferenceContext
 import com.rus_artur4ik.veterinarian.data.preference.TokenStorage
+import com.rus_artur4ik.veterinarian.domain.entity.AppointmentType
+import com.rus_artur4ik.veterinarian.domain.entity.AvailableTimesEntity
 import com.rus_artur4ik.veterinarian.domain.entity.PetEntity
 import com.rus_artur4ik.veterinarian.domain.entity.ProfileEntity
+import com.rus_artur4ik.veterinarian.domain.entity.SurgeonEntity
 import com.rus_artur4ik.veterinarian.domain.entity.VisitEntity
 import io.github.aakira.napier.Napier
 import io.ktor.client.HttpClient
@@ -150,6 +153,33 @@ internal class VetApi(sharedPreferenceContext: SharedPreferenceContext) {
 
     suspend fun getProfiles(): ProfileEntity {
         return makeGetRequest("/api/v2/client_info")
+    }
+
+    suspend fun getSurgeons(name: String?): List<SurgeonEntity> {
+        return makeGetRequest("/api/v1/get_surgeons") {
+            name?.let { parameter("name", it) }
+        }
+    }
+
+    suspend fun getAvailableTime(doctorId: Int, date: LocalDateTime): AvailableTimesEntity {
+        return makeGetRequest("/api/v1/get_free_time") {
+            parameter("doctor_id", doctorId)
+            parameter("date", date)
+        }
+    }
+
+    suspend fun postMakeAppointment(
+        petId: Int,
+        date: LocalDateTime,
+        surgeonId: Int,
+        type: AppointmentType
+    ) {
+        makePostRequest<Any>("/api/v1/make_appointment") {
+            parameter("pet_id", petId)
+            parameter("date", date)
+            parameter("surgeon_id", surgeonId)
+            parameter("type", type)
+        }
     }
 
     private suspend inline fun <reified T> makeGetRequest(path: String, block: HttpRequestBuilder.() -> Unit = {}): T {

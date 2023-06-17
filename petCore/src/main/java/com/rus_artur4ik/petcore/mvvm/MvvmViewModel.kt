@@ -48,14 +48,16 @@ abstract class MvvmViewModel<S : MvvmState> : ViewModel() {
 
         emitStateJob = viewModelScope.launch(Dispatchers.Main) {
             try {
-                val result: S?
                 withContext(Dispatchers.IO) {
-                    result = state()
+                    state()
+                }?.let {
+                    emitState(it)
                 }
-                result?.let { emitState(result) }
             } catch (e: Exception) {
                 Log.e("MvvmViewModel", "Error while emitting state: $e\ncause: ${e.cause}\n${e.stackTrace}")
-                onError(e)?.let { emitState(it) }
+                onError(e)?.let {
+                    emitState(it)
+                }
             }
         }
     }

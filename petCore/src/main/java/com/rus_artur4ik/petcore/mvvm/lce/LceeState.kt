@@ -1,15 +1,17 @@
 package com.rus_artur4ik.petcore.mvvm.lce
 
+import com.rus_artur4ik.petcore.mvvm.MvvmState
+
 data class LceeState<T>(
-    override val lce: Lcee,
-    override val state: T
-): LceState<T>(){
+    val lce: Lcee,
+    val state: T
+): MvvmState{
 
-    sealed class Lcee: Lce() {
-        object Loading: Lce.Loading()
-        object Content: Lce.Content()
-        object Empty: Lce.Content()
+    sealed class Lcee {
+        object Loading : Lcee()
+        object Content : Lcee()
+        object Empty : Lcee()
 
-        data class Error(override val t: Throwable): Lce.Error(t)
+        data class Error(val throwable: Throwable): Lcee()
     }
 }

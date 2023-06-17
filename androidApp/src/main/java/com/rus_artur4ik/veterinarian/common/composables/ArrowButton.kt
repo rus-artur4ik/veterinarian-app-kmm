@@ -19,11 +19,11 @@ import androidx.compose.ui.unit.dp
 import com.rus_artur4ik.veterinarian.R
 
 @Composable
-fun ArrowButton(text: String, onClick: () -> Unit) {
+fun ArrowButton(text: String, modifier: Modifier = Modifier, onClick: () -> Unit) {
     Card(
         shape = MaterialTheme.shapes.medium,
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(1.dp)),
-        modifier = Modifier
+        modifier = modifier
             .clickable { onClick() }
             .fillMaxWidth()
             .padding(horizontal = 16.dp)

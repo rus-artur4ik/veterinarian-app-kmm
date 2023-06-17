@@ -52,7 +52,7 @@
     <!--    Home -->
     <string name="my_pets">Мои питомцы</string>
     <string name="last_visits">Последние посещения</string>
-    <string name="make_an_appointment">Записаться на услугу</string>
+    <string name="make_an_appointment_to_service">Записаться на услугу</string>
     <string name="no_closest_appointment">Нет ближайшей записи</string>
     <string name="no_closest_appointment_description">На данный момент у вас нет активных записей в клинику</string>
     <string name="initial_visit">Первичный диагноз</string>
@@ -112,5 +112,31 @@
     <string name="make_appointment">Записаться на прием</string>
     <string name="make_appointment_info">Запись на ультразвуковое исследование или несрочную операцию</string>
     <string name="notify_about_visit_info">Оповестить о скором визите в клинику или о срочной операции</string>
+
+<!--    Make appointment    -->
+    <string name="surgeon">Хирургия</string>
+    <string name="ultrasound">Ультразвуковое исследование</string>
+    <string name="select_service">Выберите услугу</string>
+    <string name="search_service">Найти услугу</string>
+    <string name="select_date_and_time">Выберите дату и время</string>
+    <string name="ready">Готово</string>
+    <string name="continue_button">Продолжить</string>
+
+    <string name="new_pet">Новый питомец</string>
+    <string name="existing_pet">Зарегистрированный питомец</string>
+    <string name="select_pet">Выберите питомца</string>
+    <string name="no_pets_found">Не найдено ни одного питомца</string>
+
+    <string name="finish_appointment">Завершите запись</string>
+    <string name="name_of_pet">Имя питомца</string>
+    <string name="name_of_you">Ваше имя</string>
+    <string name="date_of_appointment">Дата приема</string>
+    <string name="personal_data_agreement_checkbox">Согласие на обработку персональных данных</string>
+    <string name="make_an_appointment_short">Записаться</string>
+    <string name="your_name">Ваше имя</string>
+
+    <string name="you_are_appointed">Вы записаны на прием</string>
+    <string name="wait_for_you">Ваша запись успешно создана. Ждем вас %1$s в %2$s.</string>
+    <string name="ok">Ок</string>
 
 </resources>

@@ -51,7 +51,12 @@ class VisitInfoScreen : BaseScreen<VisitInfoScreenState, VisitInfoViewModel>(
     @OptIn(ExperimentalFoundationApi::class)
     @Composable
     override fun Content(content: VisitInfoScreenState, viewModel: VisitInfoViewModel) {
-        val pagerState = rememberPagerState()
+        val pagerState = rememberPagerState(
+            initialPage = 0,
+            initialPageOffsetFraction = 0f,
+            pageCount = { 2 }
+        )
+
         val coroutineScope = rememberCoroutineScope()
 
         Column(modifier = Modifier.fillMaxSize()) {
@@ -80,7 +85,6 @@ class VisitInfoScreen : BaseScreen<VisitInfoScreenState, VisitInfoViewModel>(
             }
 
             HorizontalPager(
-                pageCount = 2,
                 state = pagerState
             ) {
                 when (it) {

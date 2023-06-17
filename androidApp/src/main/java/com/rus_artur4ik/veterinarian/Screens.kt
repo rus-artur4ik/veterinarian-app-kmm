@@ -9,6 +9,7 @@ import com.rus_artur4ik.petcore.navigation.Screen
 import com.rus_artur4ik.veterinarian.appointmentselector.AppointmentSelectorScreen
 import com.rus_artur4ik.veterinarian.auth.AuthScreen
 import com.rus_artur4ik.veterinarian.home.HomeScreen
+import com.rus_artur4ik.veterinarian.makeappointment.MakeAppointmentScreen
 import com.rus_artur4ik.veterinarian.medcard.MedCardScreen
 import com.rus_artur4ik.veterinarian.mypets.MyPetsScreen
 import com.rus_artur4ik.veterinarian.mypetssearch.MyPetsSearchScreen
@@ -44,5 +45,9 @@ sealed class VetScreen(
     object AppointmentSelectorScreen: VetScreen(
         "appointment_selector",
         { AppointmentSelectorScreen() }
+    )
+    object MakeAppointmentScreen: VetScreen(
+        "make_appointment",
+        { MakeAppointmentScreen() }
     )
 }

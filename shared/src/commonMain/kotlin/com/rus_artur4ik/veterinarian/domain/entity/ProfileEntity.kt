@@ -12,7 +12,7 @@ data class ProfileEntity(
     val middleName: String? = null,
     val surname: String,
     val phone: String? = null,
-    val email: String? = null
+    val email: String
 ) {
     companion object {
         fun generate() = ProfileEntity(

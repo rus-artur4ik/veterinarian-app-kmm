@@ -6,8 +6,12 @@ import com.rus_artur4ik.veterinarian.R
 import com.rus_artur4ik.veterinarian.domain.entity.KindEntity
 import com.rus_artur4ik.veterinarian.domain.entity.SexEntity
 import com.rus_artur4ik.veterinarian.domain.entity.VisitType
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.LocalTime
+import kotlinx.datetime.toJavaLocalDate
 import kotlinx.datetime.toJavaLocalDateTime
+import kotlinx.datetime.toJavaLocalTime
 import java.time.format.DateTimeFormatter
 
 fun LocalDateTime.formatDayFullMonthTime(): String {
@@ -18,6 +22,11 @@ fun LocalDateTime.formatDayFullMonthTime(): String {
 fun LocalDateTime.formatDayMonthYear(): String {
     val dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
     return this.toJavaLocalDateTime().format(dateTimeFormatter)
+}
+
+fun LocalDate.formatDayMonthYear(): String {
+    val dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+    return this.toJavaLocalDate().format(dateFormatter)
 }
 
 fun LocalDateTime.formatFullDateTime(): String {
@@ -33,6 +42,11 @@ fun LocalDateTime.formatDayFullMonth(): String {
 fun LocalDateTime.formatTime(): String {
     val dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm")
     return this.toJavaLocalDateTime().format(dateTimeFormatter)
+}
+
+fun LocalTime.formatTime(): String {
+    val dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm")
+    return this.toJavaLocalTime().format(dateTimeFormatter)
 }
 
 //----------------------------------------------------------------------

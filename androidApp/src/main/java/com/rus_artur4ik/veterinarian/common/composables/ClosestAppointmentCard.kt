@@ -57,7 +57,7 @@ fun ClosestAppointmentCard(appointment: AppointmentEntity, onClick: (Appointment
                     modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 4.dp)
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.calendar),
+                        painter = painterResource(id = R.drawable.calendar_16),
                         contentDescription = null
                     )
 

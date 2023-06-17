@@ -4,11 +4,16 @@ import com.rus_artur4ik.veterinarian.data.mapper.AppointmentMapper
 import com.rus_artur4ik.veterinarian.data.preference.SharedPreferenceContext
 import com.rus_artur4ik.veterinarian.data.preference.TokenStorage
 import com.rus_artur4ik.veterinarian.domain.entity.AppointmentEntity
+import com.rus_artur4ik.veterinarian.domain.entity.AppointmentType
+import com.rus_artur4ik.veterinarian.domain.entity.AvailableTimesEntity
 import com.rus_artur4ik.veterinarian.domain.entity.PetEntity
 import com.rus_artur4ik.veterinarian.domain.entity.ProfileEntity
+import com.rus_artur4ik.veterinarian.domain.entity.SurgeonEntity
 import com.rus_artur4ik.veterinarian.domain.entity.VisitEntity
 import io.ktor.client.plugins.auth.providers.BearerTokens
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.atTime
 
 class VetRepository(sharedPreferenceContext: SharedPreferenceContext) {
 
@@ -59,5 +64,23 @@ class VetRepository(sharedPreferenceContext: SharedPreferenceContext) {
 
     suspend fun getProfile(): ProfileEntity {
         return api.getProfiles()
+    }
+
+    suspend fun getSurgeons(name: String): List<SurgeonEntity> {
+        return api.getSurgeons(name)
+    }
+
+    suspend fun getAvailableTime(date: LocalDate): AvailableTimesEntity {
+        return api.getAvailableTime(0, date.atTime(12,0,0)) // TODO добавить айди доктора, когда бэк поддержит
+    }
+
+    suspend fun postMakeAppointment(
+        petId: Int?,
+        date: LocalDateTime,
+        surgeonId: Int,
+        type: AppointmentType
+    ) {
+        // Hardcoded id is id of "new pet" pet
+        api.postMakeAppointment(petId ?: 104327, date, surgeonId, type)
     }
 }

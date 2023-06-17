@@ -30,34 +30,41 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.rus_artur4ik.petcore.mvvm.SimpleScreen
+import com.rus_artur4ik.petcore.navigation.Navigator.navigateTo
 import com.rus_artur4ik.veterinarian.R
+import com.rus_artur4ik.veterinarian.VetScreen
+import com.rus_artur4ik.veterinarian.common.VetScreenTemplate
 import com.rus_artur4ik.veterinarian.common.composables.Header
 
 class AppointmentSelectorScreen : SimpleScreen() {
 
     @Composable
     override fun Content(navHostController: NavHostController?) {
-        Column(
-            modifier = Modifier.fillMaxSize()
-        ) {
-            Header(title = stringResource(id = R.string.appointment_to_clinic))
-
-            Spacer(Modifier.height(24.dp))
-
-            InfoCard(
-                title = stringResource(id = R.string.make_an_appointment),
-                infoText = stringResource(id = R.string.make_appointment_info)
+        VetScreenTemplate(navController = navHostController) {
+            Column(
+                modifier = Modifier.fillMaxSize()
             ) {
-                //TODO
-            }
+                Spacer(modifier = Modifier.height(26.dp))
 
-            Spacer(Modifier.height(8.dp))
+                Header(title = stringResource(id = R.string.appointment_to_clinic))
 
-            InfoCard(
-                title = stringResource(id = R.string.notify_about_visit),
-                infoText = stringResource(id = R.string.notify_about_visit_info)
-            ) {
-                //TODO
+                Spacer(Modifier.height(34.dp))
+
+                InfoCard(
+                    title = stringResource(id = R.string.make_an_appointment_to_service),
+                    infoText = stringResource(id = R.string.make_appointment_info)
+                ) {
+                    navHostController?.navigateTo(VetScreen.MakeAppointmentScreen)
+                }
+
+                Spacer(Modifier.height(8.dp))
+
+                InfoCard(
+                    title = stringResource(id = R.string.notify_about_visit),
+                    infoText = stringResource(id = R.string.notify_about_visit_info)
+                ) {
+                    //TODO
+                }
             }
         }
     }

@@ -1,19 +1,19 @@
 package com.rus_artur4ik.petcore.mvvm.lce
 
 import com.rus_artur4ik.petcore.mvvm.MvvmState
-import com.rus_artur4ik.petcore.mvvm.lce.LceState.Lce.Content
-import com.rus_artur4ik.petcore.mvvm.lce.LceState.Lce.Error
-import com.rus_artur4ik.petcore.mvvm.lce.LceState.Lce.Loading
+import com.rus_artur4ik.petcore.mvvm.lce.Lce.Content
+import com.rus_artur4ik.petcore.mvvm.lce.Lce.Error
+import com.rus_artur4ik.petcore.mvvm.lce.Lce.Loading
 
 open class LceState<T>(
-    open val lce: Lce = Loading(),
+    open val lce: Lce = Loading,
     open val state: T? = null
 ): MvvmState {
 
     companion object {
 
-        fun <T> loading(state: T? = null) = LceState(Loading(), state)
-        fun <T> content(content: T) = LceState(Content(), content)
+        fun <T> loading(state: T? = null) = LceState(Loading, state)
+        fun <T> content(content: T) = LceState(Content, content)
         fun <T> error(throwable: Throwable, state: T? = null) = LceState(Error(throwable), state)
     }
 
@@ -26,12 +26,12 @@ open class LceState<T>(
     }
     fun doIfError(action: (Throwable) -> Unit) {
         val lce = this.lce
-        if (lce is Error) action(lce.t)
+        if (lce is Error) action(lce.throwable)
     }
 
     fun throwableOrNull(): Throwable? {
         val lce = lce
-        return if (lce is Error) lce.t else null
+        return if (lce is Error) lce.throwable else null
     }
 
     override fun equals(other: Any?): Boolean {
@@ -48,44 +48,5 @@ open class LceState<T>(
         var result = lce.hashCode()
         result = 31 * result + (state?.hashCode() ?: 0)
         return result
-    }
-
-    sealed class Lce {
-        open class Loading: Lce() {
-            override fun equals(other: Any?): Boolean {
-                if (this === other) return true
-                if (other !is Loading) return false
-                return true
-            }
-
-            override fun hashCode(): Int {
-                return javaClass.hashCode()
-            }
-        }
-        open class Content: Lce() {
-            override fun equals(other: Any?): Boolean {
-                if (this === other) return true
-                if (other !is Content) return false
-                return true
-            }
-
-            override fun hashCode(): Int {
-                return javaClass.hashCode()
-            }
-        }
-        open class Error(open val t: Throwable): Lce() {
-            override fun equals(other: Any?): Boolean {
-                if (this === other) return true
-                if (other !is Error) return false
-
-                if (t != other.t) return false
-
-                return true
-            }
-
-            override fun hashCode(): Int {
-                return t.hashCode()
-            }
-        }
     }
 }
