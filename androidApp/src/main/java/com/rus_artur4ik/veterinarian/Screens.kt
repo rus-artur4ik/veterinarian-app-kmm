@@ -6,6 +6,7 @@ import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.rus_artur4ik.petcore.mvvm.SimpleScreen
 import com.rus_artur4ik.petcore.navigation.Screen
+import com.rus_artur4ik.veterinarian.appointments.AppointmentsScreen
 import com.rus_artur4ik.veterinarian.appointmentselector.AppointmentSelectorScreen
 import com.rus_artur4ik.veterinarian.auth.AuthScreen
 import com.rus_artur4ik.veterinarian.home.HomeScreen
@@ -49,5 +50,9 @@ sealed class VetScreen(
     object MakeAppointmentScreen: VetScreen(
         "make_appointment",
         { MakeAppointmentScreen() }
+    )
+    object AppointmentsScreen: VetScreen(
+        "appointments",
+        { AppointmentsScreen() }
     )
 }

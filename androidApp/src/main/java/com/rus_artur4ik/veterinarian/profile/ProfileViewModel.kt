@@ -1,6 +1,7 @@
 package com.rus_artur4ik.veterinarian.profile
 
 import androidx.lifecycle.viewModelScope
+import com.rus_artur4ik.veterinarian.VetScreen
 import com.rus_artur4ik.veterinarian.VetScreen.WelcomeScreen
 import com.rus_artur4ik.veterinarian.common.AppContextHolder
 import com.rus_artur4ik.veterinarian.common.mvvm.BaseViewModel
@@ -30,7 +31,7 @@ class ProfileViewModel: BaseViewModel<ProfileScreenState>() {
     }
 
     fun goToAllAppointments() {
-        // TODO
+        navigate(VetScreen.AppointmentsScreen)
     }
 
     fun goToClinicContacts() {

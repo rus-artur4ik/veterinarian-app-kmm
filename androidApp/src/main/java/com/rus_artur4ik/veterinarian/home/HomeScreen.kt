@@ -203,32 +203,30 @@ class HomeScreen : BaseScreen<HomeScreenState, HomeViewModel>(
                     color = MaterialTheme.colorScheme.onSurface
                 )
 
-                profile.email?.let { email ->
-                    Text(
-                        text = email,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.inverseSurface
-                    )
-                }
+                Text(
+                    text = profile.email,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.inverseSurface
+                )
             }
 
-
-            Image(
-                painter = painterResource(
-                    id = if (hasUnreadNotifications) {
-                        R.drawable.ring_with_dot
-                    } else {
-                        R.drawable.ring
-                    }
-                ),
-                contentDescription = null,
-                modifier = Modifier
-                    .size(24.dp)
-                    .align(CenterVertically)
-                    .clickable {
-                        viewModel.navigateToNotifications()
-                    }
-            )
+//            TODO
+//            Image(
+//                painter = painterResource(
+//                    id = if (hasUnreadNotifications) {
+//                        R.drawable.ring_with_dot
+//                    } else {
+//                        R.drawable.ring
+//                    }
+//                ),
+//                contentDescription = null,
+//                modifier = Modifier
+//                    .size(24.dp)
+//                    .align(CenterVertically)
+//                    .clickable {
+//                        viewModel.navigateToNotifications()
+//                    }
+//            )
         }
     }
 
